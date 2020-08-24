@@ -38,28 +38,78 @@ headsepline, % Uncomment to get a line under the header
 
 \usepackage[utf8]{inputenc} % Required for inputting international characters
 \usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage{xcolor}
+
+%\usepackage[x-5pg]{pdfx} %for PDF-X support. Has problems with xcolor and hyperref
+%\usepackage{subfigure}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \usepackage{mathpazo} % Use the Palatino font by default
 
-\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
+\usepackage[backend=biber,  % Use the bibtex backend with the authoryear citation style (which resembles APA)
+sorting=none, % numbers the reference in order of their appearance in the document. Troubleshoot with deleting all *.aux and *.bbl files and rebuild.
+style=numeric-comp,
+natbib=true]{biblatex}
 
 \addbibresource{example.bib} % The filename of the bibliography
 
 \usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+
+\usepackage{pdfpages}
+
+\usepackage{todonotes}
+\setlength{\marginparwidth}{2.5cm} % uncomment this if the todonotes are out of margins (cut off page)
+
+\usepackage{listings}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.921, 0.929, 0.937} %0.95,0.95,0.92
+
+\lstdefinestyle{mystyle}{
+backgroundcolor=\color{backcolour},   
+commentstyle=\color{codegreen},
+keywordstyle=\color{magenta},
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily\footnotesize,
+breakatwhitespace=false,         
+breaklines=true,                 
+captionpos=b,                    
+keepspaces=true,                 
+numbers=left,                    
+numbersep=5pt,                  
+showspaces=false,                
+showstringspaces=false,
+showtabs=false,                  
+tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\usepackage{makecell} % formatting tables
+
+
+
+
 
 %----------------------------------------------------------------------------------------
 %	MARGIN SETTINGS
 %----------------------------------------------------------------------------------------
 
 \geometry{
-	paper=a4paper, % Change to letterpaper for US letter
-	inner=2.5cm, % Inner margin
-	outer=3.8cm, % Outer margin
-	bindingoffset=.5cm, % Binding offset
-	top=1.5cm, % Top margin
-	bottom=1.5cm, % Bottom margin
-	%showframe, % Uncomment to show how the type block is set on the page
+paper=a4paper, % Change to letterpaper for US letter
+inner=2.5cm, % Inner margin
+outer=3.8cm, % Outer margin
+bindingoffset=.5cm, % Binding offset
+top=1.5cm, % Top margin
+bottom=1.5cm, % Bottom margin
+%showframe, % Uncomment to show how the type block is set on the page
 }
+
 
 %----------------------------------------------------------------------------------------
 %	THESIS INFORMATION
@@ -68,16 +118,18 @@ headsepline, % Uncomment to get a line under the header
 \thesistitle{Thesis Title} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
 \supervisor{Dr. James \textsc{Smith}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
 \examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
-\degree{Doctor of Philosophy} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
+\degree{Doctor of Philosophy} % Your degree name (Doctor of Philosophy or Master of Science), this is used in the title page and abstract, print it elsewhere with \degreename
 \author{John \textsc{Smith}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
 \addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
 
 \subject{Biological Sciences} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
 \keywords{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
-\university{\href{http://www.university.com}{University Name}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
-\department{\href{http://department.university.com}{Department or School Name}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
-\group{\href{http://researchgroup.university.com}{Research Group Name}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
-\faculty{\href{http://faculty.university.com}{Faculty Name}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+\university{\href{https://www.zhaw.ch/en/university/}{Zurich University of Applied Sciences}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
+\universitygerman{\href{https://www.zhaw.ch/de/hochschule/}{Z{\"u}rcher Hochschule f{\"u}r Angewandte Wissenschaften}}% Your university's name in german and URL, this is used in the german abstract (Zusammenfassung), print it elsewhere with \univnameger
+\department{\href{https://www.zhaw.ch/en/lsfm/institutes-centres/ias/}{Institute of Applied Simulation}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
+\group{\href{https://www.zhaw.ch/en/lsfm/institutes-centres/ias/research-development/computational-genomics/}{Applied Computational Genomics}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
+\faculty{\href{https://www.zhaw.ch/de/lsfm/}{Life Sciences and Facility Management
+}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
 
 \AtBeginDocument{
 \hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
@@ -166,9 +218,21 @@ headsepline, % Uncomment to get a line under the header
 
 \vspace*{0.2\textheight}
 
-\noindent\enquote{\itshape Thanks to my solid academic training, today I can write hundreds of words on virtually any topic without possessing a shred of information, which is how I got a good job in journalism.}\bigbreak
+% \noindent\enquote{\itshape I'm fascinated by the idea that genetics is digital. A gene is a long sequence of coded letters, like computer information. Modern biology is becoming very much a branch of information technology.}\bigbreak
 
-\hfill Dave Barry
+% \hfill Richard Dawkins
+
+
+% \vspace*{0.2\textheight}
+
+% \noindent\enquote{\itshape A line is a dot that went for a walk.}\bigbreak
+
+% \hfill Paul Klee
+
+\noindent\enquote{\itshape You can’t connect the dots looking forward; you can only connect them looking backwards. So you have to trust that the dots will somehow connect in your future. You have to trust in something – your gut, destiny, life, karma, whatever. Because believing that the dots will connect down the road will give you the confidence to follow your heart even when it leads you off the well worn path; and that will make all the difference.
+}\bigbreak
+\hfill{Steve Jobs} \newline 
+\strut\hfill{\tiny{(Stanford commencement speech, June 2005)}}
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT PAGE
@@ -177,8 +241,21 @@ headsepline, % Uncomment to get a line under the header
 \begin{abstract}
 \addchaptertocentry{\abstractname} % Add the abstract to the table of contents
 The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
+
+Structure it the in the following way: context, Need (what we have), Need (what we want), task, object of the document, findings, Conclusion and perspectives. 
 \end{abstract}
 
+%----------------------------------------------------------------------------------------
+%	German ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{extraAbstract}
+    \addchaptertocentry{\extraabstractname} % Add the abstract to the table of contents
+Die Zusammenfassung der Dissertation wird hier geschrieben (und normalerweise nur auf dieser Seite gehalten). Die Seite wird vertikal zentriert, so dass sie sich auch in den leeren Raum über dem Titel ausdehnen kann\ldots
+
+Strukturiere sie wie folgt: Kontext, Bedarf (was wir haben), Bedarf (was wir wollen), Aufgabe, Gegenstand des Dokuments, Ergebnisse, Schlussfolgerung und Perspektiven. 
+    
+\end{extraAbstract}
 %----------------------------------------------------------------------------------------
 %	ACKNOWLEDGEMENTS
 %----------------------------------------------------------------------------------------
@@ -243,6 +320,16 @@ $\omega$ & angular frequency & \si{\radian} \\
 %----------------------------------------------------------------------------------------
 
 \dedicatory{For/Dedicated to/To my\ldots} 
+
+%----------------------------------------------------------------------------------------
+%	PREFACE
+%----------------------------------------------------------------------------------------
+
+\begin{preface}
+    \addchaptertocentry{\prefacename} % Add the acknowledgements to the table of contents
+    Explain the motivation for the topic in general. Go through each chapter and explain how they contribute to your research question.
+    Check the thesis of Johannes John Carel Kuiper for a good example preface: \url{https://dspace.library.uu.nl/bitstream/handle/1874/90/full.pdf?sequence=2&isAllowed=y}
+\end{preface}
 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - CHAPTERS
