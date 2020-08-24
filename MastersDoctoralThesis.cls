@@ -2,12 +2,15 @@
 % Masters/Doctoral Thesis ZHAW
 % Class File
 % Version 1.7 (24/8/20)
-%
-% This class was downloaded from:
-% http://www.LaTeXTemplates.com
+% 
+% ZHAW class version downloaded from:
+% https://github.com/matteodelucchi/ZHAW_thesis-template
 % 
 % University specific changes released in Version 1.7 were made by:
 % Matteo Delucchi
+%
+% Original class was downloaded from:
+% http://www.LaTeXTemplates.com
 % 
 % Authors:
 % Vel (vel@latextemplates.com)
