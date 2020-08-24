@@ -1,11 +1,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Masters/Doctoral Thesis 
+% Masters/Doctoral Thesis ZHAW
 % Class File
-% Version 1.6 (27/8/17)
+% Version 1.7 (24/8/20)
 %
 % This class was downloaded from:
 % http://www.LaTeXTemplates.com
-%
+% 
+% University specific changes released in Version 1.7 were made by:
+% Matteo Delucchi
+% 
 % Authors:
 % Vel (vel@latextemplates.com)
 % Johannes Böttcher
@@ -27,7 +30,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1996/12/01]
 \newcommand{\classname}{MastersDoctoralThesis}
-\ProvidesClass{\classname}[2017/08/27 v1.6 LaTeXTemplates.com]
+\ProvidesClass{\classname}[2020/08/24 v1.7 LaTeXTemplates.com]
 \providecommand{\baseclass}{book}
 \RequirePackage{etoolbox}
 \RequirePackage{xparse}
