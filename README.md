@@ -3,6 +3,10 @@ This is a template for LaTeX thesis (M.Sc. or PhD) at [Zurich University of Appl
 This repository was created to relieve future students of the tedious work of thesis formatting. 
 Make sure that it meets your programme specific requirements and the details that need to be discussed with the supervisor. 
 
+## Usage
+I found it very convenient to use this template in [Overleaf.com](https://www.overleaf.com/). This allowed me to share it with my supervisor, who could comment directly in the document.  
+Fork this Github repository to your Github account. Then you login to [Overleaf.com](https://www.overleaf.com/) -> *New Project* -> *Import from Github* and select your fork of the thesis template.
+
 ## Contribution 
 Feel free to contribute to this project to improve it. 
 
