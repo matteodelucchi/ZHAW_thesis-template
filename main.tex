@@ -150,6 +150,11 @@ bottom=1.5cm, % Bottom margin
 \begin{titlepage}
 \begin{center}
 
+\begin{figure}
+\centering
+\includegraphics[width=0.15\textwidth]{Figures/ZHAW_Logo.png} % Universtiy Logo, Adapted from: https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/ZHAW_Logo.svg/879px-ZHAW_Logo.svg.png
+\end{figure}
+
 \vspace*{.06\textheight}
 {\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
 \textsc{\Large Doctoral Thesis}\\[0.5cm] % Thesis type
@@ -192,6 +197,8 @@ bottom=1.5cm, % Bottom margin
 
 \begin{declaration}
 \addchaptertocentry{\authorshipname} % Add the declaration to the table of contents
+COMMENT THIS SECTION IF THE \href{https://www.zhaw.ch/en/lsfm/study/studiweb/master-ls/masters-thesis/}{ORIGINAL COPY OF THE ZHAW DECLARATION OF ORIGINALITY} IS USED IN THE APPENDIX.\newline
+
 \noindent I, \authorname, declare that this thesis titled, \enquote{\ttitle} and the work presented in it are my own. I confirm that:
 
 \begin{itemize} 
@@ -358,6 +365,7 @@ $\omega$ & angular frequency & \si{\radian} \\
 % Uncomment the lines as you write the Appendices
 
 \include{Appendices/AppendixA}
+\include{Appendices/DeclarationOfOriginalityZHAW} % from https://www.zhaw.ch/en/lsfm/study/studiweb/master-ls/masters-thesis/
 %\include{Appendices/AppendixB}
 %\include{Appendices/AppendixC}
 

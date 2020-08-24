@@ -203,6 +203,8 @@
 \RequirePackage{caption} % Required for customising the captions
 \captionsetup{justification=centerlast,font=small,labelfont=sc,margin=50pt}
 
+
+
 %----------------------------------------------------------------------------------------
 %	DEFINE CUSTOM THESIS INFORMATION COMMANDS
 %----------------------------------------------------------------------------------------
@@ -218,6 +220,7 @@
 \NewDocumentCommand{\degree}{m}{\newcommand{\degreename}{#1}}
 \NewDocumentCommand{\addresses}{m}{\newcommand{\addressname}{#1}}
 \NewDocumentCommand{\university}{m}{\newcommand{\univname}{#1}}
+\NewDocumentCommand{\universitygerman}{m}{\newcommand{\univnameger}{#1}}
 \NewDocumentCommand{\department}{m}{\newcommand{\deptname}{#1}}
 \NewDocumentCommand{\group}{m}{\newcommand{\groupname}{#1}}
 \NewDocumentCommand{\faculty}{m}{\newcommand{\facname}{#1}}
@@ -340,7 +343,9 @@ KOMA-script documentation for details.}]{fancyhdr}
 \DeclareDocumentCommand{\abstractauthorfont}{}{}
 \DeclareDocumentCommand{\abstracttitlefont}{}{}
 \newcommand{\byname}{by}
+\newcommand{\vonname}{von}
 \newcommand{\abstractname}{Abstract}
+\newcommand{\extraabstractname}{Zusammenfassung}
 \providecaptionname{german,ngerman,austrian,naustrian}{\byname}{von}
 \providecaptionname{american,australian,british,canadian,english,newzealand,UKenglish,USenglish}{\byname}{by}
 \ifbool{consistentlayout}{
@@ -381,13 +386,13 @@ KOMA-script documentation for details.}]{fancyhdr}
 
 \DeclareDocumentEnvironment{extraAbstract}{ O{\null\vfill} }{
 	\checktoopen
-	\tttypeout{\abstractname}
+	\tttypeout{\extraabstractname}
 	#1%added to be able to have abstract more than one page long
 	\thispagestyle{empty}
 	\begin{center}
-		{\normalsize \MakeUppercase{\univname} \par}% University name in capitals
+		{\normalsize \MakeUppercase{\univnameger} \par}% University name in capitals
 		\bigskip
-		{\huge\textit{\abstractname} \par}
+		{\huge\textit{\extraabstractname} \par}
 		\bigskip
 		{\normalsize \facname \par}% Faculty name
 		{\normalsize \deptname \par}% Department name
@@ -396,7 +401,7 @@ KOMA-script documentation for details.}]{fancyhdr}
 		\bigskip
 		{\normalsize\bfseries \@title \par}% Thesis title
 		\medskip
-		{\normalsize \byname{} \authorname \par}% Author name
+		{\normalsize \vonname{} \authorname \par}% Author name
 		\bigskip
 	\end{center}
 }
@@ -426,6 +431,36 @@ KOMA-script documentation for details.}]{fancyhdr}
 		\tttypeout{\acknowledgementname}
 		\thispagestyle{plain}
 		\begin{center}{\huge\textit{\acknowledgementname}\par}\end{center}
+	}
+	{
+		\vfil\vfil\null
+	}
+}
+
+
+
+%----------------------------------------------------------------------------------------
+%	Preface PAGE DESIGN
+%----------------------------------------------------------------------------------------
+
+\usepackage{xcolor}
+\colorlet{mdtRed}{red!50!black}
+\newcommand{\prefacename}{Preface}
+\providecaptionname{american,australian,british,canadian,english,newzealand,UKenglish,USenglish} {\prefacename}{Preface} % Acknowledgement text for English countries
+\providecaptionname{german,ngerman,austrian,naustrian}{\prefacename}{Vorwort} % Acknowledgement text for Germanic countries
+
+\ifbool{consistentlayout}{
+	\DeclareDocumentEnvironment{preface}{}{%
+		\tttypeout{\prefacename}
+		\addchap*{\prefacename}
+	}
+}
+{
+	\DeclareDocumentEnvironment{preface}{}{%
+		\checktoopen
+		\tttypeout{\prefacename}
+		\thispagestyle{plain}
+		\begin{center}{\huge\textit{\prefacename}\par}\end{center}
 	}
 	{
 		\vfil\vfil\null
@@ -523,9 +558,12 @@ bookmarksopen=true,
 bookmarksopenlevel=0,
 hypertexnames=false,
 colorlinks=true,% Set to false to disable coloring links
-citecolor=magenta,% The color of citations
-linkcolor=red,% The color of references to document elements (sections, figures, etc)
-urlcolor=mdtRed,% The color of hyperlinks (URLs)
+% citecolor=[rgb]{0.435, 0.031, 0},% The color of citations
+% linkcolor=[rgb]{0.60, 0.043, 0},% The color of references to document elements (sections, figures, etc)
+% urlcolor=[rgb]{0.733, 0.11, 0.063},% The color of hyperlinks (URLs)
+citecolor=[rgb]{0.286, 0.427, 0.537},% The color of citations
+linkcolor=[rgb]{0.161, 0.31, 0.427},% The color of references to document elements (sections, figures, etc)
+urlcolor=[rgb]{0.071, 0.212, 0.322},% The color of hyperlinks (URLs)
 pdfstartview={FitV},
 unicode,
 breaklinks=true,
