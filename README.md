@@ -1,3 +1,16 @@
+<!-- badges: start -->
+![github-release-image](https://img.shields.io/github/v/release/matteodelucchi/ZHAW_thesis-template)
+![github-languages-image](https://img.shields.io/github/languages/top/matteodelucchi/ZHAW_thesis-template)
+![github-contributors-image](https://img.shields.io/github/contributors/matteodelucchi/ZHAW_thesis-template)
+![github-issues-image](https://img.shields.io/github/issues/matteodelucchi/ZHAW_thesis-template)
+![github-issues-closed-image](https://img.shields.io/github/issues-closed-raw/matteodelucchi/ZHAW_thesis-template)
+
+![github-forks-image](https://img.shields.io/github/forks/matteodelucchi/ZHAW_thesis-template?style=social)
+![github-stars-image](https://img.shields.io/github/stars/matteodelucchi/ZHAW_thesis-template?style=social)
+![github-watchers-image](https://img.shields.io/github/watchers/matteodelucchi/ZHAW_thesis-template?style=social)
+[![License: CC BY-NC-SA 3.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%203.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/3.0/)  
+<!-- badges: end -->
+
 # ZHAW thesis template
 This is a template for LaTeX thesis (M.Sc. or PhD) at [Zurich University of Applied Sciences, ZHAW](https://www.zhaw.ch/).
 This repository was created to relieve future students of the tedious work of thesis formatting. 
@@ -24,7 +37,3 @@ Version 2.x major modifications by:
 This template is based on a template by:  
 [Steve Gunn](http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)  
 [Sunil Patel](http://www.sunilpatel.co.uk/thesis-template/)
-
-Template license:  
-CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-
