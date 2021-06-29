@@ -22,6 +22,12 @@ Make sure that it meets your programme specific requirements and the details tha
 I found it very convenient to use this template in [Overleaf.com](https://www.overleaf.com/). This allowed me to share it with my supervisor, who could comment directly in the document.  
 Fork this Github repository to your Github account. Then you login to [Overleaf.com](https://www.overleaf.com/) -> *New Project* -> *Import from Github* and select your fork of the thesis template.
 
+## Show your support
+
+Give a ⭐ if this project helped you!
+
+<a href="https://www.buymeacoffee.com/matd" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 ## Contribution
 
 Feel free to contribute to this project to improve it.
