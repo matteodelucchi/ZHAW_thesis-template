@@ -1,7 +1,19 @@
-% Appendix: Declaration of Originality
+% !TEX root = ../main.tex
 
-\chapter{Declaration of Originality} % Main appendix title
+%----------------------------------------------------------------------------------------
+% APPENDIX: DECLARATION OF ORIGINALITY
+%----------------------------------------------------------------------------------------
 
-\label{DeclarationOfOriginalityZHAW} % For referencing this appendix elsewhere, use \ref{AppendixA}
+% Include the official "Plagiatserklärung" as a PDF
 
+% Ensure that a TOC entry is create while suppressing the chapter header
+\cleardoublepage
+\phantomsection
+\addtocounter{chapter}{1}
+\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter} Declaration of Originality}
+% The above replaces this command (which creates a chapter header).
+%\chapter{Declaration of Originality} % Main appendix title
+\label{DeclarationOfOriginalityZHAW}
+
+% Include a PDF (full page)
 \includepdf[pages=-]{Appendices/plagiatserklaerung-master-eng.pdf}
