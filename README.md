@@ -18,7 +18,7 @@ This repository was created to relieve future students of the tedious work of th
 
 
 
-![Title page of thesis](/Users/juch/workspace/education/phd/documents/universities/zhaw/students/latex/latex-thesis-template/Figures/title-page.jpg)
+![Title page of thesis](Figures/title-page.jpg)
 
 ## Usage
 
