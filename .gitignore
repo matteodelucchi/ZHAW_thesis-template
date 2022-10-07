@@ -1,7 +1,9 @@
-# LaTeX temporary files
+# LaTeX/XeLaTeX temporary files
 *.aux
 *.log
 *.toc
+*.bcf
+*.run.xml
 
 # PDF output - usually a bad idea to keep this in Git
 *.pdf
