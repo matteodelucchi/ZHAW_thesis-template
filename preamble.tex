@@ -1,3 +1,4 @@
+% !TEX root = main.tex
 
 %----------------------------
 %   Fonts and characters
@@ -91,8 +92,15 @@
 }
 \lstset{style=mystyle}
 
-\usepackage[outputdir=build]{minted}
-\usemintedstyle{xcode}
+% minted is an alternative code listing package. (See chapter 2)
+% For it to run successfully, ensure the following:
+% - the Python package Pygments. Install with the following command:
+%       python -m pip install Pygments
+% - pdflatex (or xelatex) is executed with the flag --shell-escape
+%   If you are using a TEX editor, you can modify the typesetting 
+%   command somewhere in the settings.
+%\usepackage[outputdir=build]{minted}
+%\usemintedstyle{xcode}
 % For fancier coloring schemes, see here:
 % https://tex.stackexchange.com/questions/585582
 % One could also create an own style in Pygments
