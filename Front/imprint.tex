@@ -1,0 +1,58 @@
+% !TEX root = ../main.tex
+
+%----------------------------------------------------------------------------------------
+% IMPRINT
+%----------------------------------------------------------------------------------------
+
+\thispagestyle{empty}
+\vspace*{\fill}
+
+{\bfseries  \Large Imprint}
+\vspace{0.75cm}
+
+\begin{footnotesize}
+
+
+\begin{flushleft} 
+\begin{tabular}{ @{}lp{0.6\textwidth}@{} } 
+\emph{Project:}  & \ttype\\ 
+\emph{Title}:    & \ttitle\\
+\emph{Author}:   & \authorname\\
+\emph{Date}:     & \tdate\\
+\emph{Keywords}: & \keywordnames\\
+\emph{Copyright}:& \univname
+
+\end{tabular}
+\end{flushleft}
+
+\vspace{0.75cm}
+
+
+\begin{minipage}[t]{0.95\textwidth}
+\begin{flushleft} 
+\emph{Study program:}\\
+\href{\studyproglink}{\studyprog}\\
+\href{\univlink}{\univname}
+\end{flushleft}
+\end{minipage}
+
+\vspace{0.75cm}
+
+\begin{minipage}[t]{0.50\textwidth}
+\begin{flushleft} 
+\emph{Supervisor 1:}\\
+\supinfoA
+\end{flushleft}
+\end{minipage}
+\begin{minipage}[t]{0.45\textwidth}
+\begin{flushleft} 
+\ifdefempty{\supnameB}
+{}
+{
+    \emph{Supervisor 2:}\\
+    \supinfoB
+}
+\end{flushleft}
+\end{minipage}
+
+\end{footnotesize}
