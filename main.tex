@@ -55,7 +55,8 @@ headsepline, % Uncomment to get a line under the header
 
 \usepackage[backend=biber,  % Use the bibtex backend with the authoryear citation style (which resembles APA)
 sorting=none, % numbers the reference in order of their appearance in the document. Troubleshoot with deleting all *.aux and *.bbl files and rebuild.
-style=numeric-comp,
+style=numeric-comp, % Compact numeric citation scheme intended for in-text citations. Compact citations replace [1, 2, 3] by [1-3].
+% style=authoryear-comp, % Compact author-year citation scheme. To be used in conjunction with the author-year bibliography style. Prints Doe 1992, 1995 instead of Doe 1992, Doe 1995.
 natbib=true]{biblatex}
 
 \addbibresource{example.bib} % The filename of the bibliography
@@ -123,6 +124,7 @@ bottom=1.5cm, % Bottom margin
 
 \thesistitle{Thesis Title} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
 \supervisor{Dr. James \textsc{Smith}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\supervisorsec{Dr. Max \textsc{Miller}} % Your second supervisor's name, this is used in the title page, print it elsewhere with \supnamesec
 \examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
 \degree{Doctor of Philosophy} % Your degree name (Doctor of Philosophy or Master of Science), this is used in the title page and abstract, print it elsewhere with \degreename
 \author{John \textsc{Smith}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
@@ -177,8 +179,12 @@ bottom=1.5cm, % Bottom margin
 \end{minipage}
 \begin{minipage}[t]{0.4\textwidth}
 \begin{flushright} \large
-\emph{Supervisor:} \\
+\emph{First Supervisor:} \\
 \href{http://www.jamessmith.com}{\supname} % Supervisor name - remove the \href bracket to remove the link  
+\end{flushright}
+\begin{flushright} \large
+\emph{Second Supervisor:} \\
+\href{http://www.maxmiller.com}{\supnamesec} % Supervisor name - remove the \href bracket to remove the link  
 \end{flushright}
 \end{minipage}\\[3cm]
  
