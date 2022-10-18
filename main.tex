@@ -55,7 +55,8 @@ headsepline, % Uncomment to get a line under the header
 
 \usepackage[backend=biber,  % Use the bibtex backend with the authoryear citation style (which resembles APA)
 sorting=none, % numbers the reference in order of their appearance in the document. Troubleshoot with deleting all *.aux and *.bbl files and rebuild.
-style=numeric-comp,
+style=numeric-comp, % Compact numeric citation scheme intended for in-text citations. Compact citations replace [1, 2, 3] by [1-3].
+% style=authoryear-comp, % Compact author-year citation scheme. To be used in conjunction with the author-year bibliography style. Prints Doe 1992, 1995 instead of Doe 1992, Doe 1995.
 natbib=true]{biblatex}
 
 \addbibresource{example.bib} % The filename of the bibliography
