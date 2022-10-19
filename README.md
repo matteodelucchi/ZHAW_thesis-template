@@ -13,14 +13,21 @@
 
 # ZHAW thesis template
 
-This is a template for LaTeX thesis (M.Sc. or PhD) at [Zurich University of Applied Sciences, ZHAW](https://www.zhaw.ch/).
-This repository was created to relieve future students of the tedious work of thesis formatting. 
-Make sure that it meets your programme specific requirements and the details that need to be discussed with the supervisor. 
+This is a LaTeX template for Master theses or other reports at [Zurich University of Applied Sciences, ZHAW](https://www.zhaw.ch/).
+This repository was created to relieve future students of the tedious work of thesis formatting.  Make sure that the thesis meets the specific requirements of your study program.
+
+
+
+![Title page of thesis](Figures/title-page.jpg)
 
 ## Usage
 
-I found it very convenient to use this template in [Overleaf.com](https://www.overleaf.com/). This allowed me to share it with my supervisor, who could comment directly in the document.  
-Fork this Github repository to your Github account. Then you login to [Overleaf.com](https://www.overleaf.com/) -> *New Project* -> *Import from Github* and select your fork of the thesis template.
+It is very convenient to use this template in [Overleaf.com](https://www.overleaf.com/). This allowed me to share it with my supervisor, who could comment directly in the document. Apply the following steps:
+
+- Fork this Github repository to your Github account.
+- Login to [Overleaf.com](https://www.overleaf.com/)
+- Create a *New Project*, and select *Import from Github* 
+- Select your fork of the thesis template
 
 ## Show your support
 
@@ -39,14 +46,9 @@ Feel free to contribute to this project to improve it.
 3. Commit changes on the dev branch.
 4. Open a [pull request](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork) to merge in the [master branch of the original repository](https://github.com/matteodelucchi/ZHAW_thesis-template/tree/master)
 
-## Versions
-
-For major (i.e. study program specific) changes, I suggest to have multiple branches which are going to be explained here. 
-The current master branch was used for a Master thesis of the [Applied Computational Life Sciences Master program](https://www.zhaw.ch/en/lsfm/institutes-centres/ias/study-teaching/master/) at the [Institute of Applied Simulations](https://www.zhaw.ch/en/lsfm/institutes-centres/ias-institute-of-applied-simulation/) from the department [Life Science and Facility Management](https://www.zhaw.ch/en/lsfm/).
-
 ## Authorship \& Licence
 
-This template was adapted by Matteo Delucchi based on a template downloaded from:  
+This template was adapted by Matteo Delucchi and others based on a template downloaded from:  
 [LaTeXTemplates.com](http://www.latextemplates.com/template/masters-doctoral-thesis)
 
 Version 2.x major modifications by:  

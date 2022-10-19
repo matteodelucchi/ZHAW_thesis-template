@@ -1,7 +1,12 @@
-# vscode
-.vscode/*
+# VS code 
 *.code-workspace
-.history/
+
+# LaTeX/XeLaTeX temporary files
+*.aux
+*.log
+*.toc
+*.bcf
+*.run.xml
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
