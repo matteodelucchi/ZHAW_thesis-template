@@ -7,20 +7,11 @@
 *.toc
 *.bcf
 *.run.xml
-
-## Core latex/pdflatex auxiliary files:
-*.aux
-*.lof
-*.log
-*.lot
 *.fls
 *.out
-*.toc
-*.fmt
-*.fot
-*.cb
-*.cb2
-.*.lb
+
+# PDF output - usually a bad idea to keep this in Git
+main.pdf
 
 ## Intermediate documents:
 *.dvi
