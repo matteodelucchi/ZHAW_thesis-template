@@ -1,0 +1,140 @@
+% !TEX root = main.tex
+
+%----------------------------
+%   Fonts and characters
+%----------------------------
+
+% Support for special characters
+\usepackage[utf8]{inputenc}    % Specify input encoding
+\usepackage[T1]{fontenc}       % Specify font encoding
+
+% Set main fonts
+% Fonts catalogue: https://tug.org/FontCatalogue/
+\usepackage{mathpazo}          % Use the Palatino font by default
+\usepackage{beramono}          % Override the monospace/typewriter font
+
+% ZHAW title font
+% Try to load Helvetica Rounded Bold, and OpenType font.
+% Loading OTF or system fonts is possible with XeLaTeX.
+% If the document is compiled using pdfLaTeX, resort 
+\usepackage{ifxetex}
+\ifxetex
+    \usepackage{fontspec}
+    \newfontfamily\zhawtitlefont{Helvetica Rounded Bold}
+\else
+    \newcommand{\zhawtitlefont}{\scshape}
+\fi
+
+%\usepackage[scaled]{helvet}
+
+%----------------------------
+%   Environments
+%----------------------------
+
+\usepackage{caption}           % Customized caption
+\usepackage{subcaption}        % Subfigure captions
+\usepackage{makecell}          % Per-cell formatting in tables (\makecell)
+\usepackage{pdfpages}          % Required to include PDF files/graphics (\includepdf)
+
+\usepackage{todonotes}         % Introduces the command \todo
+\setlength{\marginparwidth}{2.5cm} % Adjust this if the todo notes are out of margins
+
+% Create boxes as follows:
+% \begin{colorbox}{red}{2}
+\usepackage{tcolorbox}
+\newtcolorbox{textbox}[2]{
+    arc=3pt,
+    boxrule=#2pt,
+    colback=#1!25!white,
+    width=\textwidth,
+    halign=left,
+    valign=center,
+    colframe=#1!75!black
+}
+
+%----------------------------
+%   Colors
+%----------------------------
+
+% Set up colors
+\usepackage{xcolor}
+% ZHAW Blue: Pantone 2945 U / R0 G100 B166
+\definecolor{zhawblue}{rgb}{0.00, 0.39, 0.65}
+% Colors related to code listings
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codebackground}{rgb}{0.93,0.94,0.95}
+
+%----------------------------
+%   Code listings
+%----------------------------
+
+% Setup code listings
+\usepackage{listings}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{codebackground},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+%    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4
+}
+\lstset{style=mystyle}
+
+% minted is an alternative code listing package. (See chapter 2)
+% For it to run successfully, ensure the following:
+% - the Python package Pygments. Install with the following command:
+%       python -m pip install Pygments
+% - pdflatex (or xelatex) is executed with the flag --shell-escape
+%   If you are using a TEX editor, you can modify the typesetting 
+%   command somewhere in the settings.
+%\usepackage[outputdir=build]{minted}
+%\usemintedstyle{xcode}
+% For fancier coloring schemes, see here:
+% https://tex.stackexchange.com/questions/585582
+% One could also create an own style in Pygments
+% https://pygments.org/docs/styles/#creating-own-styles
+
+%----------------------------
+%   References
+%----------------------------
+
+% Set up references
+\usepackage[
+    backend=biber,             % Use biber backend (an external tool)
+    sorting=none,              % Enumerates the reference in order of their appearance
+    style=numeric-comp         % Choose here your preferred citation style
+]{biblatex}
+\addbibresource{example.bib}   % The filename of the bibliography
+\usepackage[autostyle=true]{csquotes} 
+                               % Required to generate language-dependent quotes 
+                               % in the bibliography
+
+%----------------------------------------------------------------------------------------
+%   MARGIN SETTINGS
+%----------------------------------------------------------------------------------------
+
+\geometry{
+    paper=a4paper,      % Change to letterpaper for US letter
+    inner=2.5cm,        % Inner margin
+    outer=3.8cm,        % Outer margin
+    top=1.5cm,          % Top margin
+    bottom=1.5cm,       % Bottom margin
+    bindingoffset=.5cm, % Binding offset
+    %showframe,         % Show the type block of the page
+}
+\setlength{\parskip}{1em}
+\usepackage{enumitem}          % Layout control for list environments (e.g, itemize)
+%\setlist{noitemsep}           % Suppress extra spaces between items
+%\setlist{nosep}               % Suppress spaces before/after list environments

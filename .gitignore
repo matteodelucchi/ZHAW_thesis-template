@@ -1,21 +1,17 @@
-# vscode
-.vscode/*
+# VS code 
 *.code-workspace
-.history/
 
-## Core latex/pdflatex auxiliary files:
+# LaTeX/XeLaTeX temporary files
 *.aux
-*.lof
 *.log
-*.lot
+*.toc
+*.bcf
+*.run.xml
 *.fls
 *.out
-*.toc
-*.fmt
-*.fot
-*.cb
-*.cb2
-.*.lb
+
+# PDF output - usually a bad idea to keep this in Git
+main.pdf
 
 ## Intermediate documents:
 *.dvi

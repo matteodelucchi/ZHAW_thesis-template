@@ -1,12 +1,19 @@
-% Chapter 1
+% Indicate the main file. Must go at the beginning of the file.
+% !TEX root = ../main.tex
 
-\chapter{Chapter Title Here} % Main chapter title
+%----------------------------------------------------------------------------------------
+% CHAPTER 1
+%----------------------------------------------------------------------------------------
 
+
+
+\chapter{Introduction to \LaTeX} % Main chapter title
 \label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1} 
 
 %----------------------------------------------------------------------------------------
 
-% Define some commands to keep the formatting separated from the content 
+% Define some commands to keep the formatting separated from the content
+% Placing such commands in the preamble is a good idea.
 \newcommand{\keyword}[1]{\textbf{#1}}
 \newcommand{\tabhead}[1]{\textbf{#1}}
 \newcommand{\code}[1]{\texttt{#1}}
@@ -41,9 +48,10 @@ Making the effort now means you're not stuck learning the system when what you \
 
 \subsection{A Short Math Guide for \LaTeX{}}
 
-If you are writing a technical or mathematical thesis, then you may want to read the document by the AMS (American Mathematical Society) called, \enquote{A Short Math Guide for \LaTeX{}}. It can be found online here:
-\url{http://www.ams.org/tex/amslatex.html}
-under the \enquote{Additional Documentation} section towards the bottom of the page.
+If you are writing a technical or mathematical thesis, then you may want to read the document by the AMS (American Mathematical Society) called, \enquote{A Short Math Guide for \LaTeX{}}. It can be found online:
+
+\url{http://www.ams.org/tex/amslatex.html} $\rightarrow$ \enquote{Additional Documentation}\\
+\url{https://mirror.foobar.to/CTAN/info/short-math-guide/}
 
 \subsection{Common \LaTeX{} Math Symbols}
 There are a multitude of mathematical symbols available for \LaTeX{} and it would take a great effort to learn the commands for them all. The most common ones you are likely to use are shown on this page:
@@ -75,7 +83,8 @@ This \LaTeX{} Thesis Template is originally based and created around a \LaTeX{} 
 Steve's \file{ecsthesis.cls} was then taken by Sunil Patel who modified it by creating a skeleton framework and folder structure to place the thesis files in. The resulting template can be found on Sunil's site here:
 \url{http://www.sunilpatel.co.uk/thesis-template}
 
-Sunil's template was made available through \url{http://www.LaTeXTemplates.com} where it was modified many times based on user requests and questions. Version 2.0 and onwards of this template represents a major modification to Sunil's template and is, in fact, hardly recognisable. The work to make version 2.0 possible was carried out by \href{mailto:vel@latextemplates.com}{Vel} and Johannes Böttcher.
+
+Sunil's template was made available through \url{http://www.LaTeXTemplates.com}, where it was modified many times based on user requests and questions. Version 2.0 and onwards of this template represents a major modification to Sunil's template and is, in fact, hardly recognisable. The work to make version 2.0 possible was carried out by \href{mailto:vel@latextemplates.com}{Vel} and Johannes Böttcher.
 
 Based on Sunil's Version 2.0, Matteo updated the template and incorporated ZHAW University thesis guidelines.
 
@@ -179,7 +188,7 @@ One of the most important (and most difficult) things to keep track of in such a
 
 \subsection{Printing Format}
 
-This thesis template is designed for double sided printing (i.e. content on the front and back of pages) as most theses are printed and bound this way. Switching to one sided printing is as simple as uncommenting the \option{oneside} option of the \code{documentclass} command at the top of the \file{main.tex} file. You may then wish to adjust the margins to suit specifications from your institution.
+This thesis template is designed for double sided printing (i.e. content on the front and back of pages) as most theses are printed and bound this way. To switch to one sided printing, uncomment the \option{oneside} option of the \code{documentclass} command at the top of the \file{main.tex} file. You may then wish to adjust the margins to suit specifications from your institution.
 
 The headers for the pages contain the page number on the outer side (so it is easy to flick through to the page you want) and the chapter name on the inner side.
 
@@ -211,23 +220,24 @@ The bibtex backend used in the template by default does not correctly handle uni
 Tables are an important way of displaying your results, below is an example table which was generated with this code:
 
 {\small
-\begin{verbatim}
-\begin{table}
-\caption{The effects of treatments X and Y on the four groups studied.}
-\label{tab:treatments}
-\centering
-\begin{tabular}{l l l}
-\toprule
-\tabhead{Groups} & \tabhead{Treatment X} & \tabhead{Treatment Y} \\
-\midrule
-1 & 0.2 & 0.8\\
-2 & 0.17 & 0.7\\
-3 & 0.24 & 0.75\\
-4 & 0.68 & 0.3\\
-\bottomrule\\
-\end{tabular}
-\end{table}
-\end{verbatim}
+    \begin{verbatim}
+    \begin{table}
+    \caption{The effects of treatments X and Y 
+            on the four groups studied.}
+    \label{tab:treatments}
+    \centering
+    \begin{tabular}{l l l}
+    \toprule
+    \tabhead{Groups} & \tabhead{Treatment X} & \tabhead{Treatment Y} \\
+    \midrule
+    1 & 0.2 & 0.8\\
+    2 & 0.17 & 0.7\\
+    3 & 0.24 & 0.75\\
+    4 & 0.68 & 0.3\\
+    \bottomrule\\
+    \end{tabular}
+    \end{table}
+    \end{verbatim}
 }
 
 \begin{table}
@@ -310,7 +320,7 @@ All equations you write (which are not in the middle of paragraph text) are auto
 
 \section{Sectioning and Subsectioning}
 
-You should break your thesis up into nice, bite-sized sections and subsections. \LaTeX{} automatically builds a table of Contents by looking at all the \verb|\chapter{}|, \verb|\section{}|  and \verb|\subsection{}| commands you write in the source.
+You should break your thesis up into nice, bite-sized sections and subsections. \LaTeX{} automatically builds a table of contents by looking at all \verb|\chapter{}|, \verb|\section{}|  and \verb|\subsection{}| commands you write in the source.
 
 The Table of Contents should only list the sections to three (3) levels. A \verb|chapter{}| is level zero (0). A \verb|\section{}| is level one (1) and so a \verb|\subsection{}| is level two (2). In your thesis it is likely that you will even use a \verb|subsubsection{}|, which is level three (3). The depth to which the Table of Contents is formatted is set within \file{MastersDoctoralThesis.cls}. If you need this changed, you can do it in \file{main.tex}.
 
