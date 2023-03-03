@@ -46,6 +46,7 @@
 \booltrue{hyperrefsupport}
 \newbool{headsepline}
 \newbool{consistentlayout}
+\newbool{helveticafont}
 
 \DeclareOption{nohyperref}{\boolfalse{hyperrefsupport}}
 \DeclareOption{nolistspacing}{\booltrue{nolistspace}}
@@ -55,6 +56,7 @@
 \DeclareOption{parskip}{\booltrue{parskip}}
 \DeclareOption{headsepline}{\booltrue{headsepline}}
 \DeclareOption{consistentlayout}{\booltrue{consistentlayout}}
+\DeclareOption{helveticafont}{\booltrue{helveticafont}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{\baseclass}}
 
 \ProcessOptions\relax
@@ -269,6 +271,18 @@
 \setcounter{tocdepth}{3} % The depth to which the document sections are printed to the table of contents
 \ProvideDocumentCommand{\addchaptertocentry}{ m }{%
     \addcontentsline{toc}{chapter}{#1}%
+}
+
+%----------------------------------------------------------------------------------------
+%   FONT
+%----------------------------------------------------------------------------------------
+
+\ifbool{helveticafont}{
+    \RequirePackage{helvet}
+    \renewcommand\familydefault{\sfdefault} 
+    \usepackage[T1]{fontenc}
+}{
+    % nothing
 }
 
 %----------------------------------------------------------------------------------------
