@@ -26,4 +26,15 @@ The color of links can be changed to your liking using:
 
 \noindent If you want to have obvious links in the PDF but not the printed text, use:
 
-{\small\verb!\hypersetup{colorlinks=false}!}.
+{\small\verb!\hypersetup{colorlinks=false}!}
+
+\section{How can I add a Figure in the Appendix?}
+
+You can refer to a figure in the Appendix (like \ref{fig:appendix-figure}) and it will show up as expected.
+
+\begin{figure}
+\includegraphics[width=0.25\textwidth]{../Figures/Bart_Simpson.png}
+\centering
+\caption[A random appendix figure]{Bart Simpson. (2023, May 17). In Wikipedia. \url{https://en.wikipedia.org/wiki/Bart_Simpson}}
+\label{fig:appendix-figure}
+\end{figure}
