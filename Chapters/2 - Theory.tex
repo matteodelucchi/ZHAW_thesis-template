@@ -36,7 +36,10 @@ The intensity of the peaks is indicated as counts and corresponds to the number 
 
 \subsection{Surface sensitivity}
 
-Surface sensitivity has been thoroughly discussed by \cite{powell_surface_2009}. They infer the source of surface sensitivity from multiple previous publications. To this point, there are three effects known to influence surface sensitivity.
+The study of surface sensitivity in XPS has been thoroughly studied and summarized in multiple publications \cite{powell_surface_2009, }. Electrons emitted from the samples atoms can take different ways until they reach the detector. They either take a direct path which is the predominant proportion at the most outer 
+
+
+To this point, there are three terms to describe surface sensitivity in XPS.
 \begin{itemize}
 \item The initial energy which is needed to overcome dielectric effects such that an electron can be lost from a material is described by the electron loss function (ELF)
 \item Inelastic mean free path (IMFP) describes the distance an electron travels in a given material before inelastically scattering.
@@ -46,7 +49,12 @@ Surface sensitivity has been thoroughly discussed by \cite{powell_surface_2009}.
 
 Elastic electron scattering, however, has often caused uncertainties in measurements of EAL and IMFP. 
 The IMFP is element specific and also depends on the kinetic energy 
-
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.3]{Figures/image6_1.png}
+    \caption{Scattering effects in XPS \cite{stevie_introduction_2020}}
+    \label{fig:scattering}
+\end{figure}
 
 \subsection{Depth profiling}
 
@@ -65,60 +73,17 @@ and more recently have been extended by two additional methods:
 \end{enumerate}
 
 
-
-\textit{-	What are the limitations on depth determination?}
-
-The  first three methods have the drawback of being potentially destructive. Further, they are giving only very vague information about the samples’ depth profile; the accuracy is often denoted to be $\pm$10\%.
+The methods 1-3 have the drawback of being potentially destructive on the sample surface. Further, they are giving only very vague information about the samples’ depth profile; the accuracy is often denoted to be $\pm$10\%.
 
 The non-destructive methods 4-6 (ARXPS / Modelling / XPS-HAXPES) are further explained, as they are comparable to our data-driven approach. 
 
 \subsection{Deep learning for spectroscopic data}
-Techniques of machine learning and deep learning specifically have been applied to spectroscopic data for a long time. However, chemometric or physics-based approaches have been and still are favored for data analysis due to the lack of 
+Techniques of machine learning and deep learning specifically have been applied to spectroscopic data for a long time. However, chemometric or physics-based approaches have been and still are favored for data analysis due to the lack of model explainability for data-driven approaches.
+
+
+
+
 
 %----------------------------------------------------------------------------------------
 
-
-The package \href{https://www.overleaf.com/learn/latex/Code\_listing}{\code{listings}} permits to easily include existing code. Simply use the command \verb|\lstinputlisting[language=name]{path/to/file}|. See \href{https://www.overleaf.com/learn/latex/Code\_listing#Supported\_languages}{here} for a list of supported programming languages.
-https://www.overleaf.com/project/64ef0ccb8c430dd543133ba2
-
-\lstinputlisting[language=Python,caption=External file: code/example.py]{Code/example.py}
-
-It is also possible to enter code directly into \LaTeX:
-
-\begin{lstlisting}[language=C++]
-#include <stdio>
-void hello_world(void){
-   std::cout << "Hello World!" << std::endl;
-}    
-\end{lstlisting}
-
-Alternatively, one can use the syntax highlighting toolbox \href{https://pygments.org/}{\code{Pygments}} in combination with the \LaTeX-package \href{www.overleaf.com/learn/latex/Code\_Highlighting\_with\_minted}{\code{minted}}. It provides slightly better results, as the code will actually be parsed.
-
-To install Pygments, use the following command. For \code{minted} to work properly, run the pdflatex tool with the flag \code{--shell-escape}. If you are using a TEX editor, you can modify the typesetting   command somewhere in the settings.
-
-\begin{lstlisting}[language=bash]
-# Make sure that Pygments is installed.
-python -m pip install pygments
-
-# Then add the --shell-escape flag to the command 
-# that is used to compile your LaTeX code.
-pdflatex --output-dir="$BUILD_DIR" \
-         --file-line-error \
-         --shell-escape \
-         --synctex=1 "$1"
-\end{lstlisting}
-
-
-
-% Set the following line to \iftrue if minted is available on your system.
-% See the above instructions to see how.
-
-\iffalse
-See below how the result looks like if minted is available on your system.
-
-\begin{listing}[!ht]
-\inputminted[linenos, bgcolor=codebackground, style=friendly]{python}{Code/example.py}
-\caption{Example from external file, parsed using \code{Pygments}}
-\end{listing}
-
-\fi
+%\lstinputlisting[language=Python,caption=External file: code/example.py]{Code/example.py}
