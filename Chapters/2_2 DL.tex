@@ -3,20 +3,23 @@
 
 Techniques of machine learning and deep learning specifically have been applied to spectroscopic data since the 1990s. It has been applied to a variety of spectroscopic methods such as Near Infrared Spectroscopy (NIR), Raman Spectroscopy, Nuclear Magnetic Resonance Spectroscopy (NMR) and Infrared Spectroscopy (IR) . However, chemometric or physics-based approaches have been and still are favored for data analysis due to the lack of model explainability for data-driven approaches. To oppose, chemometrics is most often based on data reduction techniques such as Principal Component Analysis (PCA) and subsequent linear regression - which inherently does not meet the requirements for explainability.
 
-In recent years, 
+
+% advances in DL & applications to spectroscopy tasks
 
 
 
 \subsection{Convolutional Neural Networks (CNN)}
 
-In convolutional neural networks (CNN), the input values are multiplied with a kernel to extract features. A kernel in this sense can represent a vector of n dimensions, where in case of spectra n=1 that will be moved along an axis, applying the multiplication subsequently. The values of the kernel are learnable, such that it can be fitted to extract specific features depending on the nature of the data.
-These convolutional layers are usually followed by pooling layers - such as max-pooling or average-pooling - which also use a kernel . As the pooling layers intrinsically reduce the dimensionality of the input, they have a number of positive effects on the model. 
+In convolutional neural networks (CNN), the input values are multiplied with a kernel to extract features. The CNNs are used where the input is of a discrete, grid-like topology. A kernel in this sense can represent a vector of n dimensions, where in case of spectra n=1 that will be moved along an axis, applying the multiplication subsequently. The values of the kernel are learnable, such that it can be fitted to extract specific features depending on the nature of the data. 
+These convolutional layers are usually followed by pooling layers - such as max-pooling or average-pooling - which also use a kernel. As the pooling layers reduce the dimensionality of the input, they have a number of positive effects on the model, such as better robustness to input variability and faster training. In addition, pooling layers help the model to learn invariances in the input data, such as rotation of an image. 
 
 The 1-dimensional convolutions we use in the case of spectral data will thus use $p$ one-dimensional kernels (vectors) of pre-defined length, where $p$ stands for the number of channels.
 
-This network architectural pattern is extensively used in image classification tasks and 
+This network architectural pattern is extensively used in image classification tasks but has also been applied to many similar tasks, including spectroscopic data analysis \cite{sun_cnnlstm_2023, castorena_deep_2021, drera_deep_2019}.
 
 \subsection{Residual networks}
+
+In residual networks, 
 
 \subsection{Recurrent neural networks}
 
