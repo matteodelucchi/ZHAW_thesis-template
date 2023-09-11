@@ -8,8 +8,12 @@ Techniques of machine learning and deep learning specifically have been applied 
 \subsection{General patterns}
 
 \subsubsection{Dense layers}
+What is often referred to as fully connected, dense, or feedforward neural network describes a network consisting of solely densely connected layers. These layers are connected in an $n:m$ manner, where each node of layer with n nodes is connected with each node of layer with m nodes.
+
+
 \subsubsection{Dropout}
 Dropout layers are often used to regularize and generalize models. In these layers, which are fully connected layers, a certain percentage of nodes are not used during training and the specific unused nodes are selected from new each time.
+
 \subsubsection{}
 
 \subsection{Convolutional Neural Networks (CNN)}
@@ -24,7 +28,8 @@ This network architectural pattern is extensively used in image classification t
 
 \subsection{Residual networks}
 
-In residual networks, the input is re-added after performing convolutional operations.
+In residual networks, the input is re-added after performing convolutional operations. This feature has known positive effects, especially on deeper neural networks (networks with multiple layers). Residual network architectures diminish the well-known vanishing graident problem by re-feeding the network with previous layers. The structure usually involves convolutions of the input before re-adding the input to the 
+
 \begin{figure}
     \centering
     \includegraphics{Figures/ResBlockVariants.png}
@@ -40,7 +45,8 @@ In recurrent neural networks (RNNs), temporal information is kept in a hidden re
 \subsection{Transformer-based networks}
 
 Originally developed to solve neural language processing (NLP) tasks, the attention mechanism was first described in 2017 \cite{vaswani_attention_2023}.
-The combination of an encoder-decoder paradigm with the Multi-Head Attention architecture lead to the development of the Transformer model.
+The combination of an encoder-decoder paradigm with the Multi-Head Attention architecture lead to the development of the Transformer model. This is shown in \ref{fig:transformer_model}
+A transformer consists of tokenizers, embedding layers and transformer layers which include the Attention layers and Multilayer perceptron layers.
 
 \begin{figure}
     \centering
