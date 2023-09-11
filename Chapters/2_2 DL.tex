@@ -9,7 +9,7 @@ Techniques of machine learning and deep learning specifically have been applied 
 
 \subsubsection{Dense layers}
 \subsubsection{Dropout}
-Dropout layers are often used as 
+Dropout layers are often used to regularize and generalize models. In these layers, which are fully connected layers, a certain percentage of nodes are not used during training and the specific unused nodes are selected from new each time.
 \subsubsection{}
 
 \subsection{Convolutional Neural Networks (CNN)}
@@ -39,13 +39,19 @@ In recurrent neural networks (RNNs), temporal information is kept in a hidden re
 
 \subsection{Transformer-based networks}
 
-Originally developed to solve neural language processing (NLP) tasks, the attention mechanism was first described \cite{vaswani_attention_2023}
-Combination of an encoder-decoder paradigm with the multi-head attention architecture lead to the development of the Transformer model.
+Originally developed to solve neural language processing (NLP) tasks, the attention mechanism was first described in 2017 \cite{vaswani_attention_2023}.
+The combination of an encoder-decoder paradigm with the Multi-Head Attention architecture lead to the development of the Transformer model.
 
+\begin{figure}
+    \centering
+    \includegraphics{Figures/Transformer.png}
+    \caption{The Transformer-model architecture \cite{vaswani_attention_2023}}
+    \label{fig:transformer_model}
+\end{figure}
 
 The positional embedding ensures that the model can interpret the position of the tokens within the sequence.
 
-
+The Multi-Head Attention block consist of linear mappings of query, key and value pairs which are run in parallel. Thus, the attention function is performed on a set of queries and an attention matrix is computed \cite{vaswani_attention_2023}.
 
 \subsubsection{Visual Transformer}
 
