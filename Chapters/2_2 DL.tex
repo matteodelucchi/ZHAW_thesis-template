@@ -28,19 +28,20 @@ This network architectural pattern is extensively used in image classification t
 
 \subsection{Residual networks}
 
-In residual networks, the input is re-added after performing convolutional operations. This feature has known positive effects, especially on deeper neural networks (networks with multiple layers). Residual network architectures diminish the well-known vanishing graident problem by re-feeding the network with previous layers. The structure usually involves convolutions of the input before re-adding the input to the 
+In residual networks, the input is re-added after performing weighted operations. This feature has known positive effects, especially on deeper neural networks (networks with multiple layers). Residual network architectures diminish the well-known vanishing gradient problem by adding skip connections to the network. 
 
 \begin{figure}
     \centering
-    \includegraphics{Figures/ResBlockVariants.png}
+    \includegraphics[width=\textwidth]{Figures/ResBlockVariants.png}
     \caption{Residual block pattern}
     \label{fig:res_block}
 \end{figure}
 
+This pattern has later also been used for other models, as it allows much deeper networks to learn much more efficiently.
 
-\subsection{Recurrent neural networks}
+%\subsection{Recurrent neural networks}
 
-In recurrent neural networks (RNNs), temporal information is kept in a hidden representation vector. Because of this temporal representation, RNNs are specialized for processing sequences
+%In recurrent neural networks (RNNs), temporal information is kept in a hidden representation vector. Because of this temporal representation, RNNs are specialized for processing sequences, such as text. The input information is fed sequentially and the representation vector changes its state. This allows the model to learn 
 
 \subsection{Transformer-based networks}
 
