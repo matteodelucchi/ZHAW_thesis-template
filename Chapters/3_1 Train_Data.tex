@@ -28,7 +28,7 @@ The spectra simulated are using two components from all elements (n=81), thus 65
 The contamination layer is often seen on uncleaned samples but, as discussed, does not resemble a factual layer in XPS analysis. As the contamination has diverse provenance, datasets were constructed with and without a contamination layer. They are denoted as cont. and clean, respectively. Finally, both datasets were used to provide the model with variations of contaminated and clean samples, which is denoted as mixcont. 
 To achieve a similar carbon and oxide content as experimental data (because of environmental influences), there is a carbon and oxide layer with thickness of triangular distribution (12-24, mode 15) Angstrom on top. 
 
-To simulate, the CLI feature of Sessa was used. It allows users to interact with the software through a file of commands which are then subsequently read. The 
+To simulate, the CLI feature of Sessa was used. It allows users to interact with the software through a file of commands which are then subsequently read. The commands were first saved to a text-file and then processed with Sessa using the python subprocess module. To allow diverse simulation properties, classes for Experiments and Layers were defined. Furthermore, functions for the simulation, finding and setting chemical shifts, as well as writing the session file were programmed. The corresponding code can be found in \ref{ApendixA}.
 
 Python-Wrapper, Databases of Sessa, etc., X-Y-axis, carbon / oxygen layer, etc.
 
@@ -45,5 +45,5 @@ Each spectra was max-normalized using equation \ref{eqn:normalize}, where each c
 \label{eqn:normalize}
 \end{equation}
 
-Additionally to the normalization, 0.3 \% relative noise was added
+Additionally to the normalization, 0.3 \% relative noise was added to mimick the noise usually observed in XPS spectral data.
 
