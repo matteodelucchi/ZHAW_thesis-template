@@ -31,6 +31,8 @@ The CNN model used is based on the standard architecture with two convolutional 
 % show the structure
 
 \subsection{ViT}
+The visual attention model used for the 1D-Spectra was inspired from Yoni Gottesmans blogpost \cite{noauthor_interpretable_2023}. It takes the well-known 2D-ViT model as a basis and is adapted to work with one-dimensional inputs.
+The model was changed to fit the spectral input data with 1024 data points. Further, a patch-size of 20 data-points was chosen.
 % explain the structure
 
 % show the structure
@@ -38,10 +40,11 @@ The CNN model used is based on the standard architecture with two convolutional 
 
 \subsection{ViA}
 % explain the structure
-The visual attention model used for the 1D-Spectra was inspired 
+
 
 % show the structure
 
 
 \section{Model evaluation}
 
+To evaluate the models' performance and training process, the loss and accuracy was obtained and plotted. 
