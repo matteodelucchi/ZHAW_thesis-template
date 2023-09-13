@@ -3,6 +3,8 @@
 
 Techniques of machine learning and deep learning specifically have been applied to spectroscopic data since the 1990s. It has been applied to a variety of spectroscopic methods such as Near Infrared Spectroscopy (NIR), Raman Spectroscopy, Nuclear Magnetic Resonance Spectroscopy (NMR) and Infrared Spectroscopy (IR) . However, chemometric or physics-based approaches have been and still are favored for data analysis due to the lack of model explainability for data-driven approaches. To oppose, chemometrics is most often based on decomposition techniques such as Principal Component Analysis (PCA) and subsequent linear regression - which inherently does not meet the requirements for explainability.
 
+Deep learning has been applied to XPS-analysis once by Drera et al.\cite{drera_deep_2019}. They achieved an overall performance 
+
 
 % advances in DL & applications to spectroscopy tasks
 \subsection{General patterns}
@@ -24,11 +26,11 @@ These convolutional layers are usually followed by pooling layers - such as max-
 
 The 1-dimensional convolutions we use in the case of spectral data will thus use $p$ one-dimensional kernels (vectors) of pre-defined length, where $p$ stands for the number of channels. If, for example, our spectrum vector is of dimensions (1 x 1024), using a 1d-convolutional kernel of size (1 x 5) with will be applied.
 
-This network architectural pattern is extensively used in image classification tasks but has also been applied to many similar tasks, including spectroscopic data analysis \cite{sun_cnnlstm_2023, castorena_deep_2021, drera_deep_2019}.
+This network architectural pattern is extensively used in image classification tasks but has also been applied to diverse classification tasks, including spectroscopic data analysis \cite{sun_cnnlstm_2023, castorena_deep_2021, drera_deep_2019}.
 
 \subsection{Residual networks}
 
-In residual networks, the input is re-added after performing weighted operations. This feature has known positive effects, especially on deeper neural networks (networks with multiple layers). Residual network architectures diminish the well-known vanishing gradient problem by adding skip connections to the network. 
+In residual networks, the input is re-added after performing weighted operations such as convolutions. This feature has known positive effects, especially on deeper neural networks (networks with multiple layers). Residual network architectures diminish the well-known vanishing gradient problem by adding skip connections to the network. 
 
 \begin{figure}
     \centering

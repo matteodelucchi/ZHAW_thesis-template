@@ -4,14 +4,13 @@
 \label{test_data}
 \section{Test Data}
 
-There are a few sources for test-data of XPS-spectra. A main database was found on XPSlibrary, provided by TXL. Further, the XPSSurfA on CMSS Hub from the Australian University La Trobe contains more than 1700 spectra of which >100 survey spectra were used for the evaluation of the model.
-
-As the test data from the XPSSurfA-database is stored in web form, accessible as a zip-file, a script for automated data-acquisition was written, which can be found in \ref{}
+There are a few sources for test-data of XPS-spectra. A main database was found on XPSlibrary, provided by TXL. The data was kindly sent to us in a readable text-format from B. Vincent Crist. 
+In addition, the XPSSurfA on CMSS Hub from the Australian University La Trobe contains more than 1700 spectra of which >100 survey spectra were used for the evaluation of the model. As the test data from the XPSSurfA-database is stored in web form, accessible as a zip-file, a script for automated data-acquisition was written, which can be found in \ref{xpslibrary_webscraper}.
 
 \subsection{Data preprocessing}
 
 As is typical for data acquired from laboratories, XPS data comes in various formats and measurement parameters. Apart from XPS-specific parameters, the resolution and the range mostly influence the evaluation of spectra with the deep-learning framework. Thus, an automated workflow for the spectra pre-processing is introduced to provide a valid entry point to the model.
-Although most wide-survey spectra are measured with a comparable energy-range, it should be identical to the training data for prediction. Thus, any signal outside the specified binding energy range (0-1000 eV) is cut off and the discrete measurement points inside the range are interpolated or subsampled by using a uniformly distributed sampling method to match 1024 points.
+Although most wide-survey spectra are measured with a comparable energy-range, it should be identical to the training data for prediction. Thus, any signal outside the specified binding energy range (0-1000 eV) is cut off and the discrete measurement points inside the range are interpolated (if less than 1024) or subsampled (if more than 1024) by using a uniformly distributed sampling method to match 1024 points.
 
 \begin{figure}
     \centering
