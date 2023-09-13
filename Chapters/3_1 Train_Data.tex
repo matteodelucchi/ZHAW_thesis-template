@@ -13,6 +13,7 @@
 \subsection{Data simulation}
 
 The spectra were simulated with the Software Sessa v2.2.0 developed by Smekal et al. It uses binding energies from the NIST database and inelastic mean free paths (IMFPs) from various publications and simulations to calculate the spectra. Since version 2.2.0, it also accounts for energy dependence of the IMFP \cite{noauthor_nist_2010}.
+Sessa includes Photoelectron peaks and Auger-Electron peaks, but does not always include multiplet splitting 
 
 As the probing depth of XPS is around 10 nanometers and the information diminishes rapidly after the first few nanometers, the thicknesses used for simulation of the top layer are n $\in$ [1, 2, 3, 4, 5] nm. A second simulation approach was to simulate slow transitions of elements such as seen in migration, oxidation or alloying processes. As shown in \ref{fig:layers} b), two components are used in a mixture across the lateral cross-section. While one component decreases from 100\%, the other one increases symmetrically.
 
@@ -26,8 +27,9 @@ As the probing depth of XPS is around 10 nanometers and the information diminish
 
 The spectra simulated are using two components from all elements (n=81), thus 6'400 permutations without repetition. With the five thicknesses, we obtain 32'000 spectra for each experimental setup a) and b)+c).
 The contamination layer is often seen on uncleaned samples but, as discussed, does not resemble a factual layer in XPS analysis. As the contamination has diverse provenance, datasets were constructed with and without a contamination layer. They are denoted as cont. and clean, respectively. Finally, both datasets were used to provide the model with variations of contaminated and clean samples, which is denoted as mixcont (n=97k).
+To achieve a similar carbon and oxide content as experimental data, there is a carbon and oxide layer (CO) with thickness of 6 Angstrom on top.
 
-To achieve a similar carbon and oxide content as experimental data (because of environmental influences), there is a carbon and oxide layer with thickness of triangular distribution (12-24, mode 15) Angstrom on top. 
+For the experimental setup d), we assumed that the Spectra of mixed compounds is comparable to the Spectra of the elemental constituents in the corresponding ratios. It must be noted that this is not true, because as elements form a compound, they undergo connections with their valence electrons which - at least - changes the valence-band photoelectron peak positions.
 
 To simulate, the CLI feature of Sessa was used, which is documented in their users guide \cite{werner_simulation_2021}. It allows users to interact with the software through a file of commands which are then sequentially read and processed. The commands were first built, saved to a text-file and then read and processed with Sessa using the python subprocess module. To allow diverse simulation properties, classes for Experiments and Layers were defined. Furthermore, functions for the simulation, finding and setting chemical shifts, as well as writing the session file were programmed. The corresponding code can be found in \ref{Sessa_Module}.
 
