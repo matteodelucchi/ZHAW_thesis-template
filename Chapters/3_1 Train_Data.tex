@@ -25,15 +25,17 @@ As the probing depth of XPS is around 10 nanometers and the information diminish
 \end{figure}
 
 
-The spectra simulated are using two components from all elements (n=81), thus 6'400 permutations without repetition. With the five thicknesses, we obtain 32'000 spectra for each experimental setup a) and b)+c).
-The contamination layer is often seen on uncleaned samples but, as discussed, does not resemble a factual layer in XPS analysis. As the contamination has diverse provenance, datasets were constructed with and without a contamination layer. They are denoted as cont. and clean, respectively. Finally, both datasets were used to provide the model with variations of contaminated and clean samples, which is denoted as mixcont (n=97k).
-To achieve a similar carbon and oxide content as experimental data, there is a carbon and oxide layer (CO) with thickness of 6 Angstrom on top.
+The spectra simulated are using two components from all elements (n=81), thus 6'480 permutations without repetition. With the five thicknesses, we obtain 32'400 spectra for each experimental setup a) and b)+c). Additionally, single-component systems were simulated consisting of one bulk element.
 
-For the experimental setup d), we assumed that the Spectra of mixed compounds is comparable to the Spectra of the elemental constituents in the corresponding ratios. It must be noted that this is not true, because as elements form a compound, they undergo connections with their valence electrons which - at least - changes the valence-band photoelectron peak positions.
+The contamination layer is often seen on uncleaned samples but, as discussed, does not resemble a factual layer in XPS analysis. As the contamination has diverse provenance, datasets were constructed with and without a contamination layer. They are denoted as cont. and clean, respectively. Finally, both datasets were used to provide the model with variations of contaminated and clean samples, which is denoted as mixcont (n=97k).
+In the cont. dataset, to achieve a similar carbon and oxide content as experimental data, there is a carbon and oxide layer (CO) with thickness of 6 Angstrom on top.
+
+For the experimental setup d), we assumed that the Spectra of mixed compounds is comparable to the Spectra of the elemental constituents in the corresponding ratios. It must be noted that this is not true, because as elements form a compound, they undergo connections with their valence electrons which - at least - changes the valence-band photoelectron peak positions. However, this simplification allows us to easily simulate thousands of spectra similar to the spectra. For this mixed-component model, 20'000 spectra were generated with a content of 5 - 60 \% for each component. As - when components undergo bonds - we observe chemical shifts in the spectra for the specific orbital peaks of the components, these were included in the model as explained later.
 
 To simulate, the CLI feature of Sessa was used, which is documented in their users guide \cite{werner_simulation_2021}. It allows users to interact with the software through a file of commands which are then sequentially read and processed. The commands were first built, saved to a text-file and then read and processed with Sessa using the python subprocess module. To allow diverse simulation properties, classes for Experiments and Layers were defined. Furthermore, functions for the simulation, finding and setting chemical shifts, as well as writing the session file were programmed. The corresponding code can be found in \ref{Sessa_Module}.
 
-Because the Sessa software didn't allow reading the chemical shift database from the command line interface, the NIST database was webscraped and saved as a readable database - the code can be found in \ref{NIST_WebScraper}.
+Because the Sessa software didn't allow reading the chemical shift database from the command line interface, the NIST database was webscraped and saved as a readable database - the code can be found in \ref{NIST_WebScraper}. Unfortunately, the database has entries with wrong energy descriptions (kinetic/binding energy) and thus, anything deviating more than 10\% from the median or the original peak position was converted to the opposite measure.
+For each mixture compound simulated according to model d), a fuzzy string matching was performed and the best match was taken with a certain probability $p$.
 
 Python-Wrapper, Databases of Sessa, etc., X-Y-axis, carbon / oxygen layer, etc.
 
