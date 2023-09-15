@@ -3,28 +3,31 @@
 
 Techniques of machine learning and deep learning specifically have been applied to spectroscopic data since the 1990s. It has been applied to a variety of spectroscopic methods such as Near Infrared Spectroscopy (NIR), Raman Spectroscopy, Nuclear Magnetic Resonance Spectroscopy (NMR) and Infrared Spectroscopy (IR) . However, chemometric or physics-based approaches have been and still are favored for data analysis due to the lack of model explainability for data-driven approaches. To oppose, chemometrics is most often based on decomposition techniques such as Principal Component Analysis (PCA) and subsequent linear regression - which inherently does not meet the requirements for explainability.
 
-Deep learning has been applied to XPS-analysis once by Drera et al.\cite{drera_deep_2019}. They achieved an overall performance 
+Deep learning has been previously applied to XPS-analysis by Drera et al.\cite{drera_deep_2019}. They achieved an overall performance of quantitative detection above 10$\%$ content, similar to the detection limit of users - they state. They used solely convolutional neural networks to build their prediction model.
 
+Attention-based neural networks have been applied to near infrared spectroscopy analysis of medical fungi \cite{huang_attention_2019} and sand gravel \cite{yuan_hybrid_2022} to successfully identify secondary parameters, such as moisture or polysaccharide content with similar or better results than the well-known partial least squares (PLS) fitting.
 
 % advances in DL & applications to spectroscopy tasks
 \subsection{General patterns}
 
 \subsubsection{Dense layers}
-What is often referred to as fully connected, dense, or feedforward neural network describes a network consisting of solely densely connected layers. These layers are connected in an $n:m$ manner, where each node of layer with n nodes is connected with each node of layer with m nodes.
-
+What is often referred to as fully connected, dense, or feed-forward neural network describes a network consisting of solely densely connected layers. These layers are connected in an $n:m$ manner, where each node of layer with $n$ nodes is connected with each node of layer with $m$ nodes. 
 
 \subsubsection{Dropout}
-Dropout layers are often used to regularize and generalize models. In these layers, which are fully connected layers, a certain percentage of nodes are not used during training and the specific unused nodes are selected from new each time.
+Dropout layers are often used to regularize and generalize models. In these layers, which are fully connected layers, a certain percentage of nodes are not used during training and the specific unused nodes are selected from new each training cycle. This ensures that the training of the network does not rely on only a subset or even a single node, but on all nodes in a similar intensity. The fraction of nodes defined to drop each training cycle is denoted as $p$.
 
-\subsubsection{}
+\subsubsection{Batch-Normalization}
+Big datasets are usually divided into subsets such that we can efficiently train our network. This is done because the data might not fit the available computing memory and thus slow our computation. Additionally, we train on a subset because finding the global optimum is much more difficult than finding it for the so-called batch. However, even if we randomly split the dataset, we will encounter a non-uniform distribution of information between our batches. Thus, in a batch-normalization layer, each batch input is normalized to have a mean of zero and a standard deviation of one. The positive effects have been shown in multiple publications
+
+
 
 \subsection{Convolutional Neural Networks (CNN)}
 
 In convolutional neural networks (CNN), the input values are multiplied with a kernel to extract features. The CNNs are used where the input is of a discrete, grid-like topology. A kernel in this sense can represent a vector of n dimensions, where in case of spectra n=1 that will be moved along an axis, applying the multiplication subsequently. The values of the kernel are learnable, such that it can be fitted to extract specific features depending on the nature of the data.
 
-These convolutional layers are usually followed by pooling layers - such as max-pooling or average-pooling - which also use a kernel. As the pooling layers reduce the dimensionality of the input, they have a number of positive effects on the model, such as better robustness to input variability and faster training. In addition, pooling layers help the model to learn invariances in the input data, such as rotation of an image. 
+These convolutional layers are usually followed by pooling layers - such as max-pooling or average-pooling - which also use a kernel. As the pooling layers reduce the dimensionality of the input, they have a number of positive effects on the model, such as better robustness to input variability and faster training. In addition, pooling layers help the model to learn invariances in the input data, such as rotation or small shift of an image content \cite{goodfellow_deep_2016}. 
 
-The 1-dimensional convolutions we use in the case of spectral data will thus use $p$ one-dimensional kernels (vectors) of pre-defined length, where $p$ stands for the number of channels. If, for example, our spectrum vector is of dimensions (1 x 1024), using a 1d-convolutional kernel of size (1 x 5) with will be applied.
+The 1-dimensional convolutions we use in the case of spectral data will thus use $p$ one-dimensional kernels (vectors) of pre-defined length, where $p$ stands for the number of channels. If, for example, our spectrum vector is of dimensions (1 x 1024), using a 1d-convolutional kernel of size (1 x 5) with 16 channels will be applied. Thus, we will retain 16 vectors of size (1023)
 
 This network architectural pattern is extensively used in image classification tasks but has also been applied to diverse classification tasks, including spectroscopic data analysis \cite{sun_cnnlstm_2023, castorena_deep_2021, drera_deep_2019}.
 
@@ -32,7 +35,7 @@ This network architectural pattern is extensively used in image classification t
 
 In residual networks, the input is re-added after performing weighted operations such as convolutions. This feature has known positive effects, especially on deeper neural networks (networks with multiple layers). Residual network architectures diminish the well-known vanishing gradient problem by adding skip connections to the network. 
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Figures/ResBlockVariants.png}
     \caption{Residual block pattern}
@@ -48,23 +51,23 @@ This pattern has later also been used for other models, as it allows much deeper
 \subsection{Transformer-based networks}
 
 Originally developed to solve neural language processing (NLP) tasks, the attention mechanism was first described in 2017 \cite{vaswani_attention_2023}.
-The combination of an encoder-decoder paradigm with the Multi-Head Attention architecture lead to the development of the Transformer model. This is shown in \ref{fig:transformer_model}
+The combination of an encoder-decoder paradigm with the Multi-Head Attention architecture lead to the development of the Transformer model. The most recent architecture used for NLP tasks is shown in Figure \ref{fig:transformer_model}.
 A transformer consists of tokenizers, embedding layers and transformer layers which include the Attention layers and Multilayer perceptron layers.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Transformer.png}
     \caption{The Transformer-model architecture \cite{vaswani_attention_2023}}
     \label{fig:transformer_model}
 \end{figure}
 
-The positional embedding ensures that the model can interpret the position of the tokens within the sequence.
+The positional embedding ensures that the model can interpret the position of the tokens within the sequence. The Multi-Head Attention block consist of linear mappings of query, key and value pairs which are run in parallel. The number of linear mappings computed per block is denoted as $h$. Thus, the attention function is performed on a set of queries and an attention matrix is computed \cite{vaswani_attention_2023}.
 
-The Multi-Head Attention block consist of linear mappings of query, key and value pairs which are run in parallel. Thus, the attention function is performed on a set of queries and an attention matrix is computed \cite{vaswani_attention_2023}.
+\subsubsection{Vision Transformer}
 
-\subsubsection{Visual Transformer}
-
-The visual transformer model (ViT) has been recently published \cite{dosovitskiy_image_2021} and uses the mechanisms of Transformer-based models for computer vision tasks. Input data is divided into multiple patches of size n. A positional embedding is added and the embedded patches are then used as tokenized input to the transformer encoder. 
+The Vision transformer model (ViT) has been recently published \cite{dosovitskiy_image_2021} and uses the mechanisms of Transformer-based models for computer vision tasks. Input data is divided into multiple patches of size n. A positional embedding is added and the embedded patches are then used as tokenized input to the transformer encoder. 
 
 
-\subsubsection{Visual Attention}
+%\subsubsection{Visual Attention}
+
+%The visual attention model is another model based on attention which 

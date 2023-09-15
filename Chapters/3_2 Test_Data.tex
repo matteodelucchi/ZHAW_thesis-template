@@ -7,6 +7,11 @@
 There are a few sources for test-data of XPS-spectra. A main database was found on XPSlibrary, provided by TXL. The data was kindly sent to us in a readable text-format from B. Vincent Crist. 
 In addition, the XPSSurfA on CMSS Hub from the Australian University La Trobe contains more than 1700 spectra of which >100 survey spectra were used for the evaluation of the model. As the test data from the XPSSurfA-database is stored in web form, accessible as a zip-file, a script for automated data-acquisition was written, which can be found in \ref{xpslibrary_webscraper}.
 
+
+\subsection{Experimental depth profiles using sputtering}
+To test the models' capabilities to predict depth profiles of spectra, sputtering experiments were conducted using Copper on Tungsten and Copper ond Palladium
+
+
 \subsection{Data preprocessing}
 
 As is typical for data acquired from laboratories, XPS data comes in various formats and measurement parameters. Apart from XPS-specific parameters, the resolution and the range mostly influence the evaluation of spectra with the deep-learning framework. Thus, an automated workflow for the spectra pre-processing is introduced to provide a valid entry point to the model.

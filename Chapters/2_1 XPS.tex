@@ -30,13 +30,13 @@ The complex and sample-specific interactions of the produced electrons with the 
 
 \subsection{Surface sensitivity}
 
-The study of surface sensitivity in XPS has been thoroughly studied and summarized in multiple publications \cite{powell_surface_2009, }. Electrons emitted from the samples atoms can take different ways until they reach the detector. They either take a direct path (A), are elastically scattered and return to the detector (B) or are inelastically scattered and do not return to the detector.
+The study of surface sensitivity in XPS has been thoroughly studied and summarized in multiple publications \cite{powell_surface_2009, }. Electrons emitted from the samples atoms can take different ways until they eventually reach the detector. They either take a direct path (A), are elastically scattered and return to the detector (B) or are inelastically scattered and do not return to the detector (C) as shown in Figure \ref{fig:scattering}.
 
-To this point, there are three terms to describe surface sensitivity in XPS.
+To this point, there are three terms to describe surface sensitivity in XPS:
 \begin{itemize}
 \item The initial energy which is needed to overcome dielectric effects such that an electron can be lost from a material is described by the electron loss function (ELF)
 \item Inelastic mean free path (IMFP), often denoted as $\lambda$, describes the distance an electron travels in a given material before inelastically scattering.
-\item Effective attenuation length (EAL) is the length the electron travels into the sample.
+\item Effective attenuation length (EAL) is the length the electron travels into the sample while also considering elastic scattering effects.
 
 \end{itemize}
 
@@ -47,8 +47,15 @@ To this point, there are three terms to describe surface sensitivity in XPS.
     \label{fig:scattering}
 \end{figure}
 
+The intensity of electrons emmited from a sample deeper than $d$ can be described using Beer's law as shown in \ref{beerslaw}.
+
+\begin{equation}
+\label{beerslaw}
+    I = I_{0} * exp(-d/\lambda)
+\end{equation}
+
 Elastic electron scattering (see Figure \ref{fig:scattering} B), however, has often caused uncertainties in measurements of EAL and IMFP. 
-The IMFP is element specific and also depends on the kinetic energy, whereas the EAL is dependent on the X-ray source and
+The IMFP and the EAL are element specific and also depend on the kinetic energy. As the IMFP does not consider elastic scattering, there is a universal curve describing overall tendencies.
 
 \subsection{Peaks origin} % identification?
 
@@ -59,10 +66,10 @@ However, XPS measurements always show additional peaks from other origins. The d
 
 When a core electron is lost due to the X-ray excitation, a deficiency of electrons results. This ionized state is then relaxed with an electron from the outer-most so-called valence orbital \cite{stevie_introduction_2020}. This process induces the release of energy which can then be detected with XPS. It is crucial to note that this process is independent of the source energy and thus, the Auger peak binding energy changes when another source of X-rays is used. This is especially important to resolve issues when Auger peaks overlap with photoelectron peaks. 
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{Figures/peaks.png}
-    \caption{Caption}
+    \caption{Examples of peaks origin (a) C 1s spectrum of PET and its shakeup peak due to the shared $\pi$ electron system, (b) shakeup peaks due to the excitation of Silicon plasmon lines, (c) tailing on a metallic peak due to shakeup excitations (d) Ni 2p from \ch{NiO} - multiplet splitting and shakeup peaks \cite{stevie_introduction_2020}}
     \label{fig:peaks}
 \end{figure}
 
@@ -82,16 +89,14 @@ A similar effect can be observed for unpaired electrons in the valence bands. Th
 \subsection{Adventitious Carbon}
     
 When analyzing with XPS, we often find peaks which do not originate from the sample but from the atmosphere. As the atmosphere consists of organic compounds, they include O 1s and C 1s peaks. Often, the C 1s peak is used as a internal standard reference peak to shift the measured spectra to the correct position. This is done because peak shifts occur frequently owing to charging effects which arise from sample properties. Due to varying atmospheric composition, however, this peaks' position is uncertain and is itself  not clearly defined. \cite{biesinger_accessing_2022} As the peak reference to adventitious carbon is most frequently used, it should be considered when comparing, evaluating and analysing experimental data.
-In addition, the contamination can be mostly removed when an ion-etching procedure is performed prior to the measurement. Although sometimes reffered to as a \emph{contamination layer}, it does not behave similar to a layer, as it is not densely populated on the surface.
+In addition, the contamination can be mostly removed when an ion-etching procedure is performed prior to the measurement. Although sometimes referred to as a \emph{contamination layer}, it does not behave similar to a layer, as it is not densely populated on the surface.
 
 \subsection{Quantitative XPS Analysis}
-As the quantity of a certain element increases, its corresponding peak should increase as well, given its generated electrons can still escape the sample without being scattered. 
-
+As the quantity of a certain element increases, its corresponding peak should increase as well, given its generated electrons can still escape the sample without being scattered. However, simultaneously, other peaks decrease proportionally in intensity. For example, the peak area of \ch{Al2O3} should sum up to 2:3 for Al:O.
+The common procedure for quantitative analysis is to substract the background according to a modelled assumption and subsequently elaborate a relative sensitivity factor (RSF) to measure the area under the peaks and set them into relation.
 
 \subsection{Depth profiling}
-In many areas of research, the investigation of surfaces, buried interfaces and quantification in relation to the sample depth is of interest. Thus, 
-
-Experimentally, there exist four methods for investigating depth-information of a component in a sample. These are:
+In many areas of research, the investigation of surfaces, buried interfaces and quantification in relation to the sample depth is of interest. Experimentally, there exist four methods for investigating depth-information of a component in a sample. These are:
 \begin{enumerate}
     \item Presence or absence of energy loss peaks which occur when electrons from deeper regions of the material need to travel to the surface and lose energy (associated to the elastic scattering effect)
     \item The intensity ratio of peaks across the kinetic energy (high vs low) – only suitable for a selection of elements (semi-qualitative).
@@ -106,23 +111,21 @@ and more recently have been extended by two additional methods:
 \end{enumerate}
 
 
-The methods 1-3 have the drawback of being potentially destructive on the sample surface. Further, they are giving only very vague information about the samples’ depth profile; the accuracy is often denoted to be $\pm$10\%.
-The non-destructive methods 4-6 (ARXPS / Modelling / XPS-HAXPES) are further explained, as they are comparable to our data-driven approach.
+Methods 1-3 have the drawback of being potentially destructive on the sample surface. Further, they are giving only very vague information about the samples’ depth profile; the accuracy is often denoted to be $\pm$10\%.
+The non-destructive methods 4-6 (ARXPS / Modelling / XPS-HAXPES) are further explained, as they are comparable to the data-driven approach used in this work.
 
 \subsubsection{Angle resolved XPS (ARXPS)}
-
-A variation on the XPS-technique involves measurements at different mounting-angles of the sample.
-This changes the path the X-rays take into and out from the sample, as shown in Figure \ref{fig:arxps} which compares a standard 90\textdegree  take-off angle (a) with a smaller angle $\alpha$ (b). As the angle $\alpha$ decreases, the X-rays travel through a proportional higher amount of surface which in turn increases the sensitivity towards the surface. From the obtained spectra (c), we can deduct the thickness of the layers.
-
 \begin{figure}
     \centering
     \includegraphics[width=0.4\textwidth]{Figures/ARXPS.png}
     \caption{Angle resolved XPS \cite{stevie_introduction_2020}}
     \label{fig:arxps}
 \end{figure}
+A variation on the XPS-technique involves measurements at different mounting-angles of the sample.
+This changes the path the X-rays take into and out from the sample, as shown in Figure \ref{fig:arxps} which compares a standard 90\textdegree  take-off angle (a) with a smaller angle $\alpha$ (b). As the angle $\alpha$ decreases, the X-rays travel through a proportional higher amount of surface which in turn increases the sensitivity towards the surface. From the obtained spectra (c), we can deduct the thickness of the layers. This deduction is often done by Software which uses the Maximum entropy method first described by Smith et al. \cite{smith_maximum_1992} in 1992.
 
 A newer method collects spectra in parallel, thus is called pARXPS, which reduces acquisition time and constant transmission \cite{bure_assessing_2023}.
 
 \subsubsection{XPS-HAXPES}
 
-Hard X-ray photoelectoron spectroscopy is a technique similar to XPS, but it uses hard x-ray sources from Gallium or Chromium to achieve much higher energy levels. As these X-rays are in the range of multiple keVs, the IMFP increases drastically and we are able to probe much deeper into the surface compared to XPS. Combining the two analyses can provide researchers with valuable information of the surface and the deeper regions of samples. This approach has been demonstrated to be accurate in multiple publications \cite{bure_assessing_2023, siol_concepts_2020} 
+Hard X-ray photoelectoron spectroscopy is a technique similar to XPS, but uses Gallium or Chromium to produce hard x-rays to achieve much higher energy levels. As these X-rays are in the range of multiple keVs, the IMFP increases drastically and we are able to probe much deeper into the surface compared to XPS. Combining the two analyses can provide researchers with valuable information of the surface and the deeper regions of samples. This approach has been demonstrated to be accurate in multiple publications \cite{bure_assessing_2023, siol_concepts_2020} 
