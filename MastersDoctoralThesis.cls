@@ -215,7 +215,8 @@
 \RequirePackage{caption} % Required for customising the captions
 \captionsetup{justification=centerlast,font=small,labelfont=sc,margin=50pt}
 
-
+\usepackage{chemformula}
+\usepackage{float}
 
 %----------------------------------------------------------------------------------------
 %   DEFINE CUSTOM THESIS INFORMATION COMMANDS
