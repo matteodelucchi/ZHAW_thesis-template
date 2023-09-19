@@ -1,6 +1,5 @@
 \hypertarget{import-and-prepare}{%
-\section{Import and prepare}\label{import-and-prepare}}
-
+\section*{Import and prepare}\label{import-and-prepare}}
 \begin{lstlisting}[language=Python]
 import sys
 import glob
@@ -26,11 +25,11 @@ test_size_ratio = 0.2
 \end{lstlisting}
 
 \hypertarget{training-data-for-top-bot-layer}{%
-\section{Training Data for top bot
+\section*{Training Data for top bot
 layer}\label{training-data-for-top-bot-layer}}
 
 \hypertarget{mixcont}{%
-\subsection{mixcont}\label{mixcont}}
+\subsection*{mixcont}\label{mixcont}}
 
 \begin{lstlisting}[language=Python]
 folders = [
@@ -57,7 +56,7 @@ df.to_pickle('../../data/df_mixcont.pkl') # save the df without preprocessing
 \end{lstlisting}
 
 \hypertarget{preprocess}{%
-\subsubsection{preprocess}\label{preprocess}}
+\subsubsection*{preprocess}\label{preprocess}}
 
 \begin{lstlisting}[language=Python]
 df = pd.read_pickle('../../data/df_mixcont.pkl') 
@@ -77,7 +76,7 @@ df_scaled.to_pickle('../../data/df_mixcont_scaled.pkl')  # save the normalized, 
 \end{lstlisting}
 
 \hypertarget{top-layer-data}{%
-\subsubsection{Top Layer data}\label{top-layer-data}}
+\subsubsection*{Top Layer data}\label{top-layer-data}}
 
 \begin{lstlisting}[language=Python]
 df_scaled = pd.read_pickle('../../data/df_scaled.pkl')
@@ -120,7 +119,7 @@ pickle.dump(data, open('../../data/training_data/1/dataset_mixcont_top_layer.pkl
 \end{lstlisting}
 
 \hypertarget{bot-layer-data}{%
-\subsubsection{Bot Layer data}\label{bot-layer-data}}
+\subsubsection*{Bot Layer data}\label{bot-layer-data}}
 
 \begin{lstlisting}[language=Python]
 df_scaled = pd.read_pickle('../../data/df_scaled.pkl')
@@ -163,7 +162,7 @@ pickle.dump(data, open('../../data/training_data/1/dataset_mixcont_bot_layer.pkl
 \end{lstlisting}
 
 \hypertarget{cont}{%
-\subsection{cont}\label{cont}}
+\subsection*{cont}\label{cont}}
 
 \begin{lstlisting}[language=Python]
 folders = [
@@ -187,7 +186,7 @@ df.to_pickle('../../data/df_cont.pkl') # save the df without preprocessing
 \end{lstlisting}
 
 \hypertarget{preprocess-1}{%
-\subsubsection{preprocess}\label{preprocess-1}}
+\subsubsection*{preprocess}\label{preprocess-1}}
 
 \begin{lstlisting}[language=Python]
 df = pd.read_pickle('../../data/df_cont.pkl') 
@@ -207,7 +206,7 @@ df_scaled.to_pickle('../../data/df_cont_scaled.pkl')  # save the normalized, sca
 \end{lstlisting}
 
 \hypertarget{top-layer-data-1}{%
-\subsubsection{Top Layer data}\label{top-layer-data-1}}
+\subsubsection*{Top Layer data}\label{top-layer-data-1}}
 
 \begin{lstlisting}[language=Python]
 df_scaled = pd.read_pickle('../../data/df_cont_scaled.pkl')
@@ -250,7 +249,7 @@ pickle.dump(data, open('../../data/training_data/1/dataset_cont_top_layer.pkl', 
 \end{lstlisting}
 
 \hypertarget{bot-layer-data-1}{%
-\subsubsection{Bot Layer data}\label{bot-layer-data-1}}
+\subsubsection*{Bot Layer data}\label{bot-layer-data-1}}
 
 \begin{lstlisting}[language=Python]
 df_scaled = pd.read_pickle('../../data/df_cont_scaled.pkl')
@@ -293,7 +292,7 @@ pickle.dump(data, open('../../data/training_data/1/dataset_cont_bot_layer.pkl', 
 \end{lstlisting}
 
 \hypertarget{clean}{%
-\subsection{clean}\label{clean}}
+\subsection*{clean}\label{clean}}
 
 \begin{lstlisting}[language=Python]
 folders = [
@@ -317,7 +316,7 @@ df.to_pickle('../../data/df_clean.pkl') # save the df without preprocessing
 \end{lstlisting}
 
 \hypertarget{preprocess-2}{%
-\subsubsection{preprocess}\label{preprocess-2}}
+\subsubsection*{preprocess}\label{preprocess-2}}
 
 \begin{lstlisting}[language=Python]
 df = pd.read_pickle('../../data/df_clean.pkl') 
@@ -337,7 +336,7 @@ df_scaled.to_pickle('../../data/df_clean_scaled.pkl')  # save the normalized, sc
 \end{lstlisting}
 
 \hypertarget{top-layer-data-2}{%
-\subsubsection{Top Layer data}\label{top-layer-data-2}}
+\subsubsection*{Top Layer data}\label{top-layer-data-2}}
 
 \begin{lstlisting}[language=Python]
 df_scaled = pd.read_pickle('../../data/df_clean_scaled.pkl')
@@ -380,7 +379,7 @@ pickle.dump(data, open('../../data/training_data/1/dataset_clean_top_layer.pkl',
 \end{lstlisting}
 
 \hypertarget{bot-layer-data-2}{%
-\subsubsection{Bot Layer data}\label{bot-layer-data-2}}
+\subsubsection*{Bot Layer data}\label{bot-layer-data-2}}
 
 \begin{lstlisting}[language=Python]
 df_scaled = pd.read_pickle('../../data/df_clean_scaled.pkl')
@@ -423,13 +422,13 @@ pickle.dump(data, open('../../data/training_data/1/dataset_clean_bot_layer.pkl',
 \end{lstlisting}
 
 \hypertarget{training-data-with-multi}{%
-\section{Training Data with Multi}\label{training-data-with-multi}}
+\section*{Training Data with Multi}\label{training-data-with-multi}}
 
 \hypertarget{training-data}{%
-\subsection{Training Data}\label{training-data}}
+\subsection*{Training Data}\label{training-data}}
 
 \hypertarget{load-data-and-build-dataframe}{%
-\subsection{Load data and build
+\subsection*{Load data and build
 dataframe}\label{load-data-and-build-dataframe}}
 
 \begin{lstlisting}[language=Python]
@@ -451,7 +450,7 @@ df.to_pickle('../../data/df_multi.pkl') # save the df without preprocessing
 \end{lstlisting}
 
 \hypertarget{preprocess-3}{%
-\subsection{Preprocess}\label{preprocess-3}}
+\subsection*{Preprocess}\label{preprocess-3}}
 
 \begin{lstlisting}[language=Python]
 df = pd.read_pickle('../../data/df_multi.pkl')
@@ -470,7 +469,7 @@ df_scaled.to_pickle('../../data/df_multi_scaled.pkl')  # save the normalized, sc
 \end{lstlisting}
 
 \hypertarget{transform-data}{%
-\subsection{Transform data}\label{transform-data}}
+\subsection*{Transform data}\label{transform-data}}
 
 \begin{lstlisting}[language=Python]
 df_scaled = pd.read_pickle('../../data/df_scaled.pkl')
@@ -505,27 +504,13 @@ pickle.dump(data, open('../../data/dataset_multi.pkl', 'wb'))
 \end{lstlisting}
 
 \hypertarget{training-data-with-depth}{%
-\section{Training Data with Depth}\label{training-data-with-depth}}
+\section*{Training Data with Depth}\label{training-data-with-depth}}
 
 \begin{lstlisting}[language=Python]
 df_scaled = pd.read_pickle('../../data/df_scaled.pkl')
 \end{lstlisting}
 
-\begin{lstlisting}[language=Python]
-import matplotlib.pyplot as plt
-
-plt.plot(df_scaled.iloc[:,0])
-\end{lstlisting}
-
-\begin{lstlisting}
-[<matplotlib.lines.Line2D at 0x20a9e15ed00>]
-\end{lstlisting}
-
-\begin{figure}
-\centering
-\includegraphics{0_create_training_data_files/0_create_training_data_78_1.png}
-\caption{png}
-\end{figure}
+\begin{lstlisting}[language=Python]y
 
 \begin{lstlisting}[language=Python]
 # 100, 90, 80, 70, 60 Etching

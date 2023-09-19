@@ -2,10 +2,10 @@
 % SECTION 2
 %----------------------------------------------------------------------------------------
 
-\label{test_data}
 \section{Test Data}
+\label{test_data}
 
-There are a few sources for test-data of XPS-spectra. A main database was found on XPSlibrary, provided by TXL. The data was kindly sent to us in a readable text-format from B. Vincent Crist. From this database, > 400 spectra were used for the test dataset. In addition, the XPSSurfA on CMSS Hub from the Australian University La Trobe contains more than 1700 spectra of which $\approx$ 50 survey spectra were used for the evaluation of the model. The test data from the XPSSurfA-database is stored in web form, accessible as a zip-file, a script for automated data-acquisition was written, which can be found in \ref{xpslibrary_webscraper}.
+There are a few sources for test-data of XPS-spectra. A main database was found on XPSlibrary, provided by TXL. The data was kindly sent to us in a readable text-format from B. Vincent Crist. From this database, > 400 spectra were used for the test dataset. In addition, the XPSSurfA on CMSS Hub from the Australian University La Trobe contains more than 1700 spectra of which $\approx$ 50 survey spectra were used for the evaluation of the model. The test data from the XPSSurfA-database is stored in web form, accessible as a zip-file, a script for automated data-acquisition was written, which can be found in Appendix \ref{xpslibrary_webscraper}.
 Overall, we obtained $\nexperimentalspectra$ experimental spectra, consisting of $\nelementalspectra$ elemental spectra, $\nmultispectra$  multi-component (compound) spectra, and $\noxidespectra$ oxide spectra.
 As spectra with identified two-layer systems were not found on publicly available databases, we assumed that pure elemental compounds are a two-layer system of the same compounds.
 
@@ -27,7 +27,7 @@ Most experimental files obtained contain so-called blocks, which are
     \label{fig:preproc_routine}
 \end{figure}
 
-The preprocessing results of a selection of experimental spectra were then assessed, as shown in \ref{fig:ex_vs_sim}.
+The preprocessing results of a selection of experimental spectra were then assessed, as shown in Figure \ref{fig:ex_vs_sim}.
 
 \begin{figure}
     \centering
@@ -36,4 +36,4 @@ The preprocessing results of a selection of experimental spectra were then asses
     \label{fig:ex_vs_sim}
 \end{figure}
 
-The python module used to preprocess the experimental data can be found in \ref{AppendixA}.
+The python module used to preprocess the experimental data can be found in \nameref{AppendixA}.
