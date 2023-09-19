@@ -26,26 +26,47 @@
 % First part: background, situation, problem, the current state of the art or science
 % primary literature
 
-X-ray photoelectron spectroscopy (XPS) is a spectroscopic technique that allows researchers to study the chemical composition of surfaces. It is based on the fundamental principle of the photoelectric effect first described by Einstein \cite{einstein_uber_1905} in 1905. Later, Rutherford 
+
+The chemical composition of a solid is one of the parameters defining its physical properties. However, in many cases, the surface of a solid differs from the bulk (volume) properties. This may be unintentionally, e.g., by oxidation and/or further corrosion, or intentionally by depositing a surface with a functional coating. 
+Various surface analysis techniques can be used to investigate the surface properties such as the composition or electronic state.
+
+
+X-ray photoelectron spectroscopy (XPS) is a spectroscopic technique is one of the surface analysis techniques. It is based on the fundamental principle of the photoelectric effect first described by Einstein \cite{einstein_uber_1905} in 1905. Later, Rutherford 
 
 With the information depth of XPS at $\sim$10 nm, it is possible to probe surfaces and - depending on the sample - ultra thin films.
 Thus, XPS is used across multiple fields in the material science domain to determine surface properties, such as corrosion, welding, fatigue, oxidation, coatings, adhesives, catalysis and semiconductors \cite{noauthor_x-ray_nodate}.
+
+
 
 %----------------------------------------------------------------------------------------
 
 % Second part: research gap or the relevance of the work for research
 % The aim is to show which areas have been neglected so far or have recently gained importance.
-Despite the widespread use of XPS analysis due to improved user friendliness of the technique, users often misinterpret data - especially in quantitative determination \cite{shard_practical_2020}
+% what makes xps so complicated? cross sections (probabilities) for photoemission
+Despite the widespread use of XPS analysis due to recent improved user friendliness of the technique, users often misinterpret data - especially in quantitative determination \cite{shard_practical_2020}. 
+
+However, the as the information  
+
+
+%ja, nee, it is not the misintepretaation, it is more, that (i) XPS comes to its limits for complex (multi-elemental) samples, and (ii) XP-spectra contain more information than usually extracted.... Dann musst Du natürlich ein zwei Beispiele dafür geben...
+
+
+With this powerful technique, we could potentially probe into the surface of samples and obtain the concentration of elements as a function of depth - also called depth profile. Many adaptations of the XPS technique, as well as modelling approaches have been developed to reach this goal \cite{zemek_non-destructive_2019, zborowski_improved_2022, zborowski_comparison_2022, noauthor_energy_2010}. However, most techniques available are cost-intensive and require additional information to the spectrum which must be obtained by other analyses or models.  
+
 
 % why is gradient analysis interesting - it's not been done so far but very important - usually determined with other techniques?
-
 
 %----------------------------------------------------------------------------------------
 
 % Third part: objective of the work, formulate your own task as precisely as possible
-% If necessary in the form of form of testable hypotheses
+% If necessary in the form of testable hypotheses
+Because there exist limited data from publicly accessible databases for XPS spectra, the simulation software Sessa was used to generate >150k spectra for the training set. Although we rarely find perfectly homogeneous layers when analyzing samples with XPS, this assumption was made due to the high complexity implied when trying to model inhomogeneous layers.
 
+% history of deep learning for spectroscopy - and deep learning patterns in general
 
+In this study, we demonstrate the utilization of deep learning for the purpose of identifying and quantifying XPS survey spectra. Further, we show how various deep learning models perform on the prediction of gradients and depth composition of samples based on XPS survey spectra.
+
+% detection limit --> 
 
 
 %----------------------------------------------------------------------------------------

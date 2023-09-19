@@ -1,5 +1,3 @@
-
-
 \label{XPS_theory}
 \section{X-ray photoelectron spectroscopic analysis}
 \subsection{Principle of measurement}
@@ -54,17 +52,28 @@ The intensity of electrons emmited from a sample deeper than $d$ can be describe
     I = I_{0} * exp(-d/\lambda)
 \end{equation}
 
-Elastic electron scattering (see Figure \ref{fig:scattering} B), however, has often caused uncertainties in measurements of EAL and IMFP. 
-The IMFP and the EAL are element specific and also depend on the kinetic energy. As the IMFP does not consider elastic scattering, there is a universal curve describing overall tendencies.
+Elastic electron scattering (see Figure \ref{fig:scattering} B), however, has often caused uncertainties in measurements of EAL and IMFP. The IMFP and the EAL are element specific and also depend on the kinetic energy. 
+%As the IMFP does not consider elastic scattering, there is a universal curve describing overall tendencies. 
+The information depth (ID) is often denoted as 3 $\lambda$, where statistically, 95\% of the information originates. From \nameref{beerslaw}, it is obvious that the information obtained decays non-linearly, 
 
-\subsection{Peaks origin} % identification?
+\subsection{X-ray photoelectron spectra} % identification?
+\subsubsection{Direct transitions}
+% Photoelectron peaks
+As X-ray photoelectron spectroscopy uses x-rays to produce core-level electrons from a sample, the detection of these electrons is the desired origin of a so-called photoelectron peak, which originates in the photoionization effect. The notation for the photoelectron peaks is the element followed by the orbital from which they originate, such as C 1s for the Carbon peak from the 1s orbital \cite{stevie_introduction_2020}. In physical research, cross sections describe the probability of a certain process to take place when a certain material is subject to some radiant excitation. Thus, the photoionization cross section describes the probability of the photoionization process to happen. 
 
-As X-ray photoelectron spectroscopy uses x-rays to produce core-level electrons from a sample, the detection of these electrons is the desired origin of a so-called photoelectron peak. The notation for the photoelectron peaks is the element followed by the orbital from which they originate, such as C 1s for the Carbon peak from the 1s orbital \cite{stevie_introduction_2020}.
-However, XPS measurements always show additional peaks from other origins. The different peak origins are listed and discussed subsequently.
+%satellite peaks 
+While an electron is travelling towards the detector, it might interact with valence electrons of other atoms and lose some of its energy. This process is an energy-loss process and thus, the peak observed is shifted towards higher binding energy.
 
-\subsubsection{Auger electron peaks}
+%multiplet splitting
+A similar effect can be observed for unpaired electrons in the valence bands. The so-called multiplet splitting of photoelectron peaks is shown in \ref{fig:peaks}.
 
-When a core electron is lost due to the X-ray excitation, a deficiency of electrons results. This ionized state is then relaxed with an electron from the outer-most so-called valence orbital \cite{stevie_introduction_2020}. This process induces the release of energy which can then be detected with XPS. It is crucial to note that this process is independent of the source energy and thus, the Auger peak binding energy changes when another source of X-rays is used. This is especially important to resolve issues when Auger peaks overlap with photoelectron peaks. 
+%Multiplet splitting of core level peaks occurs when there are unpaired electrons in the valence levels and often results in unexpected peak splitting.
+
+
+\subsubsection{Indirect transitions}
+% Auger electron peaks, 
+When a core electron is lost due to the X-ray excitation, a deficiency of electrons results. This ionized state is then relaxed with an electron from the outer-most so-called valence orbital \cite{stevie_introduction_2020}. This process induces the release of energy which can then be detected with XPS. It is crucial to note that this process is independent of the source energy and thus, the Auger peak binding energy changes when another source of X-rays is used. This is especially important to resolve issues when Auger peaks overlap with photoelectron peaks.
+
 
 \begin{figure}[H]
     \centering
@@ -73,17 +82,10 @@ When a core electron is lost due to the X-ray excitation, a deficiency of electr
     \label{fig:peaks}
 \end{figure}
 
-\subsubsection{Shakeup peaks \& satellite peaks}
 
-While an electron is travelling towards the detector, it might interact with valence electrons of other atoms and lose some of its energy. This process is an energy-loss process and thus, the peak observed is shifted towards higher binding energy.
-
-\subsubsection{Plasmon peaks \& multiplet splitting}
-
+% Plasmon peaks
 Plasmon peaks are a special kind of shakeup peaks and arise from the excitation of plasmons. These so-called surface plasmons are formed when electrons from the substrate oscillate due to energy absorption and if the electrons produced by the X-ray source interact with the plasmon, losing kinetic energy. Mostly, this will occur in metals from the first and second group in the periodic table of elements due to the free electrons present that can form plasmons \cite{moulder_handbook_1992}.
 
-A similar effect can be observed for unpaired electrons in the valence bands. The so-called multiplet splitting of photoelectron peaks is shown in \ref{fig:peaks}.
-
-%Multiplet splitting of core level peaks occurs when there are unpaired electrons in the valence levels and often results in unexpected peak splitting.
 
 
 \subsection{Adventitious Carbon}
@@ -123,9 +125,41 @@ The non-destructive methods 4-6 (ARXPS / Modelling / XPS-HAXPES) are further exp
 \end{figure}
 A variation on the XPS-technique involves measurements at different mounting-angles of the sample.
 This changes the path the X-rays take into and out from the sample, as shown in Figure \ref{fig:arxps} which compares a standard 90\textdegree  take-off angle (a) with a smaller angle $\alpha$ (b). As the angle $\alpha$ decreases, the X-rays travel through a proportional higher amount of surface which in turn increases the sensitivity towards the surface. From the obtained spectra (c), we can deduct the thickness of the layers. This deduction is often done by Software which uses the Maximum entropy method first described by Smith et al. \cite{smith_maximum_1992} in 1992.
+The intensity of the peaks in respect to the angle $\alpha$ is shown in \nameref{intensity_angle}, where $G(\alpha)$ is a term representing geometric and instrumental factors and will cancel out as intensity ratios are considered. 
+The thickness is denoted as $t$,
+$\sigma$ is the photoelectron cross section,
+F is the analyzer transmission function,
+c is the atomic concentration,
+z is the depth and $\lambda$ the IMFP or the EAL
+\cite{paynter_arxps_2009}.
+
+\begin{equation}
+\label{intensity_angle}
+    I_{t} = G(\alpha)\sigma F c \int_{0}^{t} e^{-z/ \lambda cos \alpha} dz
+\end{equation}
 
 A newer method collects spectra in parallel, thus is called pARXPS, which reduces acquisition time and constant transmission \cite{bure_assessing_2023}.
 
 \subsubsection{XPS-HAXPES}
 
-Hard X-ray photoelectoron spectroscopy is a technique similar to XPS, but uses Gallium or Chromium to produce hard x-rays to achieve much higher energy levels. As these X-rays are in the range of multiple keVs, the IMFP increases drastically and we are able to probe much deeper into the surface compared to XPS. Combining the two analyses can provide researchers with valuable information of the surface and the deeper regions of samples. This approach has been demonstrated to be accurate in multiple publications \cite{bure_assessing_2023, siol_concepts_2020} 
+Hard X-ray photoelectoron spectroscopy is a technique similar to XPS, but uses Gallium or Chromium to produce hard x-rays to achieve much higher energy levels. As these X-rays are in the range of multiple keVs, the IMFP increases drastically and we are able to probe much deeper into the surface compared to XPS. Combining the two analyses can provide researchers with valuable information of the surface and the deeper regions of samples. This approach has been demonstrated to provide valuable information in multiple publications \cite{bure_assessing_2023, siol_concepts_2020} 
+
+\subsection{Simulation with Sessa}
+As XPS spectra are not available from databases in sufficient number for the use as training data in deep learning, we used the NIST Standard Reference Database 100 Software, also called Sessa \cite{noauthor_nist_2010, smekal_simulation_2005}. The development aimed to provide a solution to two main applications - quantitative XPS and simulation of layered samples. The proposed approach for layered systems and thickness analysis is to adjust the model "to find maximum consistency between simulated and measured spectra" \cite{smekal_simulation_2005}.
+In Sessa, spectra are simulated using a Monte-Carlo method using the data provided from multiple databases for the following data:
+
+\begin{itemize}
+    \item elemental data
+    \item differential inverse inelastic mean free path
+    \item IMFP values
+    \item differential elastic-scattering cross section
+    \item total elastic-scattering cross section
+    \item transport scattering cross section
+    \item photoionization cross section
+    \item photoionization asymmetry parameter
+    \item electron inner-shell ionization cross section
+    \item photoelectron lineshape
+    \item binding energies of the elements.
+\end{itemize}
+
+Although the exact computational models used in Sessa are not public, Smekal et al. have shown that the linear approximation approach for the angle dependent cross sections, and the depth distribution function (which models surface sensitivity) are in good agreement with experimental data. However, they raise awareness to the need for empirical data in order to realistically model the shape of Auger peaks.
