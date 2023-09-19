@@ -1,0 +1,42 @@
+\begin{lstlisting}[language=Python]
+import matplotlib.pyplot as plt
+import pandas as pd
+import sys
+sys.path.append('../../modules')
+import preprocess
+\end{lstlisting}
+
+\hypertarget{experimental-data}{%
+\subsubsection{Experimental data}\label{experimental-data}}
+
+\begin{lstlisting}[language=Python]
+import os
+path = '../../data/test_data/Selected_Spectra/elemental'
+elemental_exp = os.listdir(path)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+# concatenate all elemental spectra into one dataframe
+import numpy as np
+exp_df = pd.DataFrame()
+for file in elemental_exp:
+    filepath = os.path.join(path, file)
+    try:
+        x, y, x_new, y_new, label = preprocess.parse_file(filepath, filetype='vms')
+    except: continue
+    if x_new is not None:
+        exp_df = pd.concat([exp_df, pd.DataFrame(np.flip(y_new), columns=['_'.join(label)])], axis=1)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+exp_df.shape
+\end{lstlisting}
+
+\begin{lstlisting}
+(1024, 214)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+exp_df # 213 spectra with elemental composition
+exp_df.to_pickle('../../data/experimental_data_elemental.pkl')
+\end{lstlisting}

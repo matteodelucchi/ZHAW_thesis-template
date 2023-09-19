@@ -1,0 +1,351 @@
+\hypertarget{import-and-prepare}{%
+\section{Import and prepare}\label{import-and-prepare}}
+
+\begin{lstlisting}[language=Python]
+import sys
+import glob
+import pandas as pd
+import numpy as np
+import json
+import pickle
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MultiLabelBinarizer
+
+sys.path.append('../../modules') # add own modules
+import preprocess, predict, functions_tf, base
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+elements_db = json.loads(open('../../elements_sim.json').read())["elements"]
+elements = [elem["symbol"] for elem in elements_db]
+n_elements = len(elements)
+
+mlb = MultiLabelBinarizer()
+mlb.fit([elements])
+\end{lstlisting}
+
+\hypertarget{training-data-for-top-bot-layer}{%
+\section{Training Data for top bot
+layer}\label{training-data-for-top-bot-layer}}
+
+\hypertarget{load-data-and-build-dataframe}{%
+\subsection{Load data and build
+dataframe}\label{load-data-and-build-dataframe}}
+
+\begin{lstlisting}[language=Python]
+folders = [
+            'grad_CO',              # depth-profiles with CO-adv.       with gradient layers
+            'grad_NO',              # depth-profiles without CO-adv.    with gradient layers
+            'sep_CO',               # depth-profiles with CO-adv.       with separated layers
+            'sep_NO',               # depth-profiles without CO-adv.    with separated layers
+            'one_layer_CO',         # one-layer simulations with CO-adv.
+            'one_layer',            # one-layer simulations
+            # 'multi'
+            ]
+
+files = [file for file in glob.glob(f'../../data/simulation_data/{folders[0]}/*.spc')]
+for folder in folders[1:]:
+    files.extend([file for file in glob.glob(f'../../data/simulation_data/{folder}/*.spc')])
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+# windows
+df = pd.concat([pd.read_csv(file,
+                            sep='\s+', header=None, skiprows=1,
+                            usecols=[1],
+                            names=['_'.join(file.split('\\')[1].split('_')[:-1])]).T 
+                                    for file in files]).T
+df.to_pickle('../../data/df_6.pkl') # save the df without preprocessing
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+df.columns
+\end{lstlisting}
+
+\begin{lstlisting}
+Index(['Ag_Al_100_etching', 'Ag_Al_60_etching', 'Ag_Al_70_etching',
+       'Ag_Al_80_etching', 'Ag_Al_90_etching', 'Ag_Ar_100_etching',
+       'Ag_Ar_60_etching', 'Ag_Ar_70_etching', 'Ag_Ar_80_etching',
+       'Ag_Ar_90_etching',
+       ...
+       'Tl_Tl_100', 'Tm_Tm_100', 'U_U_100', 'V_V_100', 'W_W_100', 'Xe_Xe_100',
+       'Yb_Yb_100', 'Y_Y_100', 'Zn_Zn_100', 'Zr_Zr_100'],
+      dtype='object', length=129553)
+\end{lstlisting}
+
+\hypertarget{preprocess}{%
+\subsection{Preprocess}\label{preprocess}}
+
+\begin{lstlisting}[language=Python]
+df = pd.read_pickle('../../data/df_6.pkl') 
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+[i for i in df.columns.values if 'Pm' in i]
+\end{lstlisting}
+
+\begin{lstlisting}
+[]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+df_norm = preprocess.MaxScale_df(df).reset_index(drop=True)                                                    # each spectrum is scaled to 1
+df_pp_noise = df_norm[::2].apply(lambda x:  x+x*np.random.normal(0, np.random.randint(1,3)*0.01 , len(x)))     # reduce size to 1024 and add noise
+df_scaled = df_pp_noise.T
+df_scaled= df_scaled.dropna()
+df_scaled = df_scaled.T.reset_index(drop=True)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+df_scaled.to_pickle('../../data/df_scaled.pkl')  # save the normalized, scaled df
+\end{lstlisting}
+
+\hypertarget{top-layer-data}{%
+\subsection{Top Layer data}\label{top-layer-data}}
+
+\begin{lstlisting}[language=Python]
+df_scaled = pd.read_pickle('../../data/df_scaled.pkl')
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+x_train, x_test, y_train, y_test = train_test_split(df_scaled.T.values,
+                                                    df_scaled.columns.map(lambda x: x.split('_')[0]), # first part of the filename is the top label
+                                                    test_size=0.3,
+                                                    random_state=42)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+y_train = np.array([    
+                        [
+                            mlb.transform([[y_train[i]]])[0]
+                        ] 
+                            for i in range(len(y_train))
+                        ])
+y_test = np.array([ 
+                       [
+                            mlb.transform([[y_test[i]]])[0],
+                       ] 
+                            for i in range(len(y_test))
+                        ])
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+data = {
+        'name': 'two-layer and one-layer systems, top labels',
+        'x_train': x_train,
+        'x_test': x_test,
+        'y_train': y_train,
+        'y_test': y_test
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+pickle.dump(data, open('../../data/dataset_two_one_top_layer.pkl', 'wb'))
+\end{lstlisting}
+
+\hypertarget{bot-layer-data}{%
+\subsection{Bot Layer data}\label{bot-layer-data}}
+
+\begin{lstlisting}[language=Python]
+df_scaled = pd.read_pickle('../../data/df_scaled.pkl')
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+x_train, x_test, y_train, y_test = train_test_split(df_scaled.T.values,
+                                                    df_scaled.columns.map(lambda x: x.split('_')[1]), # second part of the filename is the bot label
+                                                    test_size=0.3,
+                                                    random_state=42)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+y_train = np.array([    
+                        [
+                            mlb.transform([[y_train[i]]])[0]
+                        ] 
+                            for i in range(len(y_train))
+                        ])
+y_test = np.array([ 
+                       [
+                            mlb.transform([[y_test[i]]])[0],
+                       ] 
+                            for i in range(len(y_test))
+                        ])
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+data = {
+        'name': 'two-layer and one-layer systems, bot labels',
+        'x_train': x_train,
+        'x_test': x_test,
+        'y_train': y_train,
+        'y_test': y_test
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+pickle.dump(data, open('../../data/dataset_two_one_bot_layer.pkl', 'wb'))
+\end{lstlisting}
+
+\hypertarget{training-data-with-multi}{%
+\section{Training Data with Multi}\label{training-data-with-multi}}
+
+\hypertarget{training-data}{%
+\subsection{Training Data}\label{training-data}}
+
+\hypertarget{load-data-and-build-dataframe-1}{%
+\subsection{Load data and build
+dataframe}\label{load-data-and-build-dataframe-1}}
+
+\begin{lstlisting}[language=Python]
+folders = [
+            'multi_one_layer'
+            ]
+
+files = [file for file in glob.glob(f'../../data/simulation_data/{folders[0]}/*.spc')]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+# windows
+df = pd.concat([pd.read_csv(file,
+                            sep='\s+', header=None, skiprows=1,
+                            usecols=[1],
+                            names=['_'.join(file.split('\\')[1].split('_')[:-1])]).T 
+                                    for file in files]).T
+df.to_pickle('../../data/df_multi.pkl') # save the df without preprocessing
+\end{lstlisting}
+
+\hypertarget{preprocess-1}{%
+\subsection{Preprocess}\label{preprocess-1}}
+
+\begin{lstlisting}[language=Python]
+df = pd.read_pickle('../../data/df_multi.pkl')
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+df_norm = preprocess.MaxScale_df(df).reset_index(drop=True)                                                    # each spectrum is scaled to 1
+df_pp_noise = df_norm[::2].apply(lambda x:  x+x*np.random.normal(0, np.random.randint(1,3)*0.01 , len(x)))     # reduce size to 1024 and add noise
+df_scaled = df_pp_noise.T
+df_scaled= df_scaled.dropna()
+df_scaled = df_scaled.T.reset_index(drop=True)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+df_scaled.to_pickle('../../data/df_multi_scaled.pkl')  # save the normalized, scaled df
+\end{lstlisting}
+
+\hypertarget{transform-data}{%
+\subsection{Transform data}\label{transform-data}}
+
+\begin{lstlisting}[language=Python]
+df_scaled = pd.read_pickle('../../data/df_scaled.pkl')
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+x_train, x_test, y_train, y_test = train_test_split(df_scaled.T.values,
+                                                    df.columns.map(lambda x: x.split('_')[:-1]
+                                                                   ).map(base.pair_list_to_tuples
+                                                                         ).map(base.one_hot_encode_concentrations),
+                                                    test_size=0.3,
+                                                    random_state=42)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+y_train = np.array([y_train])
+y_test = np.array([y_test])
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+data = {
+        'name': 'mixed systems, one layer',
+        'x_train': x_train,
+        'x_test': x_test,
+        'y_train': y_train,
+        'y_test': y_test
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+pickle.dump(data, open('../../data/dataset_multi.pkl', 'wb'))
+\end{lstlisting}
+
+\hypertarget{training-data-with-depth}{%
+\section{Training Data with Depth}\label{training-data-with-depth}}
+
+\begin{lstlisting}[language=Python]
+df_scaled = pd.read_pickle('../../data/df_scaled.pkl')
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+import matplotlib.pyplot as plt
+
+plt.plot(df_scaled.iloc[:,0])
+\end{lstlisting}
+
+\begin{lstlisting}
+[<matplotlib.lines.Line2D at 0x20a9e15ed00>]
+\end{lstlisting}
+
+\begin{figure}
+\centering
+\includegraphics{0_create_training_data_files/0_create_training_data_42_1.png}
+\caption{png}
+\end{figure}
+
+\begin{lstlisting}[language=Python]
+# 100, 90, 80, 70, 60 Etching
+# 100, 90, 80, 70, 60, Angstrom
+
+# Map the concentration to the corresponding label between 0 and 1
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+layer_number = 5 # for the depth-profiling simplified in 5 categories: 0-10, 10-20, 20-30, 30-40, 40-50 Angstrom
+gradient_bool: bool = False # is a measurement a gradient or not?
+layers = [10, 20, 30, 40, 50]
+
+def transform_depth_label(label):
+    import math
+    if len(label.split('_')) < 4:
+        top, bot, depth = label.split('_')
+        gradient = 0
+    else:
+        top, bot, depth, gradient = label.split('_')
+    # gives top, bottom, etching-depth, where top starts at 100% (with 0 etching) on the top
+    if gradient == 'separate':
+        # gradient = False
+        gradient = 0
+        layer_thickness = (layers.index(int(depth)))
+    else:
+        # gradient = True
+        gradient = 1
+        depth = int(depth)
+        if depth <= 60:
+            layer_thickness = 0.0
+        elif depth > 100:
+            layer_thickness = 1.0
+        else:
+            layer_thickness = (depth - 60) / 40.0
+
+    return np.array([gradient, layer_thickness], dtype=np.float32)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+x_train, x_test, y_train, y_test = train_test_split(df_scaled.T.values,
+                                                    df_scaled.columns.map(lambda x: transform_depth_label(x)), # first part of the filename is the top label
+                                                    test_size=0.3,
+                                                    random_state=42)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+data = {
+        'name': 'depth profile labels',
+        'x_train': x_train,
+        'x_test': x_test,
+        'y_train': y_train,
+        'y_test': y_test
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+pickle.dump(data, open('../../data/dataset_depth.pkl', 'wb'))
+\end{lstlisting}
