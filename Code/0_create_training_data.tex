@@ -22,15 +22,15 @@ n_elements = len(elements)
 
 mlb = MultiLabelBinarizer()
 mlb.fit([elements])
+test_size_ratio = 0.2
 \end{lstlisting}
 
 \hypertarget{training-data-for-top-bot-layer}{%
 \section{Training Data for top bot
 layer}\label{training-data-for-top-bot-layer}}
 
-\hypertarget{load-data-and-build-dataframe}{%
-\subsection{Load data and build
-dataframe}\label{load-data-and-build-dataframe}}
+\hypertarget{mixcont}{%
+\subsection{mixcont}\label{mixcont}}
 
 \begin{lstlisting}[language=Python]
 folders = [
@@ -40,7 +40,6 @@ folders = [
             'sep_NO',               # depth-profiles without CO-adv.    with separated layers
             'one_layer_CO',         # one-layer simulations with CO-adv.
             'one_layer',            # one-layer simulations
-            # 'multi'
             ]
 
 files = [file for file in glob.glob(f'../../data/simulation_data/{folders[0]}/*.spc')]
@@ -49,59 +48,36 @@ for folder in folders[1:]:
 \end{lstlisting}
 
 \begin{lstlisting}[language=Python]
-# windows
 df = pd.concat([pd.read_csv(file,
                             sep='\s+', header=None, skiprows=1,
                             usecols=[1],
                             names=['_'.join(file.split('\\')[1].split('_')[:-1])]).T 
                                     for file in files]).T
-df.to_pickle('../../data/df_6.pkl') # save the df without preprocessing
-\end{lstlisting}
-
-\begin{lstlisting}[language=Python]
-df.columns
-\end{lstlisting}
-
-\begin{lstlisting}
-Index(['Ag_Al_100_etching', 'Ag_Al_60_etching', 'Ag_Al_70_etching',
-       'Ag_Al_80_etching', 'Ag_Al_90_etching', 'Ag_Ar_100_etching',
-       'Ag_Ar_60_etching', 'Ag_Ar_70_etching', 'Ag_Ar_80_etching',
-       'Ag_Ar_90_etching',
-       ...
-       'Tl_Tl_100', 'Tm_Tm_100', 'U_U_100', 'V_V_100', 'W_W_100', 'Xe_Xe_100',
-       'Yb_Yb_100', 'Y_Y_100', 'Zn_Zn_100', 'Zr_Zr_100'],
-      dtype='object', length=129553)
+df.to_pickle('../../data/df_mixcont.pkl') # save the df without preprocessing
 \end{lstlisting}
 
 \hypertarget{preprocess}{%
-\subsection{Preprocess}\label{preprocess}}
+\subsubsection{preprocess}\label{preprocess}}
 
 \begin{lstlisting}[language=Python]
-df = pd.read_pickle('../../data/df_6.pkl') 
+df = pd.read_pickle('../../data/df_mixcont.pkl') 
 \end{lstlisting}
 
 \begin{lstlisting}[language=Python]
-[i for i in df.columns.values if 'Pm' in i]
-\end{lstlisting}
-
-\begin{lstlisting}
-[]
-\end{lstlisting}
-
-\begin{lstlisting}[language=Python]
-df_norm = preprocess.MaxScale_df(df).reset_index(drop=True)                                                    # each spectrum is scaled to 1
-df_pp_noise = df_norm[::2].apply(lambda x:  x+x*np.random.normal(0, np.random.randint(1,3)*0.01 , len(x)))     # reduce size to 1024 and add noise
-df_scaled = df_pp_noise.T
-df_scaled= df_scaled.dropna()
+df_norm = preprocess.MaxScale_df(df).reset_index(drop=True)  # each spectrum is scaled to 1
+# reduce size to 1024 and add relative noise
+df_noise = df_norm[::2].apply(lambda x: x+x*np.random.normal(0, np.random.randint(1,3)*0.01 , len(x)))
+df_scaled = df_noise.T
+df_scaled = df_scaled.dropna()
 df_scaled = df_scaled.T.reset_index(drop=True)
 \end{lstlisting}
 
 \begin{lstlisting}[language=Python]
-df_scaled.to_pickle('../../data/df_scaled.pkl')  # save the normalized, scaled df
+df_scaled.to_pickle('../../data/df_mixcont_scaled.pkl')  # save the normalized, scaled df
 \end{lstlisting}
 
 \hypertarget{top-layer-data}{%
-\subsection{Top Layer data}\label{top-layer-data}}
+\subsubsection{Top Layer data}\label{top-layer-data}}
 
 \begin{lstlisting}[language=Python]
 df_scaled = pd.read_pickle('../../data/df_scaled.pkl')
@@ -140,11 +116,11 @@ data = {
 \end{lstlisting}
 
 \begin{lstlisting}[language=Python]
-pickle.dump(data, open('../../data/dataset_two_one_top_layer.pkl', 'wb'))
+pickle.dump(data, open('../../data/training_data/1/dataset_mixcont_top_layer.pkl', 'wb'))
 \end{lstlisting}
 
 \hypertarget{bot-layer-data}{%
-\subsection{Bot Layer data}\label{bot-layer-data}}
+\subsubsection{Bot Layer data}\label{bot-layer-data}}
 
 \begin{lstlisting}[language=Python]
 df_scaled = pd.read_pickle('../../data/df_scaled.pkl')
@@ -183,7 +159,267 @@ data = {
 \end{lstlisting}
 
 \begin{lstlisting}[language=Python]
-pickle.dump(data, open('../../data/dataset_two_one_bot_layer.pkl', 'wb'))
+pickle.dump(data, open('../../data/training_data/1/dataset_mixcont_bot_layer.pkl', 'wb'))
+\end{lstlisting}
+
+\hypertarget{cont}{%
+\subsection{cont}\label{cont}}
+
+\begin{lstlisting}[language=Python]
+folders = [
+            'grad_CO',              # depth-profiles with CO-adv.       with gradient layers
+            'sep_CO',               # depth-profiles with CO-adv.       with separated layers
+            'one_layer_CO',         # one-layer simulations with CO-adv.
+            ]
+
+files = [file for file in glob.glob(f'../../data/simulation_data/{folders[0]}/*.spc')]
+for folder in folders[1:]:
+    files.extend([file for file in glob.glob(f'../../data/simulation_data/{folder}/*.spc')])
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+df = pd.concat([pd.read_csv(file,
+                            sep='\s+', header=None, skiprows=1,
+                            usecols=[1],
+                            names=['_'.join(file.split('\\')[1].split('_')[:-1])]).T 
+                                    for file in files]).T
+df.to_pickle('../../data/df_cont.pkl') # save the df without preprocessing
+\end{lstlisting}
+
+\hypertarget{preprocess-1}{%
+\subsubsection{preprocess}\label{preprocess-1}}
+
+\begin{lstlisting}[language=Python]
+df = pd.read_pickle('../../data/df_cont.pkl') 
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+df_norm = preprocess.MaxScale_df(df).reset_index(drop=True)  # each spectrum is scaled to 1
+# reduce size to 1024 and add relative noise
+df_noise = df_norm[::2].apply(lambda x: x+x*np.random.normal(0, np.random.randint(1,3)*0.01 , len(x)))
+df_scaled = df_noise.T
+df_scaled = df_scaled.dropna()
+df_scaled = df_scaled.T.reset_index(drop=True)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+df_scaled.to_pickle('../../data/df_cont_scaled.pkl')  # save the normalized, scaled df
+\end{lstlisting}
+
+\hypertarget{top-layer-data-1}{%
+\subsubsection{Top Layer data}\label{top-layer-data-1}}
+
+\begin{lstlisting}[language=Python]
+df_scaled = pd.read_pickle('../../data/df_cont_scaled.pkl')
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+x_train, x_test, y_train, y_test = train_test_split(df_scaled.T.values,
+                                                    df_scaled.columns.map(lambda x: x.split('_')[0]), # first part of the filename is the top label
+                                                    test_size=test_size_ratio,
+                                                    random_state=42)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+y_train = np.array([    
+                        [
+                            mlb.transform([[y_train[i]]])[0]
+                        ] 
+                            for i in range(len(y_train))
+                        ])
+y_test = np.array([ 
+                       [
+                            mlb.transform([[y_test[i]]])[0],
+                       ] 
+                            for i in range(len(y_test))
+                        ])
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+data = {
+        'name': 'contaminated two-layer and one-layer systems, top labels',
+        'x_train': x_train,
+        'x_test': x_test,
+        'y_train': y_train,
+        'y_test': y_test
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+pickle.dump(data, open('../../data/training_data/1/dataset_cont_top_layer.pkl', 'wb'))
+\end{lstlisting}
+
+\hypertarget{bot-layer-data-1}{%
+\subsubsection{Bot Layer data}\label{bot-layer-data-1}}
+
+\begin{lstlisting}[language=Python]
+df_scaled = pd.read_pickle('../../data/df_cont_scaled.pkl')
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+x_train, x_test, y_train, y_test = train_test_split(df_scaled.T.values,
+                                                    df_scaled.columns.map(lambda x: x.split('_')[1]), # second part of the filename is the bot label
+                                                    test_size=test_size_ratio,
+                                                    random_state=42)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+y_train = np.array([    
+                        [
+                            mlb.transform([[y_train[i]]])[0]
+                        ] 
+                            for i in range(len(y_train))
+                        ])
+y_test = np.array([ 
+                       [
+                            mlb.transform([[y_test[i]]])[0],
+                       ] 
+                            for i in range(len(y_test))
+                        ])
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+data = {
+        'name': 'contaminated two-layer and one-layer systems, bot labels',
+        'x_train': x_train,
+        'x_test': x_test,
+        'y_train': y_train,
+        'y_test': y_test
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+pickle.dump(data, open('../../data/training_data/1/dataset_cont_bot_layer.pkl', 'wb'))
+\end{lstlisting}
+
+\hypertarget{clean}{%
+\subsection{clean}\label{clean}}
+
+\begin{lstlisting}[language=Python]
+folders = [
+            'grad_NO',              # depth-profiles without CO-adv.    with gradient layers
+            'sep_NO',               # depth-profiles without CO-adv.    with separated layers
+            'one_layer',            # one-layer simulations
+            ]
+
+files = [file for file in glob.glob(f'../../data/simulation_data/{folders[0]}/*.spc')]
+for folder in folders[1:]:
+    files.extend([file for file in glob.glob(f'../../data/simulation_data/{folder}/*.spc')])
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+df = pd.concat([pd.read_csv(file,
+                            sep='\s+', header=None, skiprows=1,
+                            usecols=[1],
+                            names=['_'.join(file.split('\\')[1].split('_')[:-1])]).T 
+                                    for file in files]).T
+df.to_pickle('../../data/df_clean.pkl') # save the df without preprocessing
+\end{lstlisting}
+
+\hypertarget{preprocess-2}{%
+\subsubsection{preprocess}\label{preprocess-2}}
+
+\begin{lstlisting}[language=Python]
+df = pd.read_pickle('../../data/df_clean.pkl') 
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+df_norm = preprocess.MaxScale_df(df).reset_index(drop=True)  # each spectrum is scaled to 1
+# reduce size to 1024 and add relative noise
+df_noise = df_norm[::2].apply(lambda x: x+x*np.random.normal(0, np.random.randint(1,3)*0.01 , len(x)))
+df_scaled = df_noise.T
+df_scaled = df_scaled.dropna()
+df_scaled = df_scaled.T.reset_index(drop=True)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+df_scaled.to_pickle('../../data/df_clean_scaled.pkl')  # save the normalized, scaled df
+\end{lstlisting}
+
+\hypertarget{top-layer-data-2}{%
+\subsubsection{Top Layer data}\label{top-layer-data-2}}
+
+\begin{lstlisting}[language=Python]
+df_scaled = pd.read_pickle('../../data/df_clean_scaled.pkl')
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+x_train, x_test, y_train, y_test = train_test_split(df_scaled.T.values,
+                                                    df_scaled.columns.map(lambda x: x.split('_')[0]), # first part of the filename is the top label
+                                                    test_size=test_size_ratio,
+                                                    random_state=42)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+y_train = np.array([    
+                        [
+                            mlb.transform([[y_train[i]]])[0]
+                        ] 
+                            for i in range(len(y_train))
+                        ])
+y_test = np.array([ 
+                       [
+                            mlb.transform([[y_test[i]]])[0],
+                       ] 
+                            for i in range(len(y_test))
+                        ])
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+data = {
+        'name': 'clean two-layer and one-layer systems, top labels',
+        'x_train': x_train,
+        'x_test': x_test,
+        'y_train': y_train,
+        'y_test': y_test
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+pickle.dump(data, open('../../data/training_data/1/dataset_clean_top_layer.pkl', 'wb'))
+\end{lstlisting}
+
+\hypertarget{bot-layer-data-2}{%
+\subsubsection{Bot Layer data}\label{bot-layer-data-2}}
+
+\begin{lstlisting}[language=Python]
+df_scaled = pd.read_pickle('../../data/df_clean_scaled.pkl')
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+x_train, x_test, y_train, y_test = train_test_split(df_scaled.T.values,
+                                                    df_scaled.columns.map(lambda x: x.split('_')[1]), # second part of the filename is the bot label
+                                                    test_size=test_size_ratio,
+                                                    random_state=42)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+y_train = np.array([    
+                        [
+                            mlb.transform([[y_train[i]]])[0]
+                        ] 
+                            for i in range(len(y_train))
+                        ])
+y_test = np.array([ 
+                       [
+                            mlb.transform([[y_test[i]]])[0],
+                       ] 
+                            for i in range(len(y_test))
+                        ])
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+data = {
+        'name': 'clean two-layer and one-layer systems, bot labels',
+        'x_train': x_train,
+        'x_test': x_test,
+        'y_train': y_train,
+        'y_test': y_test
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+pickle.dump(data, open('../../data/training_data/1/dataset_clean_bot_layer.pkl', 'wb'))
 \end{lstlisting}
 
 \hypertarget{training-data-with-multi}{%
@@ -192,9 +428,9 @@ pickle.dump(data, open('../../data/dataset_two_one_bot_layer.pkl', 'wb'))
 \hypertarget{training-data}{%
 \subsection{Training Data}\label{training-data}}
 
-\hypertarget{load-data-and-build-dataframe-1}{%
+\hypertarget{load-data-and-build-dataframe}{%
 \subsection{Load data and build
-dataframe}\label{load-data-and-build-dataframe-1}}
+dataframe}\label{load-data-and-build-dataframe}}
 
 \begin{lstlisting}[language=Python]
 folders = [
@@ -214,8 +450,8 @@ df = pd.concat([pd.read_csv(file,
 df.to_pickle('../../data/df_multi.pkl') # save the df without preprocessing
 \end{lstlisting}
 
-\hypertarget{preprocess-1}{%
-\subsection{Preprocess}\label{preprocess-1}}
+\hypertarget{preprocess-3}{%
+\subsection{Preprocess}\label{preprocess-3}}
 
 \begin{lstlisting}[language=Python]
 df = pd.read_pickle('../../data/df_multi.pkl')
@@ -287,7 +523,7 @@ plt.plot(df_scaled.iloc[:,0])
 
 \begin{figure}
 \centering
-\includegraphics{0_create_training_data_files/0_create_training_data_42_1.png}
+\includegraphics{0_create_training_data_files/0_create_training_data_78_1.png}
 \caption{png}
 \end{figure}
 
