@@ -135,6 +135,13 @@
     }%
 }%
 
+
+\newcommand{\nelementalspectra}{213}
+\newcommand{\nmultispectra}{198}
+\newcommand{\noxidespectra}{61}
+\newcommand{\nexperimentalspectra}{472}
+
+
 %----------------------------------------------------------------------------------------
 %   CLASS OPTIONS
 %----------------------------------------------------------------------------------------
@@ -217,6 +224,7 @@
 
 \usepackage{chemformula}
 \usepackage{float}
+\usepackage{hyperref}
 
 %----------------------------------------------------------------------------------------
 %   DEFINE CUSTOM THESIS INFORMATION COMMANDS

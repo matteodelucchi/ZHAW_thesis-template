@@ -4,8 +4,6 @@
 %----------------------------------------------------------------------------------------
 % CHAPTER TEMPLATE
 %----------------------------------------------------------------------------------------
-
-
 \chapter{Methods} % Main chapter title
 
 \label{Chapter3} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
@@ -16,8 +14,17 @@
 \input{Chapters/3_2 Test_Data}
 
 
-\section{Model architectures}
-In this section, the models used in our research are explained. Models were designed with two output-layers which correspond to the respective layers of our modelled sample. It should be noted that - due to the small amount of information from the bottom layer - we expect a lower performance compared to the top layer.
+\section{Model architectures \& training}
+In this section, the models used in our research are explained.
+%Models were designed with two output-layers which correspond to the respective layers of our modelled sample. 
+It should be noted that - due to the small amount of information from the bottom layer - we expect a lower performance compared to the top layer.
+The training dataset was split into training and validation datasets.
+
+\subsection{Loss functions and hyperparameters}
+The tasks presented in the \nameref{Chapter1} are considered and assigned a task type.
+% multi-class classification problem (exclusive)
+
+% multi-label classification (nonexclusive)
 
 \subsection{CNN}
 % explain the structure
@@ -25,7 +32,8 @@ The CNN model used is based on the standard architecture with two convolutional 
 
 % show the structure
 
-The corresponding code can be found in the Appendix \ref{AppendixB}
+The corresponding code can be found in the Appendix \nameref{AppendixB}
+
 
 \subsection{CNN-DCT}
 % explain the structure
@@ -33,27 +41,34 @@ The discrete cosine transform (DCT) of a natural signal decomposes it into the f
 
 \begin{figure}[H]
     \centering
-    \includegraphics{Figures/dct.png}
-    \caption{Caption}
+    \includegraphics[width=\textwidth]{Figures/dct.png}
+    \caption{Original simulated XPS-signal (a) and a sparse representation, the discrete-cosine transformed XPS-signal (b)}
     \label{fig:dct}
 \end{figure}
 % show the structure
 
+
 \subsection{ViT}
-The visual attention model used for the 1D-Spectra was inspired from Yoni Gottesmans blogpost \cite{noauthor_interpretable_2023}. It takes the published 2D-ViT model  as a basis and is adapted to work with one-dimensional inputs.
-The model was adapted to fit the spectral input data with 1024 data points. Further, a patch-size of 20 data-points and a head of 6 was chosen.
+The vision transformer model used for the 1D-Spectra was inspired from Yoni Gottesmans blogpost \cite{noauthor_interpretable_2023}. It takes the published 2D-ViT model  as a basis and is adapted to work with one-dimensional inputs.
+The model was adapted to fit the spectral input data with 1024 data points. Further, a patch-size of 8 data-points and the number of heads chosen was 16.
+The Multilayer Perceptron (MLP) is of size 512 and the model consists of two Transformer blocks.
 % explain the structure
 
 % show the structure
 
 
-\subsection{ViA}
-% explain the structure
 
+\subsection{CBAM}
+The code for the convolutional block attention module base blocks was found on Github and modified to fit our 1D-data \cite{mazzia__2023}.
+% explain the structure
+The blocks were then included in a convolutional model such that the CBAM blocks can learn on the extracted features with its attention 
 
 % show the structure
+
 
 
 \section{Model evaluation}
 
-To evaluate the models' performance and training process, the loss and accuracy was obtained and plotted. Furthermore, the test data obtained as described in \ref{test_data} was predicted and visualized in a confusion matrix to be found in Appendix \ref{ApendixB}.
+To evaluate the models' performance and training process, the loss and accuracy was obtained and plotted. Furthermore, the test data obtained as described in \ref{test_data} was predicted and visualized in a confusion matrix to be found in Appendix \ref{AppendixB}.
+% table showing the accuracies for the test data
+%The accuracies for the test dataset are shown for the respective datasets and models used in \ref{}.

@@ -1,21 +1,24 @@
 %----------------------------------------------------------------------------------------
 % SECTION 2
 %----------------------------------------------------------------------------------------
+
 \label{test_data}
 \section{Test Data}
 
-There are a few sources for test-data of XPS-spectra. A main database was found on XPSlibrary, provided by TXL. The data was kindly sent to us in a readable text-format from B. Vincent Crist. 
-In addition, the XPSSurfA on CMSS Hub from the Australian University La Trobe contains more than 1700 spectra of which >100 survey spectra were used for the evaluation of the model. As the test data from the XPSSurfA-database is stored in web form, accessible as a zip-file, a script for automated data-acquisition was written, which can be found in \ref{xpslibrary_webscraper}.
-
+There are a few sources for test-data of XPS-spectra. A main database was found on XPSlibrary, provided by TXL. The data was kindly sent to us in a readable text-format from B. Vincent Crist. From this database, > 400 spectra were used for the test dataset. In addition, the XPSSurfA on CMSS Hub from the Australian University La Trobe contains more than 1700 spectra of which $\approx$ 50 survey spectra were used for the evaluation of the model. The test data from the XPSSurfA-database is stored in web form, accessible as a zip-file, a script for automated data-acquisition was written, which can be found in \ref{xpslibrary_webscraper}.
+Overall, we obtained $\nexperimentalspectra$ experimental spectra, consisting of $\nelementalspectra$ elemental spectra, $\nmultispectra$  multi-component (compound) spectra, and $\noxidespectra$ oxide spectra.
+As spectra with identified two-layer systems were not found on publicly available databases, we assumed that pure elemental compounds are a two-layer system of the same compounds.
 
 \subsection{Experimental depth profiles using sputtering}
-To test the models' capabilities to predict depth profiles of spectra, sputtering experiments were conducted using Copper on Tungsten and Copper ond Palladium
+To test the models' capabilities to predict depth profiles of spectra, sputtering experiments were conducted using Copper on Tungsten and Copper and Palladium.
 
 
 \subsection{Data preprocessing}
 
-As is typical for data acquired from laboratories, XPS data comes in various formats and measurement parameters. Apart from XPS-specific parameters, the resolution and the range mostly influence the evaluation of spectra with the deep-learning framework. Thus, an automated workflow for the spectra pre-processing is introduced to provide a valid entry point to the model.
+As is typical for data acquired from laboratories, XPS data comes in various formats and measurement parameters. Apart from XPS-specific parameters, the resolution and the range mostly influence the evaluation of spectra with the deep-learning framework. Thus, an automated workflow for the spectra pre-processing is introduced to provide a valid input shape to the model.
 Although most wide-survey spectra are measured with a comparable energy-range, it should be identical to the training data for prediction. Thus, any signal outside the specified binding energy range (0-1000 eV) is cut off and the discrete measurement points inside the range are interpolated (if less than 1024) or subsampled (if more than 1024) by using a uniformly distributed sampling method to match 1024 points.
+The most common format is the VAMAS format, established in 1988 by Dench et al \cite{dench_vamas_1988}. It has been slightly modified to the ISO Standard \cite{1400-1700_iso_nodate}(ISO 14976:1998) and thus is very popular and readable by most XPS applications. A python library found on the python package index PyPi called vamas \cite{krinninger_vamas_nodate} was used under slight adaptations due to version updates of related packages. It allows reading and extracting data from Vamas files in a object-oriented manner.
+Most experimental files obtained contain so-called blocks, which are 
 
 \begin{figure}
     \centering
@@ -29,8 +32,8 @@ The preprocessing results of a selection of experimental spectra were then asses
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{Figures/Fe_XPS.png}
-    \caption{Experimental preprocessed spectrum vs. Simulated spectrum of elemental Iron}
+    \caption{Comparison of experimental \& preprocessed vs simulated spectra of elemental iron}
     \label{fig:ex_vs_sim}
 \end{figure}
 
-The python module used to preprocess the data can be found in \ref{AppendixA}.
+The python module used to preprocess the experimental data can be found in \ref{AppendixA}.
