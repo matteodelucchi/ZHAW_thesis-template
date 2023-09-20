@@ -28,7 +28,7 @@ The first task is a multiclass classification problem, which means we need to fi
 
 \subsection{CNN}
 % explain the structure
-The CNN model used is based on the standard architecture with two convolutional blocks. The blocks consist of four consecutive convolutional layers with increasing kernel sizes (1, 3, 7, 21) to extract more and more general features. Each block starts with a batch-normalization layer and ends with a max-pooling layer. Finally, the model has two dense layers connected through a dropout-layer (p = 0.5) and subsequent batch-normalization.
+The CNN model used is based on the standard architecture with two convolutional blocks. The first blocks consist of four consecutive convolutional layers with increasing kernel sizes (1, 3, 7, 21) to extract more and more general features, while the second block has kernel sizes (3, 5, 21, 37). Each block uses 64 filters, the ReLU activation function, starts with a batch-normalization layer and ends with a max-pooling layer. Finally, the model has two dense layers with 1024 nodes connected through a dropout-layer (p = 0.2) and subsequent batch-normalization. Finally, a the softmax function is applied to the dense output layer with 81 nodes corresponding to the elements.
 
 % show the structure
 
