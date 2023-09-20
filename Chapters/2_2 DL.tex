@@ -70,25 +70,26 @@ The positional embedding ensures that the model can interpret the position of th
 \subsubsection{Convolutional Block Attention Module (CBAM)}
 The Convolutional Block Attention Module (CBAM) connects the attention paradigm with the convolutional approach and mainly consists of two sub-modules. Inputs are taken and with the first module, a 1D channel attention map is generated. Afterwards, these channel attentions are used as an input to the spatial attention module to compute the spatial attention. These two blocks can then be integrated within a convolutional based network or a residual based network.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
-    \includegraphics{Figures/cbam_modules.png}
-    \caption{Channel \& spatial attention module blocks}
+    \includegraphics[width=\textwidth]{Figures/cbam_modules.png}
+    \caption{Channel \& spatial attention module blocks \cite{woo_cbam_2018}}
     \label{fig:cbam_modules}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
     \centering
-    \includegraphics{Figures/cbam_modul.png}
-    \caption{Caption}
+    \includegraphics[width=0.7\textwidth]{Figures/cbam_modul.png}
+    \caption{CBAM-architecture \cite{woo_cbam_2018}}
     \label{fig:cbam}
 \end{figure}
 
 
 \subsubsection{Vision Transformer (ViT)}
 The Vision transformer model (ViT) has been recently published \cite{dosovitskiy_image_2021} and uses the mechanisms of Transformer-based models for computer vision tasks. Input data is divided into multiple patches of size n. A positional embedding is added and the embedded patches are then used as tokenized input to the transformer encoder. 
-
-
-%\subsubsection{Visual Attention}
-
-%The visual attention model is another model based on attention which 
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/ViT.png}
+    \caption{Vision Transformer \cite{dosovitskiy_image_2021}}
+    \label{fig:vit_model}
+\end{figure}
