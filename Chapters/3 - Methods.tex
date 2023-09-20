@@ -37,7 +37,7 @@ The corresponding code can be found in the Appendix \nameref{AppendixB}
 
 \subsection{CNN-DCT}
 % explain the structure
-The discrete cosine transform (DCT) of a natural signal decomposes it into the frequency domain, where the intensities correspond to cosine waves in our original spectrum. This induces sparsity into our data, which means that only a few components are responsible for most of the signal. An example of a DCT-transformed XPS-signal is shown in \nameref{fig:dct}.
+The discrete cosine transform (DCT) of a natural signal decomposes it into the frequency domain, where the intensities correspond to cosine waves in our original spectrum. This induces sparsity into our data, which means that only a few components are responsible for most of the signal. An example of a DCT-transformed XPS-signal is shown in Figure \ref{fig:dct}.
 
 \begin{figure}[H]
     \centering
@@ -61,10 +61,9 @@ The Multilayer Perceptron (MLP) is of size 512 and the model consists of two Tra
 \subsection{CBAM}
 The code for the convolutional block attention module base blocks was found on Github and modified to fit our 1D-data \cite{mazzia__2023}.
 % explain the structure
-The blocks were then included in a convolutional model such that the CBAM blocks can learn on the extracted features with its attention 
+The blocks were then included in a convolutional model such that the CBAM blocks can learn on the extracted features with its attention-modules.
 
 % show the structure
-
 
 
 \section{Model evaluation}
