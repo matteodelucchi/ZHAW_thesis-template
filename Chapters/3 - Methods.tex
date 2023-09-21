@@ -17,11 +17,10 @@
 \section{Model architectures \& training}
 In this section, the models used in our research are explained.
 %Models were designed with two output-layers which correspond to the respective layers of our modelled sample. 
-It should be noted that - due to the small amount of information from the bottom layer - we expect a lower performance compared to the top layer.
-The training dataset was split into training and validation datasets.
+The training dataset was split into training and validation datasets. A first model was built respectively for each of the tasks listed in the \nameref{Chapter1} for the four models: CNN, CNN-DCT, CBAM, ViT. The model 
 
 \subsection{Loss functions and hyperparameters}
-The tasks presented in the \nameref{Chapter1} are considered and assigned a task type.
+The tasks presented in Chapter \ref{Chapter1} are considered and assigned a task type.
 % multi-class classification problem (exclusive)
 The first task is a multiclass classification problem, which means we need to find one corresponding element for the two layers, where the elements are exclusive (only one is true).
 % multi-label classification (nonexclusive)
@@ -32,7 +31,7 @@ The CNN model used is based on the standard architecture with two convolutional 
 
 % show the structure
 
-The corresponding code can be found in the Appendix \nameref{AppendixB}
+The corresponding code can be found in the Appendix \ref{AppendixB}
 
 
 \subsection{CNN-DCT}

@@ -14,7 +14,7 @@ which can be re-arranged to express the binding energy as a function of known va
 \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/image4_3.jpeg}
-    \caption{}
+    \caption{The principle of measurement schematically illustrated}
     \label{fig:enter-label}
 \end{figure}
 
@@ -27,7 +27,7 @@ The complex and sample-specific interactions of the produced electrons with the 
 
 \subsection{Surface sensitivity}
 
-The study of surface sensitivity in XPS has been thoroughly studied and summarized in multiple publications \cite{powell_surface_2009, }. Electrons emitted from the samples atoms can take different ways until they eventually reach the detector. They either take a direct path (A), are elastically scattered and return to the detector (B) or are inelastically scattered and do not return to the detector (C) as shown in \nameref{fig:scattering}.
+The study of surface sensitivity in XPS has been thoroughly studied and summarized in multiple publications \cite{powell_surface_2009, }. Electrons emitted from the samples atoms can take different ways until they eventually reach the detector. They either take a direct path (A), are elastically scattered and return to the detector (B) or are inelastically scattered and do not return to the detector (C) as shown in Figure \ref{fig:scattering}.
 
 To this point, there are three terms to describe surface sensitivity in XPS:
 \begin{itemize}
@@ -44,16 +44,16 @@ To this point, there are three terms to describe surface sensitivity in XPS:
     \label{fig:scattering}
 \end{figure}
 
-The intensity of electrons emmited from a sample deeper than $d$ can be described using Beer's law as shown in \nameref{beerslaw}.
+The intensity of electrons emmited from a sample deeper than $d$ can be described using Beer's law as shown in equation \ref{beerslaw}, where $I_{0}$ is the initial energy flux
 
 \begin{equation}
 \label{beerslaw}
     I = I_{0} * exp(-d/\lambda)
 \end{equation}
 
-Elastic electron scattering (see \nameref{fig:scattering} B), however, has often caused uncertainties in measurements of EAL and IMFP. The IMFP and the EAL are element specific and also depend on the kinetic energy. 
+Elastic electron scattering (see Figure \ref{fig:scattering} B), however, has often caused uncertainties in measurements of EAL and IMFP. The IMFP and the EAL are element specific and also depend on the kinetic energy. 
 %As the IMFP does not consider elastic scattering, there is a universal curve describing overall tendencies. 
-The information depth (ID) is often denoted as 3 $\lambda$, where statistically, 95\% of the information originates. From \nameref{beerslaw}, it is obvious that the information obtained decays non-linearly, 
+The information depth (ID) is often denoted as 3 $\lambda$, where statistically, 95\% of the information originates. From equation \ref{beerslaw}, it is obvious that the information obtained decays non-linearly, 
 
 \subsection{X-ray photoelectron spectra} % identification?
 \subsubsection{Direct transitions}
@@ -64,7 +64,7 @@ As X-ray photoelectron spectroscopy uses x-rays to produce core-level electrons 
 While an electron is travelling towards the detector, it might interact with valence electrons of other atoms and lose some of its energy. This process is an energy-loss process and thus, the peak observed is shifted towards higher binding energy.
 
 %multiplet splitting
-A similar effect can be observed for unpaired electrons in the valence bands. The so-called multiplet splitting of photoelectron peaks is shown in \nameref{fig:peaks}.
+A similar effect can be observed for unpaired electrons in the valence bands. The so-called multiplet splitting of photoelectron peaks is shown in Figure \ref{fig:peaks}.
 
 %Multiplet splitting of core level peaks occurs when there are unpaired electrons in the valence levels and often results in unexpected peak splitting.
 
@@ -123,8 +123,8 @@ The non-destructive methods 4-6 (ARXPS / Modelling / XPS-HAXPES) are further exp
     \label{fig:arxps}
 \end{figure}
 A variation on the XPS-technique involves measurements at different mounting-angles of the sample.
-This changes the path the X-rays take into and out from the sample, as shown in \nameref{fig:arxps} which compares a standard 90\textdegree  take-off angle (a) with a smaller angle $\alpha$ (b). As the angle $\alpha$ decreases, the X-rays travel through a proportional higher amount of surface which in turn increases the sensitivity towards the surface. From the obtained spectra (c), we can deduct the thickness of the layers. This deduction is often done by Software which uses the Maximum entropy method first described by Smith et al. \cite{smith_maximum_1992} in 1992.
-The intensity of the peaks in respect to the angle $\alpha$ is shown in \nameref{intensity_angle}, where $G(\alpha)$ is a term representing geometric and instrumental factors and will cancel out as intensity ratios are considered. 
+This changes the path the X-rays take into and out from the sample, as shown in Figure \ref{fig:arxps} which compares a standard 90\textdegree  take-off angle (a) with a smaller angle $\alpha$ (b). As the angle $\alpha$ decreases, the X-rays travel through a proportional higher amount of surface which in turn increases the sensitivity towards the surface. From the obtained spectra (c), we can deduct the thickness of the layers. This deduction is often done by Software which uses the Maximum entropy method first described by Smith et al. \cite{smith_maximum_1992} in 1992.
+The intensity of the peaks in respect to the angle $\alpha$ is shown in equation \ref{intensity_angle}, where $G(\alpha)$ is a term representing geometric and instrumental factors and will cancel out as intensity ratios are considered. It should be noted that this assumes homogeneity of the two layers.
 The thickness is denoted as $t$,
 $\sigma$ is the photoelectron cross section,
 F is the analyzer transmission function,

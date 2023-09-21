@@ -1,0 +1,53 @@
+%----------------------------------------------------------------------------------------
+% SECTION 1
+%----------------------------------------------------------------------------------------
+\section{Qualitative elemental identification of bilayer systems}
+\subsubsection{Elemental identification}
+% model performance
+The model performance for the qualitative elemental identification is shown in Table \ref{tab:acc_qual}. The categorical accuracies were computed for the individual cont. and clean datasets, and the mixcont dataset. It should be noted that - due to the small amount of information from the bottom layer - we expect a lower performance compared to the top layer.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c|c|c|c|c}
+        Dataset & Layer & Model   & No. Parameters & Validation Dataset*  & Test Dataset*    \\
+        \hline
+        mixcont & top   & CNN     &                & 85.32 \%              &        \% \\
+                &       & CNN-DCT &                &       \%              &         \% \\
+                &       & CBAM    &                &       \%              &         \% \\
+                &       & ViT     &                &  91.66\%              &   99.37\% \\
+                & bot   & CNN     &                &  73.85\%              &          \%  \\
+                &       & CNN-DCT &                &       \%              &          \%  \\
+                &       & CBAM    &                &       \%              &         \% \\
+                &       & ViT     &                &       \%              &           \% \\
+    \end{tabular}
+    \caption{Categorical Accuracies, and number of Parameters of the models in respect to dataset and layer}
+    \label{tab:acc_qual}
+\end{table}
+
+
+% experimental data (AG_AG etc.)
+From the experimental data, $\nelementalspectra$ elemental spectra were used for the qualitative elemental prediction. 
+
+\subsubsection{Depth and gradient determination}
+
+% model performance
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c|c|c|c|c}
+        Dataset & Model   & No. Parameters & Validation Dataset*  & Test Dataset*    \\
+        \hline
+        multi  & CNN     &                &        \%             &             \% \\
+               & CNN-DCT &                &       \%              &             \% \\
+               & CBAM    &                &       \%              &             \% \\
+               & ViT     &                &       \%              &             \% \\
+               & CNN     &                &       \%              &             \%  \\
+               & CNN-DCT &                &       \%              &             \%  \\
+               & CBAM    &                &       \%              &             \% \\
+               & ViT     &                &       \%              &             \% \\
+    \end{tabular}
+    \caption{ and number of Parameters of the models in respect to dataset and layer}
+    \label{tab:acc_depth}
+\end{table}
+% experimental data (AG_AG etc.)

@@ -1,0 +1,32 @@
+%----------------------------------------------------------------------------------------
+% SECTION 2
+%----------------------------------------------------------------------------------------
+\section{Elemental quantification of single layer systems}
+
+% model performance
+The model performance for the quantitative assessment of chemical composition is shown in Table \ref{tab:acc_quant}. The categorical accuracies were computed for the individual cont. and clean datasets, and the mixcont dataset. 
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c|c|c|c|c}
+        \hline
+       Dataset & Model   & No. Parameters & Validation Dataset*  & Test Dataset*    \\
+        \hline
+        multi  & CNN     &                &        \%              &         \% \\
+               & CNN-DCT &                &       \%              &          \% \\
+               & CBAM    &                &       \%              &          \% \\
+               & ViT     &                &       \%              &          \% \\
+               & CNN     &                &       \%              &          \%  \\
+               & CNN-DCT &                &       \%              &          \%  \\
+               & CBAM    &                &       \%              &          \% \\
+               & ViT     &                &       \%              &          \% \\
+    \end{tabular}
+    \caption{ and number of Parameters of the models in respect to dataset and layer}
+    \label{tab:acc_quant}
+\end{table}
+
+
+% experimental data (AG_AG etc.)
+From all experimental data, $\nmultispectra$ elemental spectra were used for the quantitative prediction. 
+
+% plot visual attention feature
