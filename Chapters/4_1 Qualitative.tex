@@ -28,8 +28,8 @@ The model performance for the qualitative elemental identification is shown in T
 % experimental data (AG_AG etc.)
 From the experimental data, $\nelementalspectra$ elemental spectra were used for the qualitative elemental prediction. 
 
-\subsubsection{Depth and gradient determination}
-
+\subsubsection{Depth and gradient determination of native oxides and elements}
+% As there's almost no test data this is experimental
 % model performance
 
 
@@ -38,7 +38,7 @@ From the experimental data, $\nelementalspectra$ elemental spectra were used for
     \begin{tabular}{c|c|c|c|c|c}
         Dataset & Model   & No. Parameters & Validation Dataset*  & Test Dataset*    \\
         \hline
-        multi  & CNN     &                &        \%             &             \% \\
+        mixcont+oxides& CNN     &                &        \%             &             \% \\
                & CNN-DCT &                &       \%              &             \% \\
                & CBAM    &                &       \%              &             \% \\
                & ViT     &                &       \%              &             \% \\
