@@ -21,7 +21,7 @@ def random_concentrations(n: int) -> np.ndarray:
     # Generate random proportions that sum up to 1 using the Dirichlet distribution
     proportions = np.random.dirichlet(np.ones(num_numbers), size=1)[0]
 
-    # Scale the proportions to add up to 100 and fit within the desired range
+    # Scale the proportions to add up to 100
     scaled_numbers = [int(min_value + prop * (max_value - min_value)) for prop in proportions]
 
     # Calculate the difference between the total and the sum of the scaled numbers
@@ -66,7 +66,7 @@ def get_combinations(elements_sym,
 def kinetic_energy_list_to_binding_energy_al_kalpha(ke_list, round_dec: int = None):
     """
     Converts a list of kinetic energies (KE) to a list of binding energies (BE) in XPS
-    using Al-Kα X-ray photons.
+    using Al-K-alpha X-ray photons.
 
     Args:
         ke_list (list of float): List of kinetic energies in eV.
@@ -75,14 +75,14 @@ def kinetic_energy_list_to_binding_energy_al_kalpha(ke_list, round_dec: int = No
         list of float: List of binding energies in eV.
     """
     import math
-    al_kalpha_energy = 1486.6  # Energy of Al-Kα X-ray photons in eV
+    al_kalpha_energy = 1486.6  # Energy of Al-K-alpha X-ray photons in eV
     binding_energy_list = [round(al_kalpha_energy - ke, round_dec) for ke in ke_list]
     return np.array(binding_energy_list)
 
 def binding_energy_list_to_kinetic_energy_al_kalpha(be_list, round_dec: int = None):
     """
     Converts a list of binding energies (BE) to a list of kinetic energies (KE) in XPS
-    using Al-Kα X-ray photons.
+    using Al-K-alpha X-ray photons.
 
     Args:
         be_list (list of float): List of binding energies in eV.
@@ -91,7 +91,7 @@ def binding_energy_list_to_kinetic_energy_al_kalpha(be_list, round_dec: int = No
         list of float: List of kinetic energies in eV.
     """
     import math
-    al_kalpha_energy = 1486.6  # Energy of Al-Kα X-ray photons in eV
+    al_kalpha_energy = 1486.6  # Energy of Al-K-alpha X-ray photons in eV
     kinetic_energy_list = [round(al_kalpha_energy - be, round_dec) for be in be_list]
     return np.array(kinetic_energy_list)
 
