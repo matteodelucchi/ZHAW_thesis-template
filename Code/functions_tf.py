@@ -113,7 +113,6 @@ class Block(tf.keras.layers.Layer):
 
     def build(self, input_shape):
         super().build(input_shape)
-        # TODO YONIGO: tf doc says to do this  ¯\_(ツ)_/¯
         self.attn._build_from_signature(input_shape, input_shape)
 
     def call(self, inputs, training=False):
@@ -253,7 +252,8 @@ class SpatialAttention(Layer):
         return cls(**config)
     
     
-"""DenseNet 1DCNN in Tensorflow-Keras
+"""
+DenseNet 1DCNN in Tensorflow-Keras
 Reference: Densely Connected Convolutional Networks [https://arxiv.org/abs/1608.06993]
 """
 
