@@ -1,31 +1,27 @@
 \hypertarget{define-directories}{%
 \section{Define directories}\label{define-directories}}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ sessa\_py }\ImportTok{import}\NormalTok{ Experiment, Layer}
-\ImportTok{import}\NormalTok{ os}
-\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
-\ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
-\ImportTok{import}\NormalTok{ itertools}
-\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
-\ImportTok{import}\NormalTok{ random}
-\ImportTok{import}\NormalTok{ subprocess}
-\ImportTok{import}\NormalTok{ sys}
-\NormalTok{sys.path.append(}\StringTok{\textquotesingle{}../../../modules/\textquotesingle{}}\NormalTok{)}
-\ImportTok{import}\NormalTok{ base}
-\ImportTok{from}\NormalTok{ tqdm.notebook }\ImportTok{import}\NormalTok{ tqdm}
+\begin{lstlisting}[language=Python]
+from sessa_py import Experiment, Layer
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+import itertools
+import pandas as pd
+import random
+import subprocess
+import sys
+sys.path.append('../../../modules/')
+import base
+from tqdm.notebook import tqdm
 
-\NormalTok{root\_dir }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}kochk\textbackslash{}Documents\textbackslash{}Git\_Repos\textbackslash{}Github\textbackslash{}deep\_xps\textquotesingle{}}
-\NormalTok{sessa\_dir }\OperatorTok{=} \VerbatimStringTok{r"C:\textbackslash{}Program Files (x86)\textbackslash{}Sessa v2.2.0\textbackslash{}bin\textbackslash{}\textbackslash{}"}
-\end{Highlighting}
-\end{shaded}
+root_dir = r'C:\Users\kochk\Documents\Git_Repos\Github\deep_xps'
+sessa_dir = r"C:\Program Files (x86)\Sessa v2.2.0\bin\\"
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\NormalTok{elements\_sym }\OperatorTok{=}\NormalTok{ base.load\_elem()}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+elements_sym = base.load_elem()
+\end{lstlisting}
 
 \hypertarget{build-experiments}{%
 \section{Build experiments}\label{build-experiments}}
@@ -34,364 +30,320 @@
 \subsection{Experiments for permutations of elements and
 thicknesses}\label{experiments-for-permutations-of-elements-and-thicknesses}}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\NormalTok{thicknesses }\OperatorTok{=}\NormalTok{ [}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DecValTok{50}\NormalTok{]}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+thicknesses = [10,20,30,40,50]
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\NormalTok{perms }\OperatorTok{=} \BuiltInTok{list}\NormalTok{(itertools.permutations(elements\_sym, }\DecValTok{2}\NormalTok{))}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+perms = list(itertools.permutations(elements_sym, 2))
+\end{lstlisting}
 
 \hypertarget{separate}{%
 \subsection{Separate}\label{separate}}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\CommentTok{\# check if all files done and store not simulated files in a list}
-\NormalTok{os.chdir(}\VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}kochk\textbackslash{}Documents\textbackslash{}Git\_Repos\textbackslash{}Github\textbackslash{}deep\_xps\textbackslash{}tasks\textbackslash{}0\textbackslash{}simulation\textquotesingle{}}\NormalTok{)}
-\NormalTok{perms }\OperatorTok{=} \BuiltInTok{list}\NormalTok{(itertools.permutations(elements\_sym, }\DecValTok{2}\NormalTok{))}
+\begin{lstlisting}[language=Python]
+# check if all files done and store not simulated files in a list
+os.chdir(r'C:\Users\kochk\Documents\Git_Repos\Github\deep_xps\tasks\0\simulation')
+perms = list(itertools.permutations(elements_sym, 2))
 
-\NormalTok{data\_dir }\OperatorTok{=} \StringTok{\textquotesingle{}../../../data/simulation\_data/depth\_sep/\textquotesingle{}}
-\NormalTok{files }\OperatorTok{=}\NormalTok{ os.listdir(data\_dir)}
-\NormalTok{not\_sim }\OperatorTok{=}\NormalTok{ []}
-\NormalTok{sim }\OperatorTok{=}\NormalTok{ []}
+data_dir = '../../../data/simulation_data/depth_sep/'
+files = os.listdir(data_dir)
+not_sim = []
+sim = []
 
-\ControlFlowTok{for}\NormalTok{ perm }\KeywordTok{in}\NormalTok{ perms:}
-    \ControlFlowTok{for}\NormalTok{ thickness }\KeywordTok{in}\NormalTok{ thicknesses:}
-        \ControlFlowTok{if}\NormalTok{ os.path.isfile(data\_dir}\OperatorTok{+}\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\NormalTok{perm[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{perm[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{thickness}\SpecialCharTok{\}}\SpecialStringTok{\_separate\_spectra.spcreg1.spc\textquotesingle{}}\NormalTok{):}
-\NormalTok{            sim.append([perm, thickness])}
-        \ControlFlowTok{else}\NormalTok{:}
-\NormalTok{            not\_sim.append(perm)}
-\end{Highlighting}
-\end{shaded}
+for perm in perms:
+    for thickness in thicknesses:
+        if os.path.isfile(data_dir+f'{perm[0]}_{perm[1]}_{thickness}_separate_spectra.spcreg1.spc'):
+            sim.append([perm, thickness])
+        else:
+            not_sim.append(perm)
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\BuiltInTok{len}\NormalTok{(not\_sim)}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+len(not_sim)
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\NormalTok{exp\_dir }\OperatorTok{=} \StringTok{\textquotesingle{}sep\_NO\textquotesingle{}}
-\NormalTok{data\_dir }\OperatorTok{=} \VerbatimStringTok{rf\textquotesingle{}C:\textbackslash{}Users\textbackslash{}kochk\textbackslash{}Documents\textbackslash{}Git\_Repos\textbackslash{}Github\textbackslash{}deep\_xps\textbackslash{}data\textbackslash{}simulation\_data\textbackslash{}}\SpecialCharTok{\{}\NormalTok{exp\_dir}\SpecialCharTok{\}}\VerbatimStringTok{\textquotesingle{}}
+\begin{lstlisting}[language=Python]
+exp_dir = 'sep_NO'
+data_dir = rf'C:\Users\kochk\Documents\Git_Repos\Github\deep_xps\data\simulation_data\{exp_dir}'
 
-\ControlFlowTok{for}\NormalTok{ entry }\KeywordTok{in}\NormalTok{ tqdm(perms):}
-    \ControlFlowTok{for}\NormalTok{ thickness }\KeywordTok{in}\NormalTok{ thicknesses:}
-        \CommentTok{\# go to next if file already exists}
-        \ControlFlowTok{if}\NormalTok{ os.path.isfile(data\_dir}\OperatorTok{+}\SpecialStringTok{f\textquotesingle{}\textbackslash{}}\SpecialCharTok{\{}\NormalTok{entry[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{entry[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{thickness}\SpecialCharTok{\}}\SpecialStringTok{\_separate\_spectra.spcreg1.spc\textquotesingle{}}\NormalTok{):}
-            \ControlFlowTok{continue}
-        \ControlFlowTok{else}\NormalTok{:}
-\NormalTok{            f }\OperatorTok{=}\NormalTok{ Experiment([Layer(entry[}\DecValTok{0}\NormalTok{], }\DecValTok{50}\NormalTok{), Layer(entry[}\DecValTok{1}\NormalTok{], thickness)],}
-\NormalTok{                        name}\OperatorTok{=}\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\NormalTok{entry[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{entry[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{thickness}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{,}
-\NormalTok{                        exp\_dir}\OperatorTok{=}\NormalTok{exp\_dir,}
-\NormalTok{                        root\_dir}\OperatorTok{=}\NormalTok{root\_dir,}
-\NormalTok{                        sessa\_dir}\OperatorTok{=}\NormalTok{sessa\_dir,}
-\NormalTok{                        contamination}\OperatorTok{=}\VariableTok{None}\NormalTok{)}
-\NormalTok{            f.simulate()}
-\end{Highlighting}
-\end{shaded}
+for entry in tqdm(perms):
+    for thickness in thicknesses:
+        # go to next if file already exists
+        if os.path.isfile(data_dir+f'\{entry[0]}_{entry[1]}_{thickness}_separate_spectra.spcreg1.spc'):
+            continue
+        else:
+            f = Experiment([Layer(entry[0], 50), Layer(entry[1], thickness)],
+                        name=f'{entry[0]}_{entry[1]}_{thickness}',
+                        exp_dir=exp_dir,
+                        root_dir=root_dir,
+                        sessa_dir=sessa_dir,
+                        contamination=None)
+            f.simulate()
+\end{lstlisting}
 
 \hypertarget{experiments-for-oxidates-with-and-without-carbon-traces}{%
 \subsection{Experiments for oxidates with and without carbon
 traces}\label{experiments-for-oxidates-with-and-without-carbon-traces}}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\NormalTok{oxides }\OperatorTok{=}\NormalTok{ [}
-        \StringTok{\textquotesingle{}/Be/O/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Mg/O/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/B2/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Al2/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Si/O2/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Sc2/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Ti/O2/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Cr2/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Mn/O2/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Fe2/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Co/O/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Ni/O/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Cu/O/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Zn/O/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Ga2/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Ge/O2/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/As2/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Y2/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Zr/O2/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Nb2/O5/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Mo/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Ru/O2/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Rh2/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Pd/O/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Ag/O/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Cd/O/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/In2/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Sn/O2/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Sb2/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Te/O2/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Hf/O2/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Ta2/O5/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/W/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Re/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Ir/O2/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Pt/O/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Au2/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Hg/O/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Tl2/O3/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Pb/O/\textquotesingle{}}\NormalTok{,}
-        \StringTok{\textquotesingle{}/Bi2/O3/\textquotesingle{}}\NormalTok{,}
-\NormalTok{]}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+oxides = [
+        '/Be/O/',
+        '/Mg/O/',
+        '/B2/O3/',
+        '/Al2/O3/',
+        '/Si/O2/',
+        '/Sc2/O3/',
+        '/Ti/O2/',
+        '/Cr2/O3/',
+        '/Mn/O2/',
+        '/Fe2/O3/',
+        '/Co/O/',
+        '/Ni/O/',
+        '/Cu/O/',
+        '/Zn/O/',
+        '/Ga2/O3/',
+        '/Ge/O2/',
+        '/As2/O3/',
+        '/Y2/O3/',
+        '/Zr/O2/',
+        '/Nb2/O5/',
+        '/Mo/O3/',
+        '/Ru/O2/',
+        '/Rh2/O3/',
+        '/Pd/O/',
+        '/Ag/O/',
+        '/Cd/O/',
+        '/In2/O3/',
+        '/Sn/O2/',
+        '/Sb2/O3/',
+        '/Te/O2/',
+        '/Hf/O2/',
+        '/Ta2/O5/',
+        '/W/O3/',
+        '/Re/O3/',
+        '/Ir/O2/',
+        '/Pt/O/',
+        '/Au2/O3/',
+        '/Hg/O/',
+        '/Tl2/O3/',
+        '/Pb/O/',
+        '/Bi2/O3/',
+]
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{for}\NormalTok{ entry }\KeywordTok{in}\NormalTok{ tqdm(oxides):}
-    \ControlFlowTok{for}\NormalTok{ thickness }\KeywordTok{in}\NormalTok{ thicknesses:}
-\NormalTok{        f }\OperatorTok{=}\NormalTok{ Experiment(}
-\NormalTok{                       layers}\OperatorTok{=}\NormalTok{[Layer(entry.split(}\StringTok{\textquotesingle{}/\textquotesingle{}}\NormalTok{)[}\DecValTok{1}\NormalTok{], }\DecValTok{50}\NormalTok{), Layer(entry, thickness)],}
-\NormalTok{                       root\_dir}\OperatorTok{=}\NormalTok{ root\_dir,}
-\NormalTok{                       sessa\_dir}\OperatorTok{=}\NormalTok{ sessa\_dir,}
-\NormalTok{                       exp\_dir}\OperatorTok{=} \StringTok{\textquotesingle{}oxides\_NO\textquotesingle{}}\NormalTok{,}
-\NormalTok{                       contamination}\OperatorTok{=}\VariableTok{None}\NormalTok{,}
-\NormalTok{                       shifts\_probability}\OperatorTok{=}\FloatTok{0.8}\NormalTok{,}
-\NormalTok{                       overwrite}\OperatorTok{=}\VariableTok{False}
-\NormalTok{                       )}
-\NormalTok{        f.simulate()}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+for entry in tqdm(oxides):
+    for thickness in thicknesses:
+        f = Experiment(
+                       layers=[Layer(entry.split('/')[1], 50), Layer(entry, thickness)],
+                       root_dir= root_dir,
+                       sessa_dir= sessa_dir,
+                       exp_dir= 'oxides_NO',
+                       contamination=None,
+                       shifts_probability=0.8,
+                       overwrite=False
+                       )
+        f.simulate()
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{for}\NormalTok{ entry }\KeywordTok{in}\NormalTok{ tqdm(oxides):}
-    \ControlFlowTok{for}\NormalTok{ thickness }\KeywordTok{in}\NormalTok{ thicknesses:}
-\NormalTok{        f }\OperatorTok{=}\NormalTok{ Experiment(}
-\NormalTok{                       layers}\OperatorTok{=}\NormalTok{[Layer(entry.split(}\StringTok{\textquotesingle{}/\textquotesingle{}}\NormalTok{)[}\DecValTok{1}\NormalTok{], }\DecValTok{50}\NormalTok{), Layer(entry, thickness)],}
-\NormalTok{                       root\_dir}\OperatorTok{=}\NormalTok{ root\_dir,}
-\NormalTok{                       sessa\_dir}\OperatorTok{=}\NormalTok{ sessa\_dir,}
-\NormalTok{                       exp\_dir}\OperatorTok{=} \StringTok{\textquotesingle{}oxides\_CO\textquotesingle{}}\NormalTok{,}
-\NormalTok{                       contamination}\OperatorTok{=}\VariableTok{True}\NormalTok{,}
-\NormalTok{                       shifts\_probability}\OperatorTok{=}\FloatTok{0.8}\NormalTok{,}
-\NormalTok{                       overwrite}\OperatorTok{=}\VariableTok{False}
-\NormalTok{                       )}
-\NormalTok{        f.simulate()}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+for entry in tqdm(oxides):
+    for thickness in thicknesses:
+        f = Experiment(
+                       layers=[Layer(entry.split('/')[1], 50), Layer(entry, thickness)],
+                       root_dir= root_dir,
+                       sessa_dir= sessa_dir,
+                       exp_dir= 'oxides_CO',
+                       contamination=True,
+                       shifts_probability=0.8,
+                       overwrite=False
+                       )
+        f.simulate()
+\end{lstlisting}
 
 \hypertarget{build-multi-layer-system-for-depth-profiling}{%
 \subsection{Build multi-layer system for
 depth-profiling}\label{build-multi-layer-system-for-depth-profiling}}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\NormalTok{layer\_thickness }\OperatorTok{=} \DecValTok{5} \CommentTok{\# Angstrom}
-\NormalTok{grad\_steps }\OperatorTok{=}\NormalTok{ layer\_thickness}
-\NormalTok{N\_layers }\OperatorTok{=} \DecValTok{100} \OperatorTok{/}\NormalTok{ grad\_steps }\CommentTok{\# 100 \% divided by the gradient steps}
+\begin{lstlisting}[language=Python]
+layer_thickness = 5 # Angstrom
+grad_steps = layer_thickness
+N_layers = 100 / grad_steps # 100 % divided by the gradient steps
 
-\KeywordTok{def}\NormalTok{ create\_gradients(grad\_steps, rev}\OperatorTok{=}\VariableTok{False}\NormalTok{, N\_layers}\OperatorTok{=}\NormalTok{N\_layers):}
-\NormalTok{    gradient }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{100}\OperatorTok{+}\NormalTok{grad\_steps, step}\OperatorTok{=}\NormalTok{grad\_steps)}
+def create_gradients(grad_steps, rev=False, N_layers=N_layers):
+    gradient = np.arange(100+grad_steps, step=grad_steps)
     
-    \ControlFlowTok{if}\NormalTok{ rev }\KeywordTok{is} \VariableTok{True}\NormalTok{: }
-\NormalTok{        rev\_grad\_matrix }\OperatorTok{=}\NormalTok{ np.repeat([np.flip(gradient)], axis}\OperatorTok{=}\DecValTok{0}\NormalTok{, repeats}\OperatorTok{=}\NormalTok{N\_layers)}
-        \ControlFlowTok{for}\NormalTok{ number, line }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(rev\_grad\_matrix):}
-            \ControlFlowTok{if}\NormalTok{ number }\OperatorTok{==} \DecValTok{0}\NormalTok{:}
-                \ControlFlowTok{continue}
-\NormalTok{            rev\_grad\_matrix[number][}\OperatorTok{{-}}\NormalTok{number:] }\OperatorTok{=} \DecValTok{0}
-        \ControlFlowTok{return}\NormalTok{ rev\_grad\_matrix}
-    \ControlFlowTok{else}\NormalTok{:}
-\NormalTok{        grad\_matrix }\OperatorTok{=}\NormalTok{ np.repeat([gradient], axis}\OperatorTok{=}\DecValTok{0}\NormalTok{, repeats}\OperatorTok{=}\NormalTok{N\_layers)}
-        \ControlFlowTok{for}\NormalTok{ number, line }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(grad\_matrix):}
-            \ControlFlowTok{if}\NormalTok{ number }\OperatorTok{==} \DecValTok{0}\NormalTok{:}
-                \ControlFlowTok{continue}
-\NormalTok{            grad\_matrix[number][}\OperatorTok{{-}}\NormalTok{number:] }\OperatorTok{=} \DecValTok{0}
-        \ControlFlowTok{return}\NormalTok{ grad\_matrix}
-\end{Highlighting}
-\end{shaded}
+    if rev is True: 
+        rev_grad_matrix = np.repeat([np.flip(gradient)], axis=0, repeats=N_layers)
+        for number, line in enumerate(rev_grad_matrix):
+            if number == 0:
+                continue
+            rev_grad_matrix[number][-number:] = 0
+        return rev_grad_matrix
+    else:
+        grad_matrix = np.repeat([gradient], axis=0, repeats=N_layers)
+        for number, line in enumerate(grad_matrix):
+            if number == 0:
+                continue
+            grad_matrix[number][-number:] = 0
+        return grad_matrix
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\NormalTok{rev }\OperatorTok{=}\NormalTok{ create\_gradients(}\DecValTok{5}\NormalTok{, rev}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-\NormalTok{grad }\OperatorTok{=}\NormalTok{ create\_gradients(}\DecValTok{5}\NormalTok{)}
-\NormalTok{grad }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{100}\OperatorTok{+}\NormalTok{grad\_steps, step}\OperatorTok{=}\NormalTok{grad\_steps) }\CommentTok{\# 0 to 100 in steps of grad\_steps}
-\NormalTok{rev }\OperatorTok{=}\NormalTok{ np.flip(grad) }\CommentTok{\# reverse the gradient}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+rev = create_gradients(5, rev=True)
+grad = create_gradients(5)
+grad = np.arange(100+grad_steps, step=grad_steps) # 0 to 100 in steps of grad_steps
+rev = np.flip(grad) # reverse the gradient
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\NormalTok{iterator }\OperatorTok{=}\NormalTok{ tqdm(perms)}
-\ControlFlowTok{for}\NormalTok{ elems }\KeywordTok{in}\NormalTok{ iterator:}
-\NormalTok{    a }\OperatorTok{=}\NormalTok{ Experiment(}
-\NormalTok{                name}\OperatorTok{=}\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{,}
-\NormalTok{                layers}\OperatorTok{=}\NormalTok{[(Layer(}\SpecialStringTok{f\textquotesingle{}(/}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{/)}\SpecialCharTok{\{}\NormalTok{grad[p]}\SpecialCharTok{\}}\SpecialStringTok{(/}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{/)}\SpecialCharTok{\{}\NormalTok{rev[p]}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{, thickness}\OperatorTok{=}\DecValTok{5}\NormalTok{))}
-                        \ControlFlowTok{for}\NormalTok{ p }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\BuiltInTok{len}\NormalTok{(grad))],}
-\NormalTok{                root\_dir}\OperatorTok{=}\NormalTok{root\_dir,}
-\NormalTok{                sessa\_dir}\OperatorTok{=}\NormalTok{sessa\_dir,}
-\NormalTok{                exp\_dir}\OperatorTok{=}\StringTok{\textquotesingle{}grad\_NO\textquotesingle{}}\NormalTok{,}
-\NormalTok{                etching}\OperatorTok{=}\DecValTok{8}\NormalTok{,}
-\NormalTok{                contamination}\OperatorTok{=}\VariableTok{None}\NormalTok{)}
-\NormalTok{    a.simulate()}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+iterator = tqdm(perms)
+for elems in iterator:
+    a = Experiment(
+                name=f'{elems[0]}_{elems[1]}',
+                layers=[(Layer(f'(/{elems[0]}/){grad[p]}(/{elems[1]}/){rev[p]}', thickness=5))
+                        for p in range(len(grad))],
+                root_dir=root_dir,
+                sessa_dir=sessa_dir,
+                exp_dir='grad_NO',
+                etching=8,
+                contamination=None)
+    a.simulate()
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\CommentTok{\# elems[0] is the bulk, elem[1] is the top layer with variable thickness}
-\ControlFlowTok{for}\NormalTok{ elems }\KeywordTok{in}\NormalTok{ tqdm(perms):}
-        \ControlFlowTok{for}\NormalTok{ thickness }\KeywordTok{in}\NormalTok{ thicknesses:}
-\NormalTok{                f }\OperatorTok{=}\NormalTok{ Experiment(name}\OperatorTok{=}\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{,}
-\NormalTok{                       layers}\OperatorTok{=}\NormalTok{ [Layer(elems[}\DecValTok{0}\NormalTok{], }\DecValTok{50}\NormalTok{), Layer(elems[}\DecValTok{0}\NormalTok{], elems[}\DecValTok{1}\NormalTok{])], }
-\NormalTok{                       root\_dir}\OperatorTok{=}\NormalTok{root\_dir, }
-\NormalTok{                       sessa\_dir}\OperatorTok{=}\NormalTok{sessa\_dir,}
-\NormalTok{                       exp\_dir}\OperatorTok{=}\StringTok{\textquotesingle{}depth\_CO\_sep\_new\textquotesingle{}}\NormalTok{,}
-\NormalTok{                       etching}\OperatorTok{=}\VariableTok{None}\NormalTok{)}
-\NormalTok{                f.simulate()}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+# elems[0] is the bulk, elem[1] is the top layer with variable thickness
+for elems in tqdm(perms):
+        for thickness in thicknesses:
+                f = Experiment(name=f'{elems[0]}_{elems[0]}_{elems[1]}',
+                       layers= [Layer(elems[0], 50), Layer(elems[0], elems[1])], 
+                       root_dir=root_dir, 
+                       sessa_dir=sessa_dir,
+                       exp_dir='depth_CO_sep_new',
+                       etching=None)
+                f.simulate()
+\end{lstlisting}
 
 \hypertarget{check-if-all-files-done}{%
 \subsubsection{Check if all files done}\label{check-if-all-files-done}}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{for}\NormalTok{ elems }\KeywordTok{in}\NormalTok{ perms:}
-    \ControlFlowTok{for}\NormalTok{ thickness }\KeywordTok{in}\NormalTok{ thicknesses:}
-\NormalTok{        path }\OperatorTok{=} \KeywordTok{not}\NormalTok{(os.path.isfile(}\StringTok{\textquotesingle{}..\textbackslash{}data\textbackslash{}simfiles\textbackslash{}depth\_CO\_sep\textbackslash{}}\SpecialCharTok{\{elems[0]\}}\StringTok{\_}\SpecialCharTok{\{elems[1]\}}\StringTok{\_}\SpecialCharTok{\{thickness\}}\StringTok{.txt\textquotesingle{}}\NormalTok{))}
-    \ControlFlowTok{if}\NormalTok{ path:}
-        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}..\textbackslash{}data\textbackslash{}simfiles\textbackslash{}depth\_CO\_sep\textbackslash{}}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{thickness}\SpecialCharTok{\}}\SpecialStringTok{.txt\textquotesingle{}}\NormalTok{)}
-        \ControlFlowTok{break}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+for elems in perms:
+    for thickness in thicknesses:
+        path = not(os.path.isfile('..\data\simfiles\depth_CO_sep\{elems[0]}_{elems[1]}_{thickness}.txt'))
+    if path:
+        print(f'..\data\simfiles\depth_CO_sep\{elems[0]}_{elems[1]}_{thickness}.txt')
+        break
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\NormalTok{[(i, os.path.isfile(}\SpecialStringTok{f\textquotesingle{}C:/Users/kochk/Documents/Git\_Repos/Github/deep\_xps/data/simfiles/depth\_CO\_sep\_new/}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{.txt\textquotesingle{}}\NormalTok{)) }
- \ControlFlowTok{for}\NormalTok{ i, elems }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(perms) }
- \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ os.path.isfile(}\SpecialStringTok{f\textquotesingle{}C:/Users/kochk/Documents/Git\_Repos/Github/deep\_xps/data/simfiles/depth\_CO\_sep\_new/}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{.txt\textquotesingle{}}\NormalTok{)]}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+[(i, os.path.isfile(f'C:/Users/kochk/Documents/Git_Repos/Github/deep_xps/data/simfiles/depth_CO_sep_new/{elems[0]}_{elems[1]}.txt')) 
+ for i, elems in enumerate(perms) 
+ if not os.path.isfile(f'C:/Users/kochk/Documents/Git_Repos/Github/deep_xps/data/simfiles/depth_CO_sep_new/{elems[0]}_{elems[1]}.txt')]
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{for}\NormalTok{ i, elems }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(perms):}
-    \ControlFlowTok{for}\NormalTok{ thickness }\KeywordTok{in}\NormalTok{ thicknesses:}
-        \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ os.path.isfile(}\SpecialStringTok{f\textquotesingle{}C:/Users/kochk/Documents/Git\_Repos/Github/deep\_xps/data/simfiles/depth\_CO\_sep\_new/}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{thickness}\SpecialCharTok{\}}\SpecialStringTok{.txt\textquotesingle{}}\NormalTok{):}
-            \BuiltInTok{print}\NormalTok{(i, elems, thickness)}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+for i, elems in enumerate(perms):
+    for thickness in thicknesses:
+        if not os.path.isfile(f'C:/Users/kochk/Documents/Git_Repos/Github/deep_xps/data/simfiles/depth_CO_sep_new/{elems[0]}_{elems[1]}_{thickness}.txt'):
+            print(i, elems, thickness)
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\CommentTok{\# remove files}
-\NormalTok{path}\OperatorTok{=}\StringTok{\textquotesingle{}../data/simulation\_data/depth\_CO\_sep/\textquotesingle{}}
-\ControlFlowTok{for} \BuiltInTok{file} \KeywordTok{in}\NormalTok{ os.listdir(path):}
-    \ControlFlowTok{if} \BuiltInTok{len}\NormalTok{(}\BuiltInTok{file}\NormalTok{.split(}\StringTok{\textquotesingle{}\_\textquotesingle{}}\NormalTok{)) }\OperatorTok{==} \DecValTok{6}\NormalTok{:}
-\NormalTok{        os.remove(os.path.join(path,}\BuiltInTok{file}\NormalTok{))}
-        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\BuiltInTok{file}\SpecialCharTok{\}}\SpecialStringTok{ removed.\textquotesingle{}}\NormalTok{)}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+# remove files
+path='../data/simulation_data/depth_CO_sep/'
+for file in os.listdir(path):
+    if len(file.split('_')) == 6:
+        os.remove(os.path.join(path,file))
+        print(f'{file} removed.')
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\NormalTok{os.chdir(}\VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}kochk\textbackslash{}Documents\textbackslash{}Git\_Repos\textbackslash{}Github\textbackslash{}deep\_xps\textbackslash{}tasks\textbackslash{}0\textbackslash{}simulation\textquotesingle{}}\NormalTok{)}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+os.chdir(r'C:\Users\kochk\Documents\Git_Repos\Github\deep_xps\tasks\0\simulation')
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\CommentTok{\# check if all files done and store not simulated files in a list}
+\begin{lstlisting}[language=Python]
+# check if all files done and store not simulated files in a list
 
-\NormalTok{data\_dir }\OperatorTok{=} \StringTok{\textquotesingle{}../../../data/simulation\_data/grad\_NO/\textquotesingle{}}
-\NormalTok{files }\OperatorTok{=}\NormalTok{ os.listdir(data\_dir)}
-\NormalTok{not\_sim }\OperatorTok{=}\NormalTok{ []}
-\NormalTok{sim }\OperatorTok{=}\NormalTok{ []}
-\NormalTok{etching\_rates }\OperatorTok{=}\NormalTok{ [}\DecValTok{100}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{70}\NormalTok{, }\DecValTok{60}\NormalTok{]}
-\ControlFlowTok{for}\NormalTok{ perm }\KeywordTok{in}\NormalTok{ perms:}
-    \ControlFlowTok{for}\NormalTok{ etching }\KeywordTok{in}\NormalTok{ etching\_rates:}
-        \ControlFlowTok{if}\NormalTok{ os.path.isfile(data\_dir}\OperatorTok{+}\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\NormalTok{perm[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{perm[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{etching}\SpecialCharTok{\}}\SpecialStringTok{\_etching\_spectra.spcreg1.spc\textquotesingle{}}\NormalTok{):}
-\NormalTok{            sim.append([perm, etching])}
-        \ControlFlowTok{else}\NormalTok{:}
-\NormalTok{            not\_sim.append(perm)}
-\NormalTok{not\_sim }\OperatorTok{=}\NormalTok{ [f }\ControlFlowTok{for}\NormalTok{ f }\KeywordTok{in}\NormalTok{ not\_sim }\ControlFlowTok{if} \KeywordTok{not} \StringTok{"Xe"} \KeywordTok{in}\NormalTok{ f]}
-\end{Highlighting}
-\end{shaded}
+data_dir = '../../../data/simulation_data/grad_NO/'
+files = os.listdir(data_dir)
+not_sim = []
+sim = []
+etching_rates = [100, 90, 80, 70, 60]
+for perm in perms:
+    for etching in etching_rates:
+        if os.path.isfile(data_dir+f'{perm[0]}_{perm[1]}_{etching}_etching_spectra.spcreg1.spc'):
+            sim.append([perm, etching])
+        else:
+            not_sim.append(perm)
+not_sim = [f for f in not_sim if not "Xe" in f]
+\end{lstlisting}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\NormalTok{not\_sim }\OperatorTok{=}\NormalTok{ pd.Series(not\_sim).unique()}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+not_sim = pd.Series(not_sim).unique()
+\end{lstlisting}
 
 \hypertarget{one-element-layers}{%
 \subsection{One-element layers}\label{one-element-layers}}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{for}\NormalTok{ element }\KeywordTok{in}\NormalTok{ tqdm(elements\_sym):}
-    \ControlFlowTok{if}\NormalTok{ os.path.isfile(}\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\NormalTok{root\_dir}\SpecialCharTok{\}}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{data}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{simulation\_data}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{one\_layer}\CharTok{\textbackslash{}\textbackslash{}}\SpecialCharTok{\{}\NormalTok{element}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{element}\SpecialCharTok{\}}\SpecialStringTok{\_spectra.spc\textquotesingle{}}\NormalTok{):}
-        \ControlFlowTok{continue}
-\NormalTok{    cmd\_str }\OperatorTok{=}\NormalTok{ [}\StringTok{\textquotesingle{}}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{PROJECT LOAD SESSION "C:\textbackslash{}Program Files (x86)\textbackslash{}Sessa v2.2.0}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{bin/Sessa\_ini.ses"\textquotesingle{}}\NormalTok{,}
-                    \StringTok{\textquotesingle{}}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{SPECTROMETER SET RANGE 486.6:1486.6 REGION 1\textquotesingle{}}\NormalTok{,}
-                    \SpecialStringTok{f\textquotesingle{}}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{SAMPLE SET MATERIAL }\SpecialCharTok{\{}\NormalTok{element}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{,}
-                    \CommentTok{\# f\textquotesingle{}\textbackslash{}\textbackslash{}SAMPLE ADD LAYER /C/O/ THICKNESS \{int(random.triangular(12, 24, 15))\} ABOVE 0\textquotesingle{},}
-                    \StringTok{\textquotesingle{}}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{MODEL SET CONVERGENCE 1.000e{-}02\textquotesingle{}}\NormalTok{,}
-                    \StringTok{\textquotesingle{}}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{MODEL SET SE true\textquotesingle{}}\NormalTok{,}
-                    \StringTok{\textquotesingle{}}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{MODEL SIMULATE\textquotesingle{}}\NormalTok{,}
-\SpecialStringTok{f\textquotesingle{}}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{MODEL SAVE SPECTRA "}\SpecialCharTok{\{}\NormalTok{root\_dir}\SpecialCharTok{\}}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{data}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{simulation\_data}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{one\_layer}\CharTok{\textbackslash{}\textbackslash{}}\SpecialCharTok{\{}\NormalTok{element}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{element}\SpecialCharTok{\}}\SpecialStringTok{\_spectra.spc"\textquotesingle{}}\NormalTok{]}
-    \ControlFlowTok{with} \BuiltInTok{open}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\NormalTok{root\_dir}\SpecialCharTok{\}}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{data}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{simfiles}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{one\_layer}\CharTok{\textbackslash{}\textbackslash{}}\SpecialCharTok{\{}\NormalTok{element}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{element}\SpecialCharTok{\}}\SpecialStringTok{.txt\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}w\textquotesingle{}}\NormalTok{) }\ImportTok{as}\NormalTok{ f:}
-\NormalTok{        f.writelines(}\StringTok{\textquotesingle{}}\CharTok{\textbackslash{}n}\StringTok{\textquotesingle{}}\NormalTok{.join(cmd\_str))}
-\NormalTok{    filename\_abs }\OperatorTok{=} \SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\NormalTok{root\_dir}\SpecialCharTok{\}}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{data}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{simfiles}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{one\_layer}\CharTok{\textbackslash{}\textbackslash{}}\SpecialCharTok{\{}\NormalTok{element}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{element}\SpecialCharTok{\}}\SpecialStringTok{.txt\textquotesingle{}}
-\NormalTok{    os.chdir(sessa\_dir)}
-\NormalTok{    SWHIDE }\OperatorTok{=} \DecValTok{0}
-\NormalTok{    info }\OperatorTok{=}\NormalTok{ subprocess.STARTUPINFO()}
-\NormalTok{    info.dwFlags }\OperatorTok{=}\NormalTok{ subprocess.STARTF\_USESHOWWINDOW}
-\NormalTok{    info.wShowWindow }\OperatorTok{=}\NormalTok{ SWHIDE}
-\NormalTok{    p }\OperatorTok{=}\NormalTok{ subprocess.Popen(}\StringTok{\textquotesingle{}sessa.exe {-}s "}\SpecialCharTok{\%s}\StringTok{"\textquotesingle{}} \OperatorTok{\%}\NormalTok{ filename\_abs, startupinfo}\OperatorTok{=}\NormalTok{info)}
-\NormalTok{    p.wait()}
-\end{Highlighting}
-\end{shaded}
+\begin{lstlisting}[language=Python]
+for element in tqdm(elements_sym):
+    if os.path.isfile(f'{root_dir}\\data\\simulation_data\\one_layer\\{element}_{element}_spectra.spc'):
+        continue
+    cmd_str = ['\\PROJECT LOAD SESSION "C:\Program Files (x86)\Sessa v2.2.0\\bin/Sessa_ini.ses"',
+                    '\\SPECTROMETER SET RANGE 486.6:1486.6 REGION 1',
+                    f'\\SAMPLE SET MATERIAL {element}',
+                    # f'\\SAMPLE ADD LAYER /C/O/ THICKNESS {int(random.triangular(12, 24, 15))} ABOVE 0',
+                    '\\MODEL SET CONVERGENCE 1.000e-02',
+                    '\\MODEL SET SE true',
+                    '\\MODEL SIMULATE',
+f'\\MODEL SAVE SPECTRA "{root_dir}\\data\\simulation_data\\one_layer\\{element}_{element}_spectra.spc"']
+    with open(f'{root_dir}\\data\\simfiles\\one_layer\\{element}_{element}.txt', 'w') as f:
+        f.writelines('\n'.join(cmd_str))
+    filename_abs = f'{root_dir}\\data\\simfiles\\one_layer\\{element}_{element}.txt'
+    os.chdir(sessa_dir)
+    SWHIDE = 0
+    info = subprocess.STARTUPINFO()
+    info.dwFlags = subprocess.STARTF_USESHOWWINDOW
+    info.wShowWindow = SWHIDE
+    p = subprocess.Popen('sessa.exe -s "%s"' % filename_abs, startupinfo=info)
+    p.wait()
+\end{lstlisting}
 
 \hypertarget{mixture-compounds}{%
 \section{Mixture compounds}\label{mixture-compounds}}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ base }\ImportTok{import}\NormalTok{ get\_combinations}
+\begin{lstlisting}[language=Python]
+from base import get_combinations
 
-\NormalTok{folder }\OperatorTok{=} \StringTok{\textquotesingle{}multi\_one\_layer\textquotesingle{}}
-\NormalTok{data\_dir }\OperatorTok{=} \VerbatimStringTok{rf\textquotesingle{}C:\textbackslash{}Users\textbackslash{}kochk\textbackslash{}Documents\textbackslash{}Git\_Repos\textbackslash{}Github\textbackslash{}deep\_xps\textbackslash{}data\textbackslash{}simulation\_data\textbackslash{}}\SpecialCharTok{\{}\NormalTok{folder}\SpecialCharTok{\}}\VerbatimStringTok{\textquotesingle{}}
-\NormalTok{perms }\OperatorTok{=}\NormalTok{ get\_combinations(elements\_sym, number\_of\_layers}\OperatorTok{=}\DecValTok{1}\NormalTok{, number\_of\_combinations}\OperatorTok{=}\DecValTok{30\_000}\NormalTok{, lower}\OperatorTok{=}\DecValTok{2}\NormalTok{, upper}\OperatorTok{=}\DecValTok{4}\NormalTok{) }\CommentTok{\# get one layer}
-\NormalTok{thickness }\OperatorTok{=}\NormalTok{ [random.choice([}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DecValTok{50}\NormalTok{]), }\DecValTok{50}\NormalTok{] }\CommentTok{\# two{-}layer systems always have second layer of 50 Angstrom}
-\ControlFlowTok{for}\NormalTok{ entry }\KeywordTok{in}\NormalTok{ tqdm(}\BuiltInTok{list}\NormalTok{(perms)[}\DecValTok{0}\NormalTok{]):}
-    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}}\CharTok{\textbackslash{}t}\SpecialStringTok{ Going for entry }\SpecialCharTok{\{}\NormalTok{entry}\SpecialCharTok{\}}\SpecialStringTok{ with thickness }\SpecialCharTok{\{}\NormalTok{thickness}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{)}
-\NormalTok{    exp }\OperatorTok{=}\NormalTok{ Experiment(layers}\OperatorTok{=}\NormalTok{[Layer(entry[i] , thickness[i]) }\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\BuiltInTok{len}\NormalTok{(entry))],}
-\NormalTok{            exp\_dir}\OperatorTok{=}\NormalTok{folder,}
-\NormalTok{            root\_dir}\OperatorTok{=}\NormalTok{root\_dir,}
-\NormalTok{            sessa\_dir}\OperatorTok{=}\NormalTok{sessa\_dir,}
-\NormalTok{            contamination}\OperatorTok{=}\VariableTok{False}\NormalTok{,}
-\NormalTok{            shifts\_probability}\OperatorTok{=}\FloatTok{0.6}\NormalTok{)}
-\NormalTok{    exp.simulate()}
-\end{Highlighting}
-\end{shaded}
+folder = 'multi_one_layer'
+data_dir = rf'C:\Users\kochk\Documents\Git_Repos\Github\deep_xps\data\simulation_data\{folder}'
+perms = get_combinations(elements_sym, number_of_layers=1, number_of_combinations=30_000, lower=2, upper=4) # get one layer
+thickness = [random.choice([10,20,30,40,50]), 50] # two-layer systems always have second layer of 50 Angstrom
+for entry in tqdm(list(perms)[0]):
+    print(f'\t Going for entry {entry} with thickness {thickness}')
+    exp = Experiment(layers=[Layer(entry[i] , thickness[i]) for i in range(len(entry))],
+            exp_dir=folder,
+            root_dir=root_dir,
+            sessa_dir=sessa_dir,
+            contamination=False,
+            shifts_probability=0.6)
+    exp.simulate()
+\end{lstlisting}
 
 \hypertarget{visualize}{%
 \section{visualize}\label{visualize}}
 
-\begin{shaded}
-\begin{Highlighting}[]
-\ImportTok{import}\NormalTok{ matplotlib }\ImportTok{as}\NormalTok{ mpl}
-\ImportTok{import}\NormalTok{ seaborn }\ImportTok{as}\NormalTok{ sns}
-\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\begin{lstlisting}[language=Python]
+import matplotlib as mpl
+import seaborn as sns
+import pandas as pd
 
-\NormalTok{os.chdir(root\_dir)}
+os.chdir(root_dir)
 
-\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.read\_csv(}\StringTok{\textquotesingle{}./data/Si\_1\_Zn\_1/results/spectra.spcreg1.spc\textquotesingle{}}\NormalTok{, sep}\OperatorTok{=}\StringTok{\textquotesingle{}\textbackslash{}s+\textquotesingle{}}\NormalTok{, names}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}Energy [eV]\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Intensity\textquotesingle{}}\NormalTok{], skiprows}\OperatorTok{=}\DecValTok{1}\NormalTok{)}
-\NormalTok{df2 }\OperatorTok{=}\NormalTok{ pd.read\_csv(}\StringTok{\textquotesingle{}./data/Zn\_1\_Si\_1/results/spectra.spcreg1.spc\textquotesingle{}}\NormalTok{, sep}\OperatorTok{=}\StringTok{\textquotesingle{}\textbackslash{}s+\textquotesingle{}}\NormalTok{, names}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}Energy [eV]\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Intensity\textquotesingle{}}\NormalTok{], skiprows}\OperatorTok{=}\DecValTok{1}\NormalTok{)}
-\NormalTok{df.Intensity.plot()}
-\NormalTok{df2.Intensity.plot()}
-\end{Highlighting}
-\end{shaded}
+df = pd.read_csv('./data/Si_1_Zn_1/results/spectra.spcreg1.spc', sep='\s+', names=['Energy [eV]', 'Intensity'], skiprows=1)
+df2 = pd.read_csv('./data/Zn_1_Si_1/results/spectra.spcreg1.spc', sep='\s+', names=['Energy [eV]', 'Intensity'], skiprows=1)
+df.Intensity.plot()
+df2.Intensity.plot()
+\end{lstlisting}
