@@ -23,7 +23,7 @@ The first task is a multi-class classification problem, which means we need to f
 %Models were designed with two output-layers which correspond to the respective layers of our modelled sample. 
 
 To start the modelling procedure, the training dataset was split into training and validation datasets with a ration of 80:20. A first model was built respectively for each of the tasks listed in the \nameref{Chapter1} for the four models: CNN, CNN-DCT, CBAM, ViT. The models architectures were then changed such that it efficiently trains on the respective training dataset. This was evaluated by comparing training loss and accuracy. If the training data loss decreases and its accuracy increases, we successfully train the model.
-The validation loss is then used to tune the hyperparameters and add normalization to the model until the model showed convex training behaviour and no overfitting. Lastly, the models were trained with an early stopping callback function which monitored the model loss to stop the training when there was no improvment >0.002 for five consecutive epochs.
+The validation loss is then used to tune the hyperparameters and add normalization to the model until the model showed convex training behaviour and no overfitting. Lastly, the models were trained with an early stopping callback function which monitored the model loss to stop the training when there was no improvement >0.002 for five consecutive epochs.
 
 \subsection{Loss functions and hyperparameters}
 
@@ -32,7 +32,7 @@ The validation loss is then used to tune the hyperparameters and add normalizati
 The CNN model used is based on the standard architecture with two convolutional blocks. The first blocks consist of four consecutive convolutional layers with increasing kernel sizes (TODO) to extract more and more general features, while the second block has kernel sizes (TODO). Each block uses 16 filters, the ELU activation function, starts with a batch-normalization layer and ends with a max-pooling layer.
 As these two blocks are used as a feature-extraction tool, the features are then flattened to one dimension before being connected through a dropout-layer (p = 0.4) and subsequent batch-normalization. Finally, the softmax function is applied to the dense output layer with 81 nodes corresponding to the elements.
 
-During the development of an adequate CNN-model, batch-normalization seemed to have a big impact on the model 
+During the development of an adequate CNN-model, batch-normalization seemed to have a big impact on the model and the training speed. A variety of kernel sizes in a variety of sequences were tested.
 % show the structure
 
 The corresponding code can be found in the Appendix \ref{AppendixB}

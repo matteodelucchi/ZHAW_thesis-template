@@ -73,6 +73,8 @@ A similar effect can be observed for unpaired electrons in the valence bands. Th
 % Auger electron peaks, 
 When a core electron is lost due to the X-ray excitation, a deficiency of electrons results. This ionized state is then relaxed with an electron from the outer-most so-called valence orbital \cite{stevie_introduction_2020}. This process induces the release of energy which can then be detected with XPS. It is crucial to note that this process is independent of the source energy and thus, the Auger peak binding energy changes when another source of X-rays is used. This is especially important to resolve issues when Auger peaks overlap with photoelectron peaks.
 
+Another signal which can be count towards indirect transitions is the background. It is mostly due to inelastic scattering of the electrons and thus also highly dependent on the sample under investigation. Using the inelastic background has been shown to improve prediction accuracy for quantitative analysis \cite{tougaard_practical_2020}.
+
 
 \begin{figure}[H]
     \centering
@@ -163,5 +165,5 @@ A newer method collects spectra in parallel, thus is called pARXPS, which reduce
 \subsubsection{XPS-HAXPES}
 Hard X-ray photoelectoron spectroscopy is a technique similar to XPS, but uses Gallium or Chromium to produce hard x-rays to achieve much higher energy levels. As these X-rays are in the range of multiple keVs, the IMFP increases drastically and we are able to probe much deeper into the surface compared to XPS. Combining the two analyses can provide researchers with valuable information of the surface and the deeper regions of samples. This approach has been demonstrated to provide valuable information in multiple publications \cite{bure_assessing_2023, siol_concepts_2020} 
 
-\subsubsection{Spectra modelling}
-As shown in Chapter \ref{{subchap:sim_sessa}}, there exist modelling approaches which can be used to derive an approximate depth profile. Available modelling approaches include the publicly available Sessa Software from NIST \cite{smekal_simulation_2005}, the Quases-Tougaard Software \cite{zborowski_comparison_2022}, and the StrataPHI Software from PHI \cite{noauthor_updated_nodate}. The Sessa Software is designed for a manual fitting approach, while the other solutions provide an automatic fitting to find the most probable depth profile for a given spectrum.
+\subsubsection{Spectra modelling and depth profile inference}
+As shown in Chapter \ref{{subchap:sim_sessa}}, there exist modelling approaches which can be used to derive an approximate depth profile. Available modelling approaches include the publicly available Sessa Software from NIST \cite{smekal_simulation_2005}, the Quases-Tougaard Software \cite{zborowski_comparison_2022}, and the StrataPHI Software from PHI \cite{noauthor_updated_nodate}. The Sessa Software is designed for a manual fitting approach, while the other solutions provide an automatic inference to find the most probable depth profile for a given spectrum.
