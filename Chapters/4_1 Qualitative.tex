@@ -4,50 +4,71 @@
 \section{Qualitative elemental identification of bilayer systems}
 \subsubsection{Elemental identification}
 % model performance
-The model performance for the qualitative elemental identification is shown in Table \ref{tab:acc_qual}. The categorical accuracies were computed for the individual cont. and clean datasets, and the mixcont dataset. It should be noted that - due to the small amount of information from the bottom layer - we expect a lower performance compared to the top layer.
+The model performance for the qualitative elemental identification is shown in Table \ref{tab:acc_qual}. The categorical accuracies were computed for the individual cont. and clean datasets, and the mixcont dataset. Because experimental data can contain contamination, we expect the mixcont dataset to make our model more robust in that respect.
 
 \begin{table}[H]
     \centering
     \begin{tabular}{c|c|c|c|c|c}
-        Dataset & Layer & Model   & No. Parameters & Validation Dataset*  & Test Dataset*    \\
+        Dataset & Layer & Model   & No. Parameters & Validation Dataset  & Test Dataset*    \\
         \hline
-        mixcont & top   & CNN     &                & 85.32 \%              &        \% \\
+        mixcont & top   & CNN     &                &  85.32\%              &        \% \\
                 &       & CNN-DCT &                &       \%              &         \% \\
                 &       & CBAM    &                &       \%              &         \% \\
-                &       & ViT     &                &  91.66\%              &   99.37\% \\
+                &       & ViT     &                &  91.66\%              &          \% \\
                 & bot   & CNN     &                &  73.85\%              &          \%  \\
                 &       & CNN-DCT &                &       \%              &          \%  \\
                 &       & CBAM    &                &       \%              &         \% \\
                 &       & ViT     &                &       \%              &           \% \\
+        \hline
+        cont    & top   & CNN     &                &       \%              &        \% \\
+                &       & CNN-DCT &                &       \%              &         \% \\
+                &       & CBAM    &                &       \%              &         \% \\
+                &       & ViT     &                &       \%              &         \% \\
+                & bot   & CNN     &                &       \%              &          \%  \\
+                &       & CNN-DCT &                &       \%              &          \%  \\
+                &       & CBAM    &                &       \%              &         \% \\
+                &       & ViT     &                &       \%              &           \% \\
+        \hline
+        clean   & top   & CNN     &                &       \%              &        \% \\
+                &       & CNN-DCT &                &       \%              &         \% \\
+                &       & CBAM    &                &       \%              &         \% \\
+                &       & ViT     &                &       \%              &         \% \\
+                & bot   & CNN     &                &       \%              &          \%  \\
+                &       & CNN-DCT &                &       \%              &          \%  \\
+                &       & CBAM    &                &       \%              &         \% \\
+                &       & ViT     &                &       \%              &           \% \\
     \end{tabular}
-    \caption{Categorical Accuracies, and number of Parameters of the models in respect to dataset and layer}
+    \caption{Categorical accuracies, and number of parameters of the models in respect to dataset and sample layer
+    *Test Dataset n=\nelementalspectra}
     \label{tab:acc_qual}
 \end{table}
 
+From Table \ref{tab:acc_qual}, it is obvious that the performance of the bottom layer prediction is always lower than the top layer prediction. This is expected and obvious regarding the principle of XPS measurement, as electrons from the deeper layer must travel through the top layer and thus will be less intense and more influenced by scattering from interactions.
 
 % experimental data (AG_AG etc.)
+% wrong predictions -> why ? Overlap of peaks? Indirect peaks?
 From the experimental data, $\nelementalspectra$ elemental spectra were used for the qualitative elemental prediction. 
 
 \subsubsection{Depth and gradient determination of native oxides and elements}
 % As there's almost no test data this is experimental
+As depth profiling data is not readily available from public databases, the measured spectra kindly provided by Filippo Longo and Claudia Cancellieri, were used to evaluate the model on experimental data.
 % model performance
 
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{c|c|c|c|c|c}
-        Dataset & Model   & No. Parameters & Validation Dataset*  & Test Dataset*    \\
+    \begin{tabular}{c|c|c|c|c}
+        Dataset & Model   & No. Parameters & Validation Dataset      \\
         \hline
-        mixcont+oxides& CNN     &                &        \%             &             \% \\
-               & CNN-DCT &                &       \%              &             \% \\
-               & CBAM    &                &       \%              &             \% \\
-               & ViT     &                &       \%              &             \% \\
-               & CNN     &                &       \%              &             \%  \\
-               & CNN-DCT &                &       \%              &             \%  \\
-               & CBAM    &                &       \%              &             \% \\
-               & ViT     &                &       \%              &             \% \\
+ mixcont+oxides& CNN     &                &        \%              \\
+               & CNN-DCT &                &       \%               \\
+               & CBAM    &                &       \%               \\
+               & ViT     &                &       \%               \\
+
     \end{tabular}
-    \caption{ and number of Parameters of the models in respect to dataset and layer}
+    \caption{ and number of Parameters of the models in respect to dataset and layer
+    *n=3}
     \label{tab:acc_depth}
 \end{table}
+
 % experimental data (AG_AG etc.)
