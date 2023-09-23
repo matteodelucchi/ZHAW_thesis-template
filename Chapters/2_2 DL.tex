@@ -11,7 +11,7 @@ Attention-based neural networks have been applied to near infrared spectroscopy 
 \subsection{Model hyperparameters \& training}
 For each model, a set of hyperparameters define either initial, or fixed values used for the training. 
 Multiple training cycles are performed on the dataset, which is shuffled before each training cycle, also called epoch. A so-called \emph{loss function} is introduced which resembles the absolute deviation of the predicted $\hat{y}$ from the correct labels $y$ $(\hat{y} - y)$.
-In each epoch, we re-evaluate the weights of the model subject to minimize the defined loss-function with respect to the defined learning rate. The initial data available is split into a training and validation dataset. The weights are trained only the training dataset, while the validation dataset is used to check the performance on data which is new for the model and tune its hyperparameters.
+In each epoch, the weights of the model are re-evaluated subject to minimizing the defined loss-function with respect to the defined learning rate. The initial data available is split into a training and validation dataset. The weights are trained only the training dataset, while the validation dataset is used to check the performance on data which is new for the model and tune its hyperparameters. 
 
 \subsection{General patterns}
 
@@ -27,15 +27,16 @@ Big datasets are usually divided into subsets such that we can efficiently train
 %The positive effects have been shown in multiple publications
 
 \subsection{Convolutional Neural Networks (CNN)}
-In convolutional neural networks (CNN), the input values are multiplied with a kernel to extract features. The CNNs are used where the input is of a discrete, grid-like topology. A kernel in this sense can represent a vector of n dimensions, where in case of spectra n=1 that will be moved along an axis, applying the multiplication subsequently. The values of the kernel are learnable, such that it can be fitted to extract specific features depending on the nature of the data.
+In convolutional neural networks (CNN), the input values are multiplied with a kernel to extract features. The CNNs are used where the input is of a discrete, grid-like topology. A kernel in this sense can represent a vector of n dimensions, where in case of spectra n=1 that will be moved along an axis, applying the multiplication subsequently. As the kernel can not be applied at the ends of our data, we can decide to apply padding on the ends with zero values, or start only when the kernel fits our data. Applying a kernel of size 5 on a vector of length 20 will thus only compute a vector of size 11 without padding, whereas its length will be 20 with the padding.
+The values of the kernel are learnable, such that it can be fitted to extract specific features depending on the nature of the data.
 
 These convolutional layers are usually followed by pooling layers - such as max-pooling or average-pooling - which also use a kernel. As the pooling layers reduce the dimensionality of the input, they have a number of positive effects on the model, such as better robustness to input variability and faster training. In addition, pooling layers help the model to learn invariances in the input data, such as rotation or small shift of an image content \cite{goodfellow_deep_2016}. 
 
-The 1-dimensional convolutions we use in the case of spectral data will thus use $p$ one-dimensional kernels (vectors) of pre-defined length, where $p$ stands for the number of channels. If, for example, our spectrum vector is of dimensions (1 x 1024), using a 1d-convolutional kernel of size (1 x 5) with 16 channels will be applied. Thus, we will retain 16 vectors of size (1023)
+The 1-dimensional convolutions we use in the case of spectral data will thus use $p$ one-dimensional kernels (vectors) of pre-defined length, where $p$ stands for the number of channels. If, for example, our spectrum vector is of length 1024, using a 1d-convolutional kernel of arbritary size with 16 channels will be applied. Thus, we will retain 16 vectors, each representing a feature of our spectrum. Arranging multiple CNN layers in sequence is a usual architecture used, as the layers learn from previously extracted features to represent more complex structures.
 
 This network architectural pattern is extensively used in image classification tasks but has also been applied to diverse classification tasks, including spectroscopic data analysis \cite{sun_cnnlstm_2023, castorena_deep_2021, drera_deep_2019}.
 
-\subsection{Residual networks}
+\subsection{Residual networks (ResNet)}
 
 In residual networks, the input is re-added after performing weighted operations such as convolutions. This feature has known positive effects, especially on deeper neural networks (networks with multiple layers). Residual network architectures diminish the well-known vanishing gradient problem by adding skip connections to the network. 
 
@@ -46,7 +47,7 @@ In residual networks, the input is re-added after performing weighted operations
     \label{fig:res_block}
 \end{figure}
 
-This pattern has later also been used for other models, as it allows much deeper networks to learn much more efficiently.
+This pattern has later also been used for other models, as it allows much deeper networks to learn much more efficiently. Especially, in combination with convolutional models, this has improved the accuracy eg. in CBAM as explained below.
 
 %\subsection{Recurrent neural networks}
     

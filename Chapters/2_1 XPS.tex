@@ -93,11 +93,32 @@ When analyzing with XPS, we often find peaks which do not originate from the sam
 In addition, the contamination can be mostly removed when an ion-etching procedure is performed prior to the measurement. Although sometimes referred to as a \emph{contamination layer}, it does not behave similar to a layer, as it is not densely populated on the surface.
 
 \subsection{Quantitative XPS Analysis}
-As the quantity of a certain element increases, its corresponding peak should increase as well, given its generated electrons can still escape the sample without being scattered. However, simultaneously, other peaks decrease proportionally in intensity. For example, the peak area of \ch{Al2O3} should sum up to 2:3 for Al:O.
+As the quantity of a certain element increases, its corresponding peak should increase as well, given its generated electrons can still escape the sample without being scattered. However, simultaneously, other peaks decrease proportionally in intensity. For example, the peak area of \ch{Al2O3} should sum up to a proportion of 2:3 for Al:O.
 The common procedure for quantitative analysis is to substract the background according to a modelled assumption and subsequently elaborate a relative sensitivity factor (RSF) to measure the area under the peaks and set them into relation.
 
+\subsection{Simulation with Sessa}
+\label{subchap:sim_sessa}
+As XPS spectra are not available from databases in sufficient number for the use as training data in deep learning, we used the NIST Standard Reference Database 100 Software, also called Sessa \cite{noauthor_nist_2010, smekal_simulation_2005}. The development aimed to provide a solution to two main applications - quantitative XPS and simulation of layered samples. The proposed approach for layered systems and thickness analysis is to adjust the model "to find maximum consistency between simulated and measured spectra" \cite{smekal_simulation_2005}.
+In Sessa, spectra are simulated using a Monte-Carlo method using the data provided from multiple databases for the following data:
+
+\begin{itemize}
+    \item elemental data
+    \item differential inverse inelastic mean free path
+    \item IMFP values
+    \item differential elastic-scattering cross section
+    \item total elastic-scattering cross section
+    \item transport scattering cross section
+    \item photoionization cross section
+    \item photoionization asymmetry parameter
+    \item electron inner-shell ionization cross section
+    \item photoelectron lineshape
+    \item binding energies of the elements.
+\end{itemize}
+
+Although the exact computational models used in Sessa are not public, Smekal et al. have shown that the linear approximation approach for the angle dependent cross sections, and the depth distribution function (which models surface sensitivity) are in good agreement with experimental data. However, they raise awareness to the need for empirical data in order to realistically model the shape of Auger peaks.
+
 \subsection{Depth profiling}
-In many areas of research, the investigation of surfaces, buried interfaces and quantification in relation to the sample depth is of interest. Experimentally, there exist four methods for investigating depth-information of a component in a sample. These are:
+In many areas of research, the investigation of surfaces, buried interfaces and quantification in relation to the sample depth is of interest. The influence of layer thickness on the spectra shape is shown in Figure \ref{fig:depths}. Experimentally, there exist four methods for investigating depth-information of a component in a sample. These are:
 \begin{enumerate}
     \item Presence or absence of energy loss peaks which occur when electrons from deeper regions of the material need to travel to the surface and lose energy (associated to the elastic scattering effect)
     \item The intensity ratio of peaks across the kinetic energy (high vs low) – only suitable for a selection of elements (semi-qualitative).
@@ -112,8 +133,8 @@ and more recently have been extended by two additional methods:
 \end{enumerate}
 
 
-Methods 1-3 have the drawback of being potentially destructive on the sample surface. Further, they are giving only very vague information about the samples’ depth profile; the accuracy is often denoted to be $\pm$10\%.
-The non-destructive methods 4-6 (ARXPS / Modelling / XPS-HAXPES) are further explained, as they are comparable to the data-driven approach used in this work.
+Methods 1-3 have the drawback of being potentially destructive on the sample surface. Further, they are giving only very vague information about the samples’ depth profile; the accuracy is often denoted to be $\pm$10\% \cite{}.
+The non-destructive methods 4-6 (ARXPS / XPS-HAXPES / Modelling) are further explained, as they are comparable to the data-driven approach used in this work.
 
 \subsubsection{Angle resolved XPS (ARXPS)}
 \begin{figure}
@@ -140,25 +161,7 @@ z is the depth and $\lambda$ the IMFP or the EAL
 A newer method collects spectra in parallel, thus is called pARXPS, which reduces acquisition time and constant transmission \cite{bure_assessing_2023}.
 
 \subsubsection{XPS-HAXPES}
-
 Hard X-ray photoelectoron spectroscopy is a technique similar to XPS, but uses Gallium or Chromium to produce hard x-rays to achieve much higher energy levels. As these X-rays are in the range of multiple keVs, the IMFP increases drastically and we are able to probe much deeper into the surface compared to XPS. Combining the two analyses can provide researchers with valuable information of the surface and the deeper regions of samples. This approach has been demonstrated to provide valuable information in multiple publications \cite{bure_assessing_2023, siol_concepts_2020} 
 
-\subsection{Simulation with Sessa}
-As XPS spectra are not available from databases in sufficient number for the use as training data in deep learning, we used the NIST Standard Reference Database 100 Software, also called Sessa \cite{noauthor_nist_2010, smekal_simulation_2005}. The development aimed to provide a solution to two main applications - quantitative XPS and simulation of layered samples. The proposed approach for layered systems and thickness analysis is to adjust the model "to find maximum consistency between simulated and measured spectra" \cite{smekal_simulation_2005}.
-In Sessa, spectra are simulated using a Monte-Carlo method using the data provided from multiple databases for the following data:
-
-\begin{itemize}
-    \item elemental data
-    \item differential inverse inelastic mean free path
-    \item IMFP values
-    \item differential elastic-scattering cross section
-    \item total elastic-scattering cross section
-    \item transport scattering cross section
-    \item photoionization cross section
-    \item photoionization asymmetry parameter
-    \item electron inner-shell ionization cross section
-    \item photoelectron lineshape
-    \item binding energies of the elements.
-\end{itemize}
-
-Although the exact computational models used in Sessa are not public, Smekal et al. have shown that the linear approximation approach for the angle dependent cross sections, and the depth distribution function (which models surface sensitivity) are in good agreement with experimental data. However, they raise awareness to the need for empirical data in order to realistically model the shape of Auger peaks.
+\subsubsection{Spectra modelling}
+As shown in Chapter \ref{{subchap:sim_sessa}}, there exist modelling approaches which can be used to derive an approximate depth profile. Available modelling approaches include the publicly available Sessa Software from NIST \cite{smekal_simulation_2005}, the Quases-Tougaard Software \cite{zborowski_comparison_2022}, and the StrataPHI Software from PHI \cite{noauthor_updated_nodate}. The Sessa Software is designed for a manual fitting approach, while the other solutions provide an automatic fitting to find the most probable depth profile for a given spectrum.
