@@ -1,7 +1,7 @@
 \hypertarget{define-directories}{%
 \section{Define directories}\label{define-directories}}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \ImportTok{from}\NormalTok{ sessa\_py }\ImportTok{import}\NormalTok{ Experiment, Layer}
 \ImportTok{import}\NormalTok{ os}
@@ -19,13 +19,13 @@
 \NormalTok{root\_dir }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}kochk\textbackslash{}Documents\textbackslash{}Git\_Repos\textbackslash{}Github\textbackslash{}deep\_xps\textquotesingle{}}
 \NormalTok{sessa\_dir }\OperatorTok{=} \VerbatimStringTok{r"C:\textbackslash{}Program Files (x86)\textbackslash{}Sessa v2.2.0\textbackslash{}bin\textbackslash{}\textbackslash{}"}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \NormalTok{elements\_sym }\OperatorTok{=}\NormalTok{ base.load\_elem()}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
 \hypertarget{build-experiments}{%
 \section{Build experiments}\label{build-experiments}}
@@ -34,22 +34,22 @@
 \subsection{Experiments for permutations of elements and
 thicknesses}\label{experiments-for-permutations-of-elements-and-thicknesses}}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \NormalTok{thicknesses }\OperatorTok{=}\NormalTok{ [}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DecValTok{50}\NormalTok{]}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \NormalTok{perms }\OperatorTok{=} \BuiltInTok{list}\NormalTok{(itertools.permutations(elements\_sym, }\DecValTok{2}\NormalTok{))}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
 \hypertarget{separate}{%
 \subsection{Separate}\label{separate}}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \CommentTok{\# check if all files done and store not simulated files in a list}
 \NormalTok{os.chdir(}\VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}kochk\textbackslash{}Documents\textbackslash{}Git\_Repos\textbackslash{}Github\textbackslash{}deep\_xps\textbackslash{}tasks\textbackslash{}0\textbackslash{}simulation\textquotesingle{}}\NormalTok{)}
@@ -67,15 +67,15 @@ thicknesses}\label{experiments-for-permutations-of-elements-and-thicknesses}}
         \ControlFlowTok{else}\NormalTok{:}
 \NormalTok{            not\_sim.append(perm)}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \BuiltInTok{len}\NormalTok{(not\_sim)}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \NormalTok{exp\_dir }\OperatorTok{=} \StringTok{\textquotesingle{}sep\_NO\textquotesingle{}}
 \NormalTok{data\_dir }\OperatorTok{=} \VerbatimStringTok{rf\textquotesingle{}C:\textbackslash{}Users\textbackslash{}kochk\textbackslash{}Documents\textbackslash{}Git\_Repos\textbackslash{}Github\textbackslash{}deep\_xps\textbackslash{}data\textbackslash{}simulation\_data\textbackslash{}}\SpecialCharTok{\{}\NormalTok{exp\_dir}\SpecialCharTok{\}}\VerbatimStringTok{\textquotesingle{}}
@@ -94,13 +94,13 @@ thicknesses}\label{experiments-for-permutations-of-elements-and-thicknesses}}
 \NormalTok{                        contamination}\OperatorTok{=}\VariableTok{None}\NormalTok{)}
 \NormalTok{            f.simulate()}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
 \hypertarget{experiments-for-oxidates-with-and-without-carbon-traces}{%
 \subsection{Experiments for oxidates with and without carbon
 traces}\label{experiments-for-oxidates-with-and-without-carbon-traces}}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \NormalTok{oxides }\OperatorTok{=}\NormalTok{ [}
         \StringTok{\textquotesingle{}/Be/O/\textquotesingle{}}\NormalTok{,}
@@ -146,9 +146,9 @@ traces}\label{experiments-for-oxidates-with-and-without-carbon-traces}}
         \StringTok{\textquotesingle{}/Bi2/O3/\textquotesingle{}}\NormalTok{,}
 \NormalTok{]}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \ControlFlowTok{for}\NormalTok{ entry }\KeywordTok{in}\NormalTok{ tqdm(oxides):}
     \ControlFlowTok{for}\NormalTok{ thickness }\KeywordTok{in}\NormalTok{ thicknesses:}
@@ -163,9 +163,9 @@ traces}\label{experiments-for-oxidates-with-and-without-carbon-traces}}
 \NormalTok{                       )}
 \NormalTok{        f.simulate()}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \ControlFlowTok{for}\NormalTok{ entry }\KeywordTok{in}\NormalTok{ tqdm(oxides):}
     \ControlFlowTok{for}\NormalTok{ thickness }\KeywordTok{in}\NormalTok{ thicknesses:}
@@ -180,13 +180,13 @@ traces}\label{experiments-for-oxidates-with-and-without-carbon-traces}}
 \NormalTok{                       )}
 \NormalTok{        f.simulate()}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
 \hypertarget{build-multi-layer-system-for-depth-profiling}{%
 \subsection{Build multi-layer system for
 depth-profiling}\label{build-multi-layer-system-for-depth-profiling}}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \NormalTok{layer\_thickness }\OperatorTok{=} \DecValTok{5} \CommentTok{\# Angstrom}
 \NormalTok{grad\_steps }\OperatorTok{=}\NormalTok{ layer\_thickness}
@@ -210,18 +210,18 @@ depth-profiling}\label{build-multi-layer-system-for-depth-profiling}}
 \NormalTok{            grad\_matrix[number][}\OperatorTok{{-}}\NormalTok{number:] }\OperatorTok{=} \DecValTok{0}
         \ControlFlowTok{return}\NormalTok{ grad\_matrix}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \NormalTok{rev }\OperatorTok{=}\NormalTok{ create\_gradients(}\DecValTok{5}\NormalTok{, rev}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
 \NormalTok{grad }\OperatorTok{=}\NormalTok{ create\_gradients(}\DecValTok{5}\NormalTok{)}
 \NormalTok{grad }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{100}\OperatorTok{+}\NormalTok{grad\_steps, step}\OperatorTok{=}\NormalTok{grad\_steps) }\CommentTok{\# 0 to 100 in steps of grad\_steps}
 \NormalTok{rev }\OperatorTok{=}\NormalTok{ np.flip(grad) }\CommentTok{\# reverse the gradient}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \NormalTok{iterator }\OperatorTok{=}\NormalTok{ tqdm(perms)}
 \ControlFlowTok{for}\NormalTok{ elems }\KeywordTok{in}\NormalTok{ iterator:}
@@ -236,9 +236,9 @@ depth-profiling}\label{build-multi-layer-system-for-depth-profiling}}
 \NormalTok{                contamination}\OperatorTok{=}\VariableTok{None}\NormalTok{)}
 \NormalTok{    a.simulate()}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \CommentTok{\# elems[0] is the bulk, elem[1] is the top layer with variable thickness}
 \ControlFlowTok{for}\NormalTok{ elems }\KeywordTok{in}\NormalTok{ tqdm(perms):}
@@ -251,12 +251,12 @@ depth-profiling}\label{build-multi-layer-system-for-depth-profiling}}
 \NormalTok{                       etching}\OperatorTok{=}\VariableTok{None}\NormalTok{)}
 \NormalTok{                f.simulate()}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
 \hypertarget{check-if-all-files-done}{%
 \subsubsection{Check if all files done}\label{check-if-all-files-done}}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \ControlFlowTok{for}\NormalTok{ elems }\KeywordTok{in}\NormalTok{ perms:}
     \ControlFlowTok{for}\NormalTok{ thickness }\KeywordTok{in}\NormalTok{ thicknesses:}
@@ -265,26 +265,26 @@ depth-profiling}\label{build-multi-layer-system-for-depth-profiling}}
         \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}..\textbackslash{}data\textbackslash{}simfiles\textbackslash{}depth\_CO\_sep\textbackslash{}}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{thickness}\SpecialCharTok{\}}\SpecialStringTok{.txt\textquotesingle{}}\NormalTok{)}
         \ControlFlowTok{break}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \NormalTok{[(i, os.path.isfile(}\SpecialStringTok{f\textquotesingle{}C:/Users/kochk/Documents/Git\_Repos/Github/deep\_xps/data/simfiles/depth\_CO\_sep\_new/}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{.txt\textquotesingle{}}\NormalTok{)) }
  \ControlFlowTok{for}\NormalTok{ i, elems }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(perms) }
  \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ os.path.isfile(}\SpecialStringTok{f\textquotesingle{}C:/Users/kochk/Documents/Git\_Repos/Github/deep\_xps/data/simfiles/depth\_CO\_sep\_new/}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{.txt\textquotesingle{}}\NormalTok{)]}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \ControlFlowTok{for}\NormalTok{ i, elems }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(perms):}
     \ControlFlowTok{for}\NormalTok{ thickness }\KeywordTok{in}\NormalTok{ thicknesses:}
         \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ os.path.isfile(}\SpecialStringTok{f\textquotesingle{}C:/Users/kochk/Documents/Git\_Repos/Github/deep\_xps/data/simfiles/depth\_CO\_sep\_new/}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{elems[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{thickness}\SpecialCharTok{\}}\SpecialStringTok{.txt\textquotesingle{}}\NormalTok{):}
             \BuiltInTok{print}\NormalTok{(i, elems, thickness)}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \CommentTok{\# remove files}
 \NormalTok{path}\OperatorTok{=}\StringTok{\textquotesingle{}../data/simulation\_data/depth\_CO\_sep/\textquotesingle{}}
@@ -293,15 +293,15 @@ depth-profiling}\label{build-multi-layer-system-for-depth-profiling}}
 \NormalTok{        os.remove(os.path.join(path,}\BuiltInTok{file}\NormalTok{))}
         \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\BuiltInTok{file}\SpecialCharTok{\}}\SpecialStringTok{ removed.\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \NormalTok{os.chdir(}\VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}kochk\textbackslash{}Documents\textbackslash{}Git\_Repos\textbackslash{}Github\textbackslash{}deep\_xps\textbackslash{}tasks\textbackslash{}0\textbackslash{}simulation\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \CommentTok{\# check if all files done and store not simulated files in a list}
 
@@ -318,18 +318,18 @@ depth-profiling}\label{build-multi-layer-system-for-depth-profiling}}
 \NormalTok{            not\_sim.append(perm)}
 \NormalTok{not\_sim }\OperatorTok{=}\NormalTok{ [f }\ControlFlowTok{for}\NormalTok{ f }\KeywordTok{in}\NormalTok{ not\_sim }\ControlFlowTok{if} \KeywordTok{not} \StringTok{"Xe"} \KeywordTok{in}\NormalTok{ f]}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \NormalTok{not\_sim }\OperatorTok{=}\NormalTok{ pd.Series(not\_sim).unique()}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
 \hypertarget{one-element-layers}{%
 \subsection{One-element layers}\label{one-element-layers}}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \ControlFlowTok{for}\NormalTok{ element }\KeywordTok{in}\NormalTok{ tqdm(elements\_sym):}
     \ControlFlowTok{if}\NormalTok{ os.path.isfile(}\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\NormalTok{root\_dir}\SpecialCharTok{\}}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{data}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{simulation\_data}\CharTok{\textbackslash{}\textbackslash{}}\SpecialStringTok{one\_layer}\CharTok{\textbackslash{}\textbackslash{}}\SpecialCharTok{\{}\NormalTok{element}\SpecialCharTok{\}}\SpecialStringTok{\_}\SpecialCharTok{\{}\NormalTok{element}\SpecialCharTok{\}}\SpecialStringTok{\_spectra.spc\textquotesingle{}}\NormalTok{):}
@@ -353,12 +353,12 @@ depth-profiling}\label{build-multi-layer-system-for-depth-profiling}}
 \NormalTok{    p }\OperatorTok{=}\NormalTok{ subprocess.Popen(}\StringTok{\textquotesingle{}sessa.exe {-}s "}\SpecialCharTok{\%s}\StringTok{"\textquotesingle{}} \OperatorTok{\%}\NormalTok{ filename\_abs, startupinfo}\OperatorTok{=}\NormalTok{info)}
 \NormalTok{    p.wait()}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
 \hypertarget{mixture-compounds}{%
 \section{Mixture compounds}\label{mixture-compounds}}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \ImportTok{from}\NormalTok{ base }\ImportTok{import}\NormalTok{ get\_combinations}
 
@@ -376,12 +376,12 @@ depth-profiling}\label{build-multi-layer-system-for-depth-profiling}}
 \NormalTok{            shifts\_probability}\OperatorTok{=}\FloatTok{0.6}\NormalTok{)}
 \NormalTok{    exp.simulate()}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
 
 \hypertarget{visualize}{%
 \section{visualize}\label{visualize}}
 
-\begin{Shaded}
+\begin{shaded}
 \begin{Highlighting}[]
 \ImportTok{import}\NormalTok{ matplotlib }\ImportTok{as}\NormalTok{ mpl}
 \ImportTok{import}\NormalTok{ seaborn }\ImportTok{as}\NormalTok{ sns}
@@ -394,4 +394,4 @@ depth-profiling}\label{build-multi-layer-system-for-depth-profiling}}
 \NormalTok{df.Intensity.plot()}
 \NormalTok{df2.Intensity.plot()}
 \end{Highlighting}
-\end{Shaded}
+\end{shaded}
