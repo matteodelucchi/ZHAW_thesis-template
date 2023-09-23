@@ -1,0 +1,1 @@
+ELEMENTS_SIM_DIR = r'C:\Users\kochk\Documents\Git_Repos\Github\deep_xps\elements_sim.json'

@@ -96,8 +96,9 @@ def binding_energy_list_to_kinetic_energy_al_kalpha(be_list, round_dec: int = No
     return np.array(kinetic_energy_list)
 
 def retreive_mlb_and_elements():
+    import config
     from sklearn.preprocessing import MultiLabelBinarizer
-    elements_db = json.loads(open('../../elements_sim.json').read())["elements"]
+    elements_db = json.loads(open(config.ELEMENTS_SIM_DIR).read())["elements"]
     elements = [elem["symbol"] for elem in elements_db]
     mlb = MultiLabelBinarizer()
     mlb.fit([elements])
