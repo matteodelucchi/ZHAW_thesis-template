@@ -17,18 +17,21 @@
 \section{Model architectures \& training}
 In this section, the models used in our research are explained.
 %Models were designed with two output-layers which correspond to the respective layers of our modelled sample. 
-The training dataset was split into training and validation datasets. A first model was built respectively for each of the tasks listed in the \nameref{Chapter1} for the four models: CNN, CNN-DCT, CBAM, ViT. The model 
+The training dataset was split into training and validation datasets with a ration of 80:20. A first model was built respectively for each of the tasks listed in the Chapter \ref{Chapter1} for the four models: CNN, CNN-DCT, CBAM, ViT. The models architectures were then changed such that it efficiently trains on the training dataset. This can be evaluated by comparing training loss and accuracy. If the training data loss decreases and its accuracy increases, we successfully train the model.
+The validation loss is then used to tune the hyperparameters and add normalization to the model until the model showed convex training behaviour and no overfitting. Lastly, the models were trained with an early stopping callback function which monitored the model loss to stop the training when there was no improvment >0.002 for five consecutive epochs.
 
 \subsection{Loss functions and hyperparameters}
 The tasks presented in Chapter \ref{Chapter1} are considered and assigned a task type.
 % multi-class classification problem (exclusive)
-The first task is a multiclass classification problem, which means we need to find one corresponding element for the two layers, where the elements are exclusive (only one is true).
+The first task is a multiclass classification problem, which means we need to find one corresponding element for the two layers, where the elements are exclusive (only one is true). Task two seeks to infer the depth of the layer 
 % multi-label classification (nonexclusive)
 
 \subsection{CNN}
 % explain the structure
-The CNN model used is based on the standard architecture with two convolutional blocks. The first blocks consist of four consecutive convolutional layers with increasing kernel sizes (1, 3, 7, 21) to extract more and more general features, while the second block has kernel sizes (3, 5, 21, 37). Each block uses 64 filters, the ReLU activation function, starts with a batch-normalization layer and ends with a max-pooling layer. Finally, the model has two dense layers with 1024 nodes connected through a dropout-layer (p = 0.2) and subsequent batch-normalization. Finally, a the softmax function is applied to the dense output layer with 81 nodes corresponding to the elements.
+The CNN model used is based on the standard architecture with two convolutional blocks. The first blocks consist of four consecutive convolutional layers with decreasing kernel sizes TODO to extract more and more general features, while the second block has kernel sizes TODO. Each block uses 64 filters, the ELU activation function, starts with a batch-normalization layer and ends with a max-pooling layer.
+As these two blocks are used as a feature-extraction tool, the features are then flattened to one dimension before being connected through a dropout-layer (p = 0.4) and subsequent batch-normalization. Finally, the softmax function is applied to the dense output layer with 81 nodes corresponding to the elements.
 
+During the development of an adequate CNN-model, batch-normalization seemed to have a big impact on the model 
 % show the structure
 
 The corresponding code can be found in the Appendix \ref{AppendixB}
@@ -36,7 +39,7 @@ The corresponding code can be found in the Appendix \ref{AppendixB}
 
 \subsection{CNN-DCT}
 % explain the structure
-The discrete cosine transform (DCT) of a natural signal decomposes it into the frequency domain, where the intensities correspond to cosine waves in our original spectrum. This induces sparsity into our data, which means that only a few components are responsible for most of the signal. An example of a DCT-transformed XPS-signal is shown in Figure \ref{fig:dct}.
+The discrete cosine transform (DCT) of a natural signal decomposes it into the frequency domain, where the intensities correspond to cosine waves in our original spectrum. This transforms out signal into a sparse representation, which means that the signal is composed of only a few components. An example of a DCT-transformed XPS-signal is shown in Figure \ref{fig:dct}.
 
 \begin{figure}[H]
     \centering
@@ -44,6 +47,7 @@ The discrete cosine transform (DCT) of a natural signal decomposes it into the f
     \caption{Original simulated XPS-signal (a) and a sparse representation, the discrete-cosine transformed XPS-signal (b)}
     \label{fig:dct}
 \end{figure}
+
 % show the structure
 
 
@@ -66,7 +70,7 @@ The blocks were then included in a convolutional model such that the CBAM blocks
 
 
 \section{Model evaluation}
-
+Model training 
 To evaluate the models' performance and training process, the loss and accuracy was obtained and plotted. Furthermore, the test data obtained as described in Chapter \ref{test_data} was predicted and visualized in a confusion matrix to be found in Appendix \ref{AppendixB}.
 % table showing the accuracies for the test data
 %The accuracies for the test dataset are shown for the respective datasets and models used in \ref{}.
