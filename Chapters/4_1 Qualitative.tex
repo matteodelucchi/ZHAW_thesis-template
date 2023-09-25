@@ -4,40 +4,42 @@
 \section{Qualitative elemental identification of bilayer systems}
 \subsubsection{Elemental identification}
 % model performance
-The model performance for the qualitative elemental identification is shown in Table \ref{tab:acc_qual}. The categorical accuracies were computed for the individual cont. and clean datasets, and the mixcont dataset. Because experimental data can contain contamination, we expect the mixcont dataset to make our model more robust in that respect.
+The model performance for the qualitative elemental identification is shown in Table \ref{tab:acc_qual}. The categorical accuracies were computed for the individual cont, clean and the mixcont dataset. Because experimental data can contain contamination, we generally expect the mixcont dataset to make our model more robust in that respect.
+During the model development, it was obvious that we are prone to overfitting the simulated data resulting in poor performance on test data. Especially, because we do not represent the experimental spectra with enough accuracy, we must make sure to focus on the robustness of the model. Thus, the obvious approach was to choose the most simple model which was able to train effectively and not to seek highest accuracy rates. The models remained unchanged for the tasks and the varying datasets. Thus, a total of 8 models were developed for task 1 - one of each model type for each layer.
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{c|c|c|c|c|c}
-        Dataset & Layer & Model   & No. Parameters & Validation Dataset  & Test Dataset*    \\
-        \hline
-        mixcont & top   & CNN     &                &  85.32\%              &        \% \\
-                &       & CNN-DCT &                &       \%              &         \% \\
-                &       & CBAM    &                &       \%              &         \% \\
-                &       & ViT     &                &  91.66\%              &          \% \\
-                & bot   & CNN     &                &  73.85\%              &          \%  \\
-                &       & CNN-DCT &                &       \%              &          \%  \\
-                &       & CBAM    &                &       \%              &         \% \\
-                &       & ViT     &                &       \%              &           \% \\
-        \hline
-        cont    & top   & CNN     &                &       \%              &        \% \\
-                &       & CNN-DCT &                &       \%              &         \% \\
-                &       & CBAM    &                &       \%              &         \% \\
-                &       & ViT     &                &       \%              &         \% \\
-                & bot   & CNN     &                &       \%              &          \%  \\
-                &       & CNN-DCT &                &       \%              &          \%  \\
-                &       & CBAM    &                &       \%              &         \% \\
-                &       & ViT     &                &       \%              &           \% \\
-        \hline
-        clean   & top   & CNN     &                &       \%              &        \% \\
-                &       & CNN-DCT &                &       \%              &         \% \\
-                &       & CBAM    &                &       \%              &         \% \\
-                &       & ViT     &                &       \%              &         \% \\
-                & bot   & CNN     &                &       \%              &          \%  \\
-                &       & CNN-DCT &                &       \%              &          \%  \\
-                &       & CBAM    &                &       \%              &         \% \\
-                &       & ViT     &                &       \%              &           \% \\
-    \end{tabular}
+    \centerline{
+    \begin{tabular}{c|c|c|c|c|c|c}
+        Dataset & Layer & Model   & No. Parameters & Training set  & Validation set & Test set*    \\
+        \hline 
+        mixcont & top   & CNN     &                &               &                &             \\
+                &       & CNN-DCT &                &               &                &             \\
+                &       & CBAM    &                &               &                &             \\
+                &       & ViT     &                &               &                &             \\
+                & bot   & CNN     &                &               &                &              \\
+                &       & CNN-DCT &                &               &                &              \\
+                &       & CBAM    &                &               &                &             \\
+                &       & ViT     &                &               &                &             \\
+        \hline                                           
+        cont    & top   & CNN     &                &               &                &            \\
+                &       & CNN-DCT &                &               &                &            \\
+                &       & CBAM    &                &               &                &            \\
+                &       & ViT     &                &               &                &            \\
+                & bot   & CNN     &                &               &                &             \\
+                &       & CNN-DCT &                &               &                &             \\
+                &       & CBAM    &                &               &                &            \\
+                &       & ViT     &                &               &                &            \\
+        \hline                                   
+        clean   & top   & CNN     &                &               &                &            \\
+                &       & CNN-DCT &                &               &                &            \\
+                &       & CBAM    &                &               &                &            \\
+                &       & ViT     &                &               &                &            \\
+                & bot   & CNN     &                &               &                &             \\
+                &       & CNN-DCT &                &               &                &             \\
+                &       & CBAM    &                &               &                &            \\
+                &       & ViT     &                &               &                &            \\
+    \end{tabular}}
     \caption{Categorical accuracies, and number of parameters of the models in respect to dataset and sample layer
     *Test Dataset n=\nelementalspectra}
     \label{tab:acc_qual}

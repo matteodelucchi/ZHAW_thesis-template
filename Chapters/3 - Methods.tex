@@ -18,21 +18,21 @@
 In this section, the classification types from our tasks, the models used and the training procedure used in this work are explained.
 The tasks presented in the \nameref{Chapter1} are considered and assigned a task type.
 % multi-class classification problem (exclusive)
-The first task is a multi-class classification problem, which means we need to find one corresponding element for one of the two layers, where the elements are exclusive (only one is true). Task two seeks to infer the depth of the layer in one number between 0 and 1. In our two-layer system, this is a regression problem, since there is a regressive behaviour between the input spectrum and the overlayer thickness. The third task is a multi-label classification problem, as each input can be assigned multiple true labels. Additionally, it is a special type of multi-label classification, as the labels are not exclusively 0 or 1 but can take any value in between. This is because the proportional quantity of the respective elements is encoded in the label.
-% multi-label classification (nonexclusive)
-%Models were designed with two output-layers which correspond to the respective layers of our modelled sample. 
+The first task is a multi-class classification problem, which means we need to find one corresponding element for one of the two layers, where the elements are exclusive (only one is true). Task two seeks to infer the depth of the layer as a continuous number between 0 and 1. In our two-layer system, this is a regression problem, since there is a regressive behaviour between the input spectrum and the overlayer thickness. The third task at first seems to be multi-label classification problem, as each input can be assigned multiple true labels. However, it is a special type of multi-label classification, as the labels are not exclusively 0 or 1 but can take continuous values in between. This is because the proportional quantity of the respective elements is encoded in the label. Therefore, we would call this a multi-label regression task.
 
-To start the modelling procedure, the training dataset was split into training and validation datasets with a ration of 80:20. A first model was built respectively for each of the tasks listed in the \nameref{Chapter1} for the four models: CNN, CNN-DCT, CBAM, ViT. The models architectures were then changed such that it efficiently trains on the respective training dataset. This was evaluated by comparing training loss and accuracy. If the training data loss decreases and its accuracy increases, we successfully train the model.
+To start the modelling procedure, the training dataset was split into training and validation datasets with a ration of 80:20. A first model was built respectively for each of the tasks listed in the \nameref{Chapter1} for the four models: CNN, CNN-DCT, CBAM, ViT. The models architectures were then changed such that it efficiently trains on the respective training dataset. This was evaluated by comparing training loss and accuracy.
 The validation loss is then used to tune the hyperparameters and add normalization to the model until the model showed convex training behaviour and no overfitting. Lastly, the models were trained with an early stopping callback function which monitored the model loss to stop the training when there was no improvement >0.002 for five consecutive epochs.
 
 \subsection{Loss functions and hyperparameters}
+
+
 
 \subsection{CNN}
 % explain the structure
 The CNN model used is based on the standard architecture with two convolutional blocks. The first blocks consist of four consecutive convolutional layers with increasing kernel sizes (TODO) to extract more and more general features, while the second block has kernel sizes (TODO). Each block uses 16 filters, the ELU activation function, starts with a batch-normalization layer and ends with a max-pooling layer.
 As these two blocks are used as a feature-extraction tool, the features are then flattened to one dimension before being connected through a dropout-layer (p = 0.4) and subsequent batch-normalization. Finally, the softmax function is applied to the dense output layer with 81 nodes corresponding to the elements.
 
-During the development of an adequate CNN-model, batch-normalization seemed to have a big impact on the model and the training speed. A variety of kernel sizes in a variety of sequences were tested.
+During the development of an adequate CNN-model, batch-normalization seemed to have a big impact on the model and the training speed. A variety of kernel sizes in a variety of sequences were tested. Further, as CNN-models get bigger, a lot more parameters are trained, and thus, they get much more difficult to train.
 % show the structure
 
 The corresponding code can be found in the Appendix \ref{AppendixB}
@@ -70,7 +70,7 @@ The blocks were then included in a convolutional model such that the CBAM blocks
 % show the structure
 
 
-\section{Model evaluation}
+\section{Model evaluation and accuracies}
 
 When a model should be evaluated, the specific computation to obtain its performance must be adapted to its type, such as multi-class classification. 
 To evaluate the models' performance and training process, the loss and accuracy was obtained and plotted. Furthermore, the test data obtained as described in Chapter \ref{test_data} was predicted and visualized in a confusion matrix to be found in Appendix \ref{AppendixB}.
