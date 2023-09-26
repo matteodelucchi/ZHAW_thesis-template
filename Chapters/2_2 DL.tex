@@ -11,6 +11,7 @@ Attention-based neural networks have been applied to near infrared spectroscopy 
 
 \subsection{Model hyperparameters \& training}
 For each model, a set of hyperparameters define either initial, or fixed values used for the training. 
+
 Multiple training cycles are performed on the dataset, which is shuffled before each training cycle, also called epoch. A so-called \emph{loss function} is introduced which in general resembles how far the predicted $\hat{y}$ labels are from the correct labels $y$ $(\hat{y} - y)$.
 In each epoch, the weights of the model are re-evaluated subject to minimizing the defined loss-function with respect to the defined learning rate. The initial data available is split into a training and validation dataset. The weights are trained only the training dataset, while the validation dataset is used to check the performance on data which is new for the model and tune its hyperparameters. Model training is successful if we observe the training data loss decrease over the epochs. 
 
@@ -27,8 +28,22 @@ Categorical Accuracy computes the correctly predicted label based on the argmax 
 
 The binary crossentropy loss function is used for binary classification tasks, for example when we want to know whether a certain property is true or not. Similarly to the categorical crossentropy loss function, it computes the $log_{n}$ of the difference betweeen the true and the predicted values. In the binary case, we have $M=2$, so the function can be rewritten as $-{(y\log(p) + (1 - y)\log(1 - p))}$.
 
+
 Binary accuracy
 
+\subsection{General patterns}
+\subsubsection{Loss functions and performance measures}
+ A loss function generally computes how close the model predictions are to the labels, while the accuracy will describe what proportion of labels were predicted correctly. As the task can be of several types, such as regression, or classification, the loss and accuracy functions should be adapted accordingly. The functions used in this work will be explained hereafter.
+The categorical crossentropy loss function is used for multi-class and multi-label classification problems. It is computed according to equation \ref{cce}, where $M$ is the number of classes, $y$ is the ground-truth and $p$ is the prediction of the observation $o$ of class $c$ \cite{noauthor_classical_nodate}. 
+Categorical Accuracy computes the correctly predicted label based on the argmax function (the highest prediction value) of one-hot encoded labels.
+\begin{equation}
+\label{cce}
+-\sum_{c=1}^My_{o,c}\log_{n}(p_{o,c})
+\end{equation}
+
+The binary crossentropy loss function is used for binary classification tasks, for example when we want to know whether a certain property is true or not. Similarly to the categorical crossentropy loss function, it computes the $log_{n}$ of the difference betweeen the true and the predicted values. In the binary case, we have $M=2$, so the function can be rewritten as $-{(y\log(p) + (1 - y)\log(1 - p))}$.
+Binary accuracy
+Mean Squared Error Loss
  
  
 \subsubsection{Dense layers}
