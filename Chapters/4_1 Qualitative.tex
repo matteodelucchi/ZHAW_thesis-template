@@ -17,6 +17,7 @@ During the model development, it was obvious that we are prone to overfitting th
                 &       & CNN-DCT &                &               &                &             \\
                 &       & CBAM    &                &               &                &             \\
                 &       & ViT     &                &               &                &             \\
+        \hdashline
                 & bot   & CNN     &                &               &                &              \\
                 &       & CNN-DCT &                &               &                &              \\
                 &       & CBAM    &                &               &                &             \\
@@ -26,6 +27,7 @@ During the model development, it was obvious that we are prone to overfitting th
                 &       & CNN-DCT &                &               &                &            \\
                 &       & CBAM    &                &               &                &            \\
                 &       & ViT     &                &               &                &            \\
+        \hdashline
                 & bot   & CNN     &                &               &                &             \\
                 &       & CNN-DCT &                &               &                &             \\
                 &       & CBAM    &                &               &                &            \\
@@ -35,6 +37,8 @@ During the model development, it was obvious that we are prone to overfitting th
                 &       & CNN-DCT &                &               &                &            \\
                 &       & CBAM    &                &               &                &            \\
                 &       & ViT     &                &               &                &            \\
+        \hdashline
+
                 & bot   & CNN     &                &               &                &             \\
                 &       & CNN-DCT &                &               &                &             \\
                 &       & CBAM    &                &               &                &            \\
@@ -49,11 +53,12 @@ From Table \ref{tab:acc_qual}, it is obvious that the performance of the bottom 
 
 % experimental data (AG_AG etc.)
 % wrong predictions -> why ? Overlap of peaks? Indirect peaks?
-From the experimental data, $\nelementalspectra$ elemental spectra were used for the qualitative elemental prediction. 
+From the experimental data, $\nelementalspectra$ elemental spectra were used as the test dataset. Because survey scans of buried layers
 
 \subsubsection{Depth and gradient determination of native oxides and elements}
 % As there's almost no test data this is experimental
-As depth profiling data is not readily available from public databases, the measured spectra kindly provided by Filippo Longo and Claudia Cancellieri, were used to evaluate the model on experimental data.
+Depth profiling or determination of overlayer thickness is often conducted in scientific experiments. However, data is usually not publicly available - and if - it does often not include survey spectra. This is because these measures are usually done with ion-sputtering profiling or angle-resolved measurements and as these experiments are time-consuming, only the regions of interests (where the peaks are expected depending on the sample) are scanned.
+As depth profiling data is not readily available from public databases, a few spectra kindly provided by Filippo Longo and Claudia Cancellieri, were used to evaluate the model on experimental data.
 % model performance
 
 
@@ -74,3 +79,14 @@ As depth profiling data is not readily available from public databases, the meas
 \end{table}
 
 % experimental data (AG_AG etc.)
+
+
+
+\begin{center}
+\begin{figure}
+        \includegraphics[width=\textwidth]{Figures/best_task_1_model_CM.png}
+    \centering
+    \caption{Confusion Matrix of Test-Data for CNN Top-Layer prediction}
+    \label{cm_cnn_1l}
+\end{figure}
+\end{center}

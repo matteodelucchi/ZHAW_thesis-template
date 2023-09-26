@@ -18,12 +18,28 @@
 In this section, the classification types from our tasks, the models used and the training procedure used in this work are explained.
 The tasks presented in the \nameref{Chapter1} are considered and assigned a task type.
 % multi-class classification problem (exclusive)
-The first task is a multi-class classification problem, which means we need to find one corresponding element for one of the two layers, where the elements are exclusive (only one is true). Task two seeks to infer the depth of the layer as a continuous number between 0 and 1. In our two-layer system, this is a regression problem, since there is a regressive behaviour between the input spectrum and the overlayer thickness. The third task at first seems to be multi-label classification problem, as each input can be assigned multiple true labels. However, it is a special type of multi-label classification, as the labels are not exclusively 0 or 1 but can take continuous values in between. This is because the proportional quantity of the respective elements is encoded in the label. Therefore, we would call this a multi-label regression task.
+
+The first task is a multi-class classification problem, which means we need to find one corresponding element for one of the two layers, where the elements are exclusive (only one is true). Task two seeks to infer the depth of the layer as a continuous number between 0 and 1. In our two-layer system, this is a regression problem, since there is a regressive behaviour between the input spectrum and the overlayer thickness. 
+The third task at first seems to be multi-label classification problem, as each input can be assigned multiple true labels. However, it is a special type of multi-label classification, as the labels are not exclusively 0 or 1 but can take continuous values in between. This is because the proportional quantity of the respective elements is encoded in the label. 
+
 
 To start the modelling procedure, the training dataset was split into training and validation datasets with a ration of 80:20. A first model was built respectively for each of the tasks listed in the \nameref{Chapter1} for the four models: CNN, CNN-DCT, CBAM, ViT. The models architectures were then changed such that it efficiently trains on the respective training dataset. This was evaluated by comparing training loss and accuracy.
 The validation loss is then used to tune the hyperparameters and add normalization to the model until the model showed convex training behaviour and no overfitting. Lastly, the models were trained with an early stopping callback function which monitored the model loss to stop the training when there was no improvement >0.002 for five consecutive epochs.
 
-\subsection{Loss functions and hyperparameters}
+\subsection{Loss functions}
+For the qualitative determination of top and bot layer elements, the categorical cross-entropy loss was used.
+
+The quantitative task was previously tackled and they described the categorical cross-entropy to \begin{quote}
+    ... produce[s] unsatisfying results from a physics perspective, because it cannot deal well
+with samples with several roughly equally present elements \cite{drera_deep_2019}.
+\end{quote}
+They solved this problem by implementing a custom loss function which includes the euclidean norm and multiplied with the squared predicted values as shown in equation \ref{eq:lossfn}.
+
+\begin{equation}
+\label{eq:lossfn}
+    L(y, \hat{y}) = \sum(y_{i}^2 (y_{i} - \hat{y_{i}})^2
+\end{equation}
+
 
 
 
@@ -40,7 +56,7 @@ The corresponding code can be found in the Appendix \ref{AppendixB}
 
 \subsection{CNN-DCT}
 % explain the structure
-The discrete cosine transform (DCT) of a natural signal decomposes it into the frequency domain, where the intensities correspond to cosine waves in our original spectrum. This transforms out signal into a sparse representation, which means that the signal is composed of only a few components. An example of a DCT-transformed XPS-signal is shown in Figure \ref{fig:dct}.
+The discrete cosine transform (DCT) of a natural signal decomposes it into the frequency domain, where the intensities correspond to cosine waves' intensity making up our original signal. Thus, it transforms a signal into a sparse representation, which means that the signal is composed of only a few important components. Although we would need all components to inversely reconstruct our signal, omitting some low-intensity but high frequency components from the DCT-transformed signal does not drastically change our signal. These so-called high frequency components often make up the noise of our signal. An example of a DCT-transformed XPS-signal is shown in Figure \ref{fig:dct}.
 
 \begin{figure}[H]
     \centering
@@ -49,23 +65,31 @@ The discrete cosine transform (DCT) of a natural signal decomposes it into the f
     \label{fig:dct}
 \end{figure}
 
+This transformation gives our model a relation of signal intensity and peak position. The DCT type 2 transform is shown in equation \ref{eqn:dct}.
+
+\begin{equation}
+\label{eqn:dct}
+X_k = \sum_{n=0}^{N-1} x_n \cdot \cos\left(\frac{\pi}{N}\left(n + \frac{1}{2}\right)k\right), \quad k = 0, 1, \ldots, N-1
+\end{equation}
+
+% show the structure
+The model used for training has a parallel architecture, where the input is followed by a dense layer which then forks into two main blocks. One main block starts with the DCT transform, followed by a dense layer. Afterwards, two convolutional blocks with increasing kernel sizes (3, 5, 7, 21) which both end with a max-pooling layer with kernel size 2 are used. Finally, the features extracted from the convolutional blocks are flattened.
+The other main block uses two blocks of convolutional layers with kernel sizes (1, 3, 7) also followed by a max-pooling layer and before flattening. The flattened vectors are then concatenated and end in an multilayer perceptron tail with decreasing nodes (1024, 512, 256) with dropout layers (p = 0.4) in between. Finally, a dense layer with 81 nodes corresponding to the elements forms the output. All convolutional layers have 32 channels, use the leaky ReLU activation function and are followed by a batch-normalization layer for regularization.
+
+
+\subsection{CBAM}
+The code for the convolutional block attention module base blocks was found on Github and modified to fit our 1D-data \cite{mazzia__2023}. This was done by exchanging the 2D-version of pooling layers with the 1D-version in the channel attention. This is because as we apply convolutions on our 1D-signal, we get 2D-Input feature compared to a 3D-Input feature if using images as an input. Additionally, the spatial attention block was changed by applying 1D-convolutions on the concatenated average and max-pooled feature vectors. Further, the axes on which the average and max-pooling is computed was changed (from 3 to 2).
+% explain the structure
+The blocks were then included in a convolutional model with residual patterns, such that the CBAM blocks can learn on the extracted features with its attention-modules.
+
 % show the structure
 
 
 \subsection{ViT}
-The vision transformer model used for the 1D-Spectra was inspired from Yoni Gottesmans blogpost \cite{noauthor_interpretable_2023}. It takes the published 2D-ViT model  as a basis and is adapted to work with one-dimensional inputs.
-The model was adapted to fit the spectral input data with 1024 data points. Further, a patch-size of 8 data-points and the number of heads chosen was 16.
+The vision transformer model used for the 1D-Spectra was inspired from Yoni Gottesmans blogpost \cite{noauthor_interpretable_2023} who applied the model on electrocardiogram classification. It takes the published 2D-ViT model \cite{dosovitskiy_image_2021}as a basis and is adapted to work with one-dimensional inputs.
+The model from the blogpost was then adapted to fit our input data shape with 1024 data points. Further, a patch-size of 8 data-points and the number of heads chosen was 16.
 The Multilayer Perceptron (MLP) is of size 512 and the model consists of two Transformer blocks.
 % explain the structure
-
-% show the structure
-
-
-
-\subsection{CBAM}
-The code for the convolutional block attention module base blocks was found on Github and modified to fit our 1D-data \cite{mazzia__2023}.
-% explain the structure
-The blocks were then included in a convolutional model such that the CBAM blocks can learn on the extracted features with its attention-modules.
 
 % show the structure
 
@@ -73,6 +97,16 @@ The blocks were then included in a convolutional model such that the CBAM blocks
 \section{Model evaluation and accuracies}
 
 When a model should be evaluated, the specific computation to obtain its performance must be adapted to its type, such as multi-class classification. 
-To evaluate the models' performance and training process, the loss and accuracy was obtained and plotted. Furthermore, the test data obtained as described in Chapter \ref{test_data} was predicted and visualized in a confusion matrix to be found in Appendix \ref{AppendixB}.
+To evaluate the models' performance and training process, the loss and accuracy was obtained and plotted. Furthermore, the test data obtained as described in Chapter \ref{test_data} was predicted and visualized in a confusion matrix.
+
+For the third task of elemental quantification, a custom accuracy measure was introduced to be able to express the accuracy by means of a number and to show the comparability with similar methods. This function, shown in equation \ref{eq:threshacc}, only considers components with known relative share above 10\% ($\mathbb{I}(y_i > 0.1)$).It then computes the absolute difference of the true value ($y_{i}$) and the predicted value ($\hat{y}$). If this difference is more than 10\% of the true value, it is considered false, otherwise true. Thus, we evaluate what percentage of components our model predicts correctly within a 10\% margin, given the component contributes to at least 10\% of the contents.
+
+\begin{equation}
+\label{eq:threshacc}
+\text{Threshold Accuracy} = \frac{\sum_{i=1}^{N} \mathbb{I}(y_i > 0.1) \cdot \mathbb{I}(|y_i - \hat{y}_i| < 0.1 \cdot y_i)}{\sum_{i=1}^{N} \mathbb{I}(y_i > 0.1)}
+\end{equation}
+
+
+
 % table showing the accuracies for the test data
 %The accuracies for the test dataset are shown for the respective datasets and models used in \ref{}.

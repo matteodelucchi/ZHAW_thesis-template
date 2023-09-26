@@ -135,11 +135,12 @@
     }%
 }%
 
-
+% find me here!
 \newcommand{\nelementalspectra}{213}
 \newcommand{\nmultispectra}{198}
 \newcommand{\noxidespectra}{61}
 \newcommand{\nexperimentalspectra}{472}
+
 
 
 %----------------------------------------------------------------------------------------
@@ -221,6 +222,14 @@
 
 \RequirePackage{caption} % Required for customising the captions
 \captionsetup{justification=centerlast,font=small,labelfont=sc,margin=50pt}
+
+\RequirePackage{arydshln}
+
+\usepackage{arydshln}
+
+\setlength{\dashlinedash}{0.4pt}
+\setlength{\dashlinegap}{2pt}
+\setlength{\arrayrulewidth}{0.4pt}
 
 \usepackage{chemformula}
 \usepackage{float}
