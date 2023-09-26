@@ -4,40 +4,45 @@
 \section{Qualitative elemental identification of bilayer systems}
 \subsubsection{Elemental identification}
 % model performance
-The model performance for the qualitative elemental identification is shown in Table \ref{tab:acc_qual}. The categorical accuracies were computed for the individual cont. and clean datasets, and the mixcont dataset. Because experimental data can contain contamination, we expect the mixcont dataset to make our model more robust in that respect.
+The model performance for the qualitative elemental identification is shown in Table \ref{tab:acc_qual}. The categorical accuracies were computed for the individual cont, clean and the mixcont dataset. Because experimental data can contain contamination, we generally expect the mixcont dataset to make our model more robust in that respect.
+During the model development, it was obvious that we are prone to overfitting the simulated data resulting in poor performance on test data. Especially, because we do not represent the experimental spectra with enough accuracy, we must make sure to focus on the robustness of the model. Thus, the obvious approach was to choose the most simple model which was able to train effectively and not to seek highest accuracy rates. The models remained unchanged for the tasks and the varying datasets. Thus, a total of 8 models were developed for task 1 - one of each model type for each layer.
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{c|c|c|c|c|c}
-        Dataset & Layer & Model   & No. Parameters & Validation Dataset  & Test Dataset*    \\
-        \hline
-        mixcont & top   & CNN     &                &  85.32\%              &        \% \\
-                &       & CNN-DCT &                &       \%              &         \% \\
-                &       & CBAM    &                &       \%              &         \% \\
-                &       & ViT     &                &  91.66\%              &          \% \\
-                & bot   & CNN     &                &  73.85\%              &          \%  \\
-                &       & CNN-DCT &                &       \%              &          \%  \\
-                &       & CBAM    &                &       \%              &         \% \\
-                &       & ViT     &                &       \%              &           \% \\
-        \hline
-        cont    & top   & CNN     &                &       \%              &        \% \\
-                &       & CNN-DCT &                &       \%              &         \% \\
-                &       & CBAM    &                &       \%              &         \% \\
-                &       & ViT     &                &       \%              &         \% \\
-                & bot   & CNN     &                &       \%              &          \%  \\
-                &       & CNN-DCT &                &       \%              &          \%  \\
-                &       & CBAM    &                &       \%              &         \% \\
-                &       & ViT     &                &       \%              &           \% \\
-        \hline
-        clean   & top   & CNN     &                &       \%              &        \% \\
-                &       & CNN-DCT &                &       \%              &         \% \\
-                &       & CBAM    &                &       \%              &         \% \\
-                &       & ViT     &                &       \%              &         \% \\
-                & bot   & CNN     &                &       \%              &          \%  \\
-                &       & CNN-DCT &                &       \%              &          \%  \\
-                &       & CBAM    &                &       \%              &         \% \\
-                &       & ViT     &                &       \%              &           \% \\
-    \end{tabular}
+    \centerline{
+    \begin{tabular}{c|c|c|c|c|c|c}
+        Dataset & Layer & Model   & No. Parameters & Training set  & Validation set & Test set*    \\
+        \hline 
+        mixcont & top   & CNN     &                &               &                &             \\
+                &       & CNN-DCT &                &               &                &             \\
+                &       & CBAM    &                &               &                &             \\
+                &       & ViT     &                &               &                &             \\
+        \hdashline
+                & bot   & CNN     &                &               &                &              \\
+                &       & CNN-DCT &                &               &                &              \\
+                &       & CBAM    &                &               &                &             \\
+                &       & ViT     &                &               &                &             \\
+        \hline                                           
+        cont    & top   & CNN     &                &               &                &            \\
+                &       & CNN-DCT &                &               &                &            \\
+                &       & CBAM    &                &               &                &            \\
+                &       & ViT     &                &               &                &            \\
+        \hdashline
+                & bot   & CNN     &                &               &                &             \\
+                &       & CNN-DCT &                &               &                &             \\
+                &       & CBAM    &                &               &                &            \\
+                &       & ViT     &                &               &                &            \\
+        \hline                                   
+        clean   & top   & CNN     &                &               &                &            \\
+                &       & CNN-DCT &                &               &                &            \\
+                &       & CBAM    &                &               &                &            \\
+                &       & ViT     &                &               &                &            \\
+        \hdashline
+                & bot   & CNN     &                &               &                &             \\
+                &       & CNN-DCT &                &               &                &             \\
+                &       & CBAM    &                &               &                &            \\
+                &       & ViT     &                &               &                &            \\
+    \end{tabular}}
     \caption{Categorical accuracies, and number of parameters of the models in respect to dataset and sample layer
     *Test Dataset n=\nelementalspectra}
     \label{tab:acc_qual}
@@ -47,11 +52,12 @@ From Table \ref{tab:acc_qual}, it is obvious that the performance of the bottom 
 
 % experimental data (AG_AG etc.)
 % wrong predictions -> why ? Overlap of peaks? Indirect peaks?
-From the experimental data, $\nelementalspectra$ elemental spectra were used for the qualitative elemental prediction. 
+From the experimental data, $\nelementalspectra$ elemental spectra were used as the test dataset. Because survey scans of buried layers
 
 \subsubsection{Depth and gradient determination of native oxides and elements}
 % As there's almost no test data this is experimental
-As depth profiling data is not readily available from public databases, the measured spectra kindly provided by Filippo Longo and Claudia Cancellieri, were used to evaluate the model on experimental data.
+Depth profiling or determination of overlayer thickness is often conducted in scientific experiments. However, data is usually not publicly available - and if - it does often not include survey spectra. This is because these measures are usually done with ion-sputtering profiling or angle-resolved measurements and as these experiments are time-consuming, only the regions of interests (where the peaks are expected depending on the sample) are scanned.
+As depth profiling data is not readily available from public databases, a few spectra kindly provided by Filippo Longo and Claudia Cancellieri, were used to evaluate the model on experimental data.
 % model performance
 
 
@@ -72,3 +78,14 @@ As depth profiling data is not readily available from public databases, the meas
 \end{table}
 
 % experimental data (AG_AG etc.)
+
+
+
+\begin{center}
+\begin{figure}
+        \includegraphics[width=\textwidth]{Figures/best_task_1_model_CM.png}
+    \centering
+    \caption{Confusion Matrix of Test-Data for CNN Top-Layer prediction}
+    \label{cm_cnn_1l}
+\end{figure}
+\end{center}

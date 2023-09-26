@@ -1,21 +1,36 @@
 \label{DL_theory}
 \section{Deep Learning for spectroscopic data}
 
-Techniques of machine learning and deep learning specifically have been applied to spectroscopic data since the 1990s. It has been applied to a variety of spectroscopic methods such as Near Infrared Spectroscopy (NIR), Raman Spectroscopy, Nuclear Magnetic Resonance Spectroscopy (NMR) and Infrared Spectroscopy (IR) . However, chemometric or physics-based approaches have been and still are favored for data analysis due to the lack of model explainability for data-driven approaches. To oppose, chemometrics is most often based on decomposition techniques such as Principal Component Analysis (PCA) and subsequent linear regression - which inherently does not meet the requirements for explainability.
+Techniques of machine learning and deep learning specifically have been applied to spectroscopic data since the 1990s. It has been applied to a variety of spectroscopic methods such as Near Infrared Spectroscopy (NIR), Raman Spectroscopy, Nuclear Magnetic Resonance Spectroscopy (NMR) and Infrared Spectroscopy (IR) and Laser Induced Breakdown Spectroscopy (LIBS) \cite{krohling_1d_2023, sun_cnnlstm_2023, ma_conditional_2022, zhang_deep_2023, castorena_deep_2021, ghosh_deep_2019, huang_attention_2019}. However, chemometric or physics-based approaches have been and still are favored for data analysis due to the lack of model explainability for data-driven approaches. Because chemometrics is most often based on decomposition techniques such as Principal Component Analysis (PCA) and subsequent linear regression, it remains possible to interpret why a model predicts something by considering the loadings (weights) of the selected (principal) components. However, especially because of the non-linear learning capabilities of deep learning, they have been widely applied chemical analysis methods with complex underlying physical effects \cite{aires-de-sousa_prediction_2002}.
 
 Deep learning has been previously applied to XPS-analysis by Drera et al.\cite{drera_deep_2019}. They achieved an overall performance of quantitative detection above 10$\%$ content, similar to the detection limit of users - they state. They used solely convolutional neural networks to build their prediction model. Their training data was constructed similarly to the data used in this work. Moreover, Hunt investigated depth profiling using XPS in combination with the singular value decomposition (SVD) algorithm \cite{hunt_depth_2000}. Additionally, Hunter modelled the impact of sample surface roughness on the prediction using the SVD algorithm and the Tyler regularization algorithm.
 
 Attention-based neural networks have been applied to near infrared spectroscopy analysis of medical fungi \cite{huang_attention_2019} and sand gravel \cite{yuan_hybrid_2022} to successfully identify secondary parameters, such as moisture or polysaccharide content with similar or better results than the well-known partial least squares (PLS) fitting.
 
 % advances in DL & applications to spectroscopy tasks
+
 \subsection{Model hyperparameters \& training}
 For each model, a set of hyperparameters define either initial, or fixed values used for the training. 
-Multiple training cycles are performed on the dataset, which is shuffled before each training cycle, also called epoch. A so-called \emph{loss function} is introduced which resembles the absolute deviation of the predicted $\hat{y}$ from the correct labels $y$ $(\hat{y} - y)$.
-In each epoch, the weights of the model are re-evaluated subject to minimizing the defined loss-function with respect to the defined learning rate. The initial data available is split into a training and validation dataset. The weights are trained only the training dataset, while the validation dataset is used to check the performance on data which is new for the model and tune its hyperparameters. 
+Multiple training cycles are performed on the dataset, which is shuffled before each training cycle, also called epoch. A so-called \emph{loss function} is introduced which in general resembles how far the predicted $\hat{y}$ labels are from the correct labels $y$ $(\hat{y} - y)$.
+In each epoch, the weights of the model are re-evaluated subject to minimizing the defined loss-function with respect to the defined learning rate. The initial data available is split into a training and validation dataset. The weights are trained only the training dataset, while the validation dataset is used to check the performance on data which is new for the model and tune its hyperparameters. Model training is successful if we observe the training data loss decrease over the epochs. 
+
 
 \subsection{General patterns}
+\subsubsection{Loss functions and performance measures}
+ A loss function generally computes how close the model predictions are to the labels, while the accuracy will describe what proportion of labels were predicted correctly. As the task can be of several types, such as regression, or classification, the loss and accuracy functions should be adapted accordingly. The functions used in this work will be explained hereafter.
+The categorical crossentropy loss function is used for multi-class and multi-label classification problems. It is computed according to equation \ref{cce}, where $M$ is the number of classes, $y$ is the ground-truth and $p$ is the prediction of the observation $o$ of class $c$ \cite{noauthor_classical_nodate}. 
+Categorical Accuracy computes the correctly predicted label based on the argmax function (the highest prediction value) of one-hot encoded labels.
+\begin{equation}
+\label{cce}
+-\sum_{c=1}^My_{o,c}\log_{n}(p_{o,c})
+\end{equation}
 
+The binary crossentropy loss function is used for binary classification tasks, for example when we want to know whether a certain property is true or not. Similarly to the categorical crossentropy loss function, it computes the $log_{n}$ of the difference betweeen the true and the predicted values. In the binary case, we have $M=2$, so the function can be rewritten as $-{(y\log(p) + (1 - y)\log(1 - p))}$.
 
+Binary accuracy
+
+ 
+ 
 \subsubsection{Dense layers}
 What is often referred to as fully connected, dense, feed-forward neural network or Multilayer Perceptron describes a network consisting of solely fully connected layers. These layers are connected in an $n:m$ manner, where each node of a layer with $n$ nodes is connected with each node of a layer with $m$ nodes. 
 
@@ -23,7 +38,7 @@ What is often referred to as fully connected, dense, feed-forward neural network
 Dropout layers are often used to regularize and generalize models. In these layers, which are fully connected layers, a certain percentage of nodes are not used during training and the specific unused nodes are selected from new each training cycle. This ensures that the training of the network does not rely on only a subset or even a single node, but on all nodes in a similar intensity. The fraction of nodes defined to drop each training cycle is denoted as $p$.
 
 \subsubsection{Batch-Normalization}
-Big datasets are usually divided into subsets such that we can efficiently train our network. This is done because the data might not fit the available computing memory and thus slow our computation. Additionally, we train on a subset because finding the global optimum is much more difficult than finding it for the so-called batch. However, even if we randomly split the dataset, we will encounter a non-uniform distribution of information between our batches. Thus, in a batch-normalization layer, each batch input is normalized to have a mean of zero and a standard deviation of one. 
+Big datasets are usually divided into subsets such that we can efficiently train our network. This is done because the data might not fit the available computing memory and thus slow our computation. However, even if we randomly split the dataset, we will encounter a non-uniform distribution of information between our batches. Thus, in a batch-normalization layer, each batch input is normalized to have a mean of zero and a standard deviation of one. 
 %The positive effects have been shown in multiple publications
 
 \subsection{Convolutional Neural Networks (CNN)}
@@ -49,10 +64,6 @@ In residual networks, the input is re-added after performing weighted operations
 
 This pattern has later also been used for other models, as it allows much deeper networks to learn much more efficiently. Especially, in combination with convolutional models, this has improved the accuracy eg. in CBAM as explained below.
 
-%\subsection{Recurrent neural networks}
-    
-%In recurrent neural networks (RNNs), temporal information is kept in a hidden representation vector. Because of this temporal representation, RNNs are specialized for processing sequences, such as text. The input information is fed sequentially and the representation vector changes its state. This allows the model to learn 
-
 \subsection{Transformer-based networks}
 
 Originally developed to solve neural language processing (NLP) tasks, the attention mechanism was first described in 2017 \cite{vaswani_attention_2023}.
@@ -69,12 +80,12 @@ A transformer consists of tokenizers, embedding layers and transformer layers wh
 The positional embedding ensures that the model can interpret the position of the tokens within the sequence. The Multi-Head Attention block consist of linear mappings of query, key and value pairs which are run in parallel. The number of linear mappings computed per block is denoted as $h$. Thus, the attention function is performed on a set of queries and an attention matrix is computed \cite{vaswani_attention_2023}.
 
 \subsubsection{Convolutional Block Attention Module (CBAM)}
-The Convolutional Block Attention Module (CBAM) connects the attention paradigm with the convolutional approach and consists of two sub-modules. Inputs are taken and with the first module, a 1D channel attention map is generated. Afterwards, these channel attentions are used as an input to the spatial attention module to compute the spatial attention. These two blocks can then be integrated within a convolutional based network or a residual based network.
+The Convolutional Block Attention Module (CBAM) connects the attention paradigm with the convolutional approach and consists of two sub-modules. Inputs are convoluted, and with the first module, a 1D channel attention map on the convolution-channels is generated. Afterwards, these channel attentions are used as an input to the spatial attention module to compute the spatial attention. This means that the model is then able to learn which channels and which regions of the input data are more important than others. These two blocks can then be integrated within a convolutional based network or a residual based network.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Figures/cbam_modules.png}
-    \caption{Channel \& spatial attention module blocks \cite{woo_cbam_2018}}
+    \includegraphics[width=0.8\textwidth]{Figures/cbam_modules.png}
+    \caption{Channel \& Spatial attention module blocks \cite{woo_cbam_2018}}
     \label{fig:cbam_modules}
 \end{figure}
 
@@ -87,7 +98,8 @@ The Convolutional Block Attention Module (CBAM) connects the attention paradigm 
 
 
 \subsubsection{Vision Transformer (ViT)}
-The Vision transformer model (ViT) has been recently published \cite{dosovitskiy_image_2021} and uses the mechanisms of Transformer-based models for computer vision tasks. Input data is divided into multiple patches of size n. A positional embedding is added and the embedded patches are then used as tokenized input to the transformer encoder. 
+The Vision transformer model (ViT) has been recently published \cite{dosovitskiy_image_2021} and uses the mechanisms of Transformer-based models for computer vision tasks. Input data is divided into multiple patches of size n. A positional embedding is added and the embedded patches are then used as tokenized input to the transformer encoder. In the encoder, the patches are fed through $L$ subsequent Multi-Head Attention blocks. Lastly, the last encoder block outputs are fed into a MLP-Head which itself is connected to the output-layer representing the classes to be predicted.
+
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{Figures/ViT.png}
