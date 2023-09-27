@@ -27,13 +27,12 @@ To start the modelling procedure, the training dataset was split into training a
 The validation loss is then used to tune the hyperparameters and add normalization to the model until the model showed convex training behaviour and no overfitting. Lastly, the models were trained with an early stopping callback function which monitored the validation loss to stop the training when there was no improvement >0.001 for seven consecutive epochs. This ensures that the models don't overfit on the training data.
 
 \subsection{Loss functions}
-For the qualitative determination of top and bot layer elements, the categorical cross-entropy loss was used.
-
-The quantitative task was previously tackled and they described the categorical cross-entropy to \begin{quote}
+For the qualitative determination of top and bot layer elements, the categorical cross-entropy loss was used (see equation \ref{cce}).
+The task of quantitative analysis was previously tackled and they described the categorical cross-entropy to \begin{quote}
     ... produce[s] unsatisfying results from a physics perspective, because it cannot deal well
 with samples with several roughly equally present elements \cite{drera_deep_2019}.
 \end{quote}
-They solved this problem by implementing a custom loss function which includes the euclidean norm and multiplied with the squared predicted values as shown in equation \ref{eq:lossfn}.
+They solved this problem by implementing a custom loss function which includes the euclidean norm and multiplied with the squared predicted values as shown in equation \ref{eq:lossfn}. This loss function works well on this specific task and thus was used for the training of quantitative analysis.
 
 \begin{equation}
 \label{eq:lossfn}
@@ -89,8 +88,9 @@ Finally, after the last block, it ends in a global average pooling layer which i
 \subsection{ViT}
 The vision transformer model used for the 1D-Spectra was inspired from Yoni Gottesmans blogpost \cite{noauthor_interpretable_2023} who applied the model on electrocardiogram classification. 
 It takes the published 2D-ViT model \cite{dosovitskiy_image_2021}as a basis and is adapted to work with one-dimensional inputs.
-The model from the blogpost was then adapted to fit our input data shape with 1024 data points. Further, a patch-size of 4 data-points and the number of heads chosen was 6.
-The Multilayer Perceptron (MLP) is of size 64 and the model consists of three transformer encoder blocks. Additionally, a dropout layer with $p=0.1$ was added after and before the MLP, in multi head attention and after the embedded vector.
+The model from the blogpost was then adapted to fit our input data shape with 1024 data points. Further, a patch-size of 16 data-points and the number of heads chosen was 6. Decreasing the patch-size quickly makes the model very big and slows training. Thus, this was adapted to be as big as possible, while ensuring good training. 
+The Multilayer Perceptron (MLP) is of size 64 and the model consists of three transformer encoder blocks. Additionally, a dropout layer with $p=0.1$ was added after and before the MLP, 
+in multi head attention and after the embedded vector.
 % explain the structure
 With the structure chosen, an efficient training without substantial overfitting was achieved. 
 
