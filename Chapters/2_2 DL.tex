@@ -47,7 +47,7 @@ Mean Squared Error Loss
  
  
 \subsubsection{Dense layers}
-What is often referred to as fully connected, dense, feed-forward neural network or Multilayer Perceptron describes a network consisting of solely fully connected layers. These layers are connected in an $n:m$ manner, where each node of a layer with $n$ nodes is connected with each node of a layer with $m$ nodes. 
+What is often referred to as fully connected, dense, feed-forward neural network or Multilayer Perceptron describes a network consisting of solely fully connected layers. These layers are connected in an $n:m$ manner, where each node of a layer with $n$ nodes is connected with each node of another layer with $m$ nodes. 
 
 \subsubsection{Dropout}
 Dropout layers are often used to regularize and generalize models. In these layers, which are fully connected layers, a certain percentage of nodes are not used during training and the specific unused nodes are selected from new each training cycle. This ensures that the training of the network does not rely on only a subset or even a single node, but on all nodes in a similar intensity. The fraction of nodes defined to drop each training cycle is denoted as $p$.
@@ -92,7 +92,7 @@ A transformer consists of tokenizers, embedding layers and transformer layers wh
     \label{fig:transformer_model}
 \end{figure}
 
-The positional embedding ensures that the model can interpret the position of the tokens within the sequence. The Multi-Head Attention block consist of linear mappings of query, key and value pairs which are run in parallel. The number of linear mappings computed per block is denoted as $h$. Thus, the attention function is performed on a set of queries and an attention matrix is computed \cite{vaswani_attention_2023}.
+The positional embedding ensures that the model can interpret the position of the tokens within the sequence. The Multi-Head Attention block consist of linear input mappings to query, key and value pairs which are run in parallel. With the query and key mappings, an attention matrix is computed which is concatenated with our value matrix after applying softmax-normalization.  \cite{vaswani_attention_2023}. 
 
 \subsubsection{Convolutional Block Attention Module (CBAM)}
 The Convolutional Block Attention Module (CBAM) connects the attention paradigm with the convolutional approach and consists of two sub-modules. Inputs are convoluted, and with the first module, a 1D channel attention map on the convolution-channels is generated. Afterwards, these channel attentions are used as an input to the spatial attention module to compute the spatial attention. This means that the model is then able to learn which channels and which regions of the input data are more important than others. These two blocks can then be integrated within a convolutional based network or a residual based network.
@@ -112,12 +112,12 @@ The Convolutional Block Attention Module (CBAM) connects the attention paradigm 
 \end{figure}
 
 
-\subsubsection{Vision Transformer (ViT)}
-The Vision transformer model (ViT) has been recently published \cite{dosovitskiy_image_2021} and uses the mechanisms of Transformer-based models for computer vision tasks. Input data is divided into multiple patches of size n. A positional embedding is added and the embedded patches are then used as tokenized input to the transformer encoder. In the encoder, the patches are fed through $L$ subsequent Multi-Head Attention blocks. Lastly, the last encoder block outputs are fed into a MLP-Head which itself is connected to the output-layer representing the classes to be predicted.
-
-\begin{figure}
+\begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Figures/ViT.png}
+    \includegraphics[width=0.65\textwidth]{Figures/ViT.png}
     \caption{Vision Transformer \cite{dosovitskiy_image_2021}}
     \label{fig:vit_model}
 \end{figure}
+
+\subsubsection{Vision Transformer (ViT)}
+The Vision transformer model (ViT) has been recently published \cite{dosovitskiy_image_2021} and uses the mechanisms of Transformer-based models for computer vision tasks. As shown in Figure \ref{fig:vit_model}, it only uses the encoder part of the transformer. The input data is divided into multiple patches of size n, similarly to tokenized words in natural language processing. A positional embedding is computed - this encodes the position in a unique way. The embedded patches are then used as tokenized input to the transformer encoder. In the encoder, the patches are fed through $L$ subsequent Multi-Head Attention blocks. Lastly, the last encoder block outputs are fed into a MLP-Head which itself is connected to the output-layer representing the classes to be predicted.

@@ -2,20 +2,20 @@
 % SECTION 1
 %----------------------------------------------------------------------------------------
 \section{Qualitative elemental identification of bilayer systems}
-\subsubsection{Elemental identification}
+\subsection{Elemental identification}
 % model performance
 The model performance for the qualitative elemental identification is shown in Table \ref{tab:acc_qual}. The categorical accuracies were computed for the individual cont, clean and the mixcont dataset. Because experimental data can contain contamination, we generally expect the mixcont dataset to make our model more robust in that respect.
-During the model development, it was obvious that we are prone to overfitting the simulated data resulting in poor performance on test data. Especially, because we do not represent the experimental spectra with enough accuracy, we must make sure to focus on the robustness of the model. Thus, the obvious approach was to choose the most simple model which was able to train effectively and not to seek highest accuracy rates. The models remained unchanged for the tasks and the varying datasets. Thus, a total of 8 models were developed for task 1 - one of each model type for each layer.
+During the model development, it was obvious that we are prone to overfitting the simulated data resulting in poor performance on test data. Especially, because we do not represent the experimental spectra with enough accuracy, we must make sure to focus on the robustness of the model. Thus, the obvious approach was to choose the most simple model which was able to train effectively without overfitting and before aiming at the highest accuracy rates. The models remained unchanged for the qualitative identification for all datasets. Thus, a total of 8 models were developed for task 1 - one of each model type for each layer and the models were trained on the three datasets.
 
 \begin{table}[H]
     \centering
     \centerline{
     \begin{tabular}{c|c|c|c|c|c|c}
-        Dataset & Layer & Model   & No. Parameters & Training set  & Validation set & Test set*    \\
+        Dataset & Layer & Model   & No. Parameters & Training set acc. & Validation set acc. & Test set acc.*    \\
         \hline 
-        mixcont & top   & CNN     &                &               &                &             \\
-                &       & CNN-DCT &                &               &                &             \\
-                &       & CBAM    &                &               &                &             \\
+        mixcont & top   & CNN     &   16.6 M       &    93.51      &    87.06       & 30.52  \\
+        (n=272k)&       & CNN-DCT &  85.5 M        &    97.25      &    86.42       & 38.5      \\
+                &       & CBAM    &  20.1 M        &   92.80       &    82.80       & 28.64    \\
                 &       & ViT     &                &               &                &             \\
         \hdashline
                 & bot   & CNN     &                &               &                &              \\
@@ -24,7 +24,7 @@ During the model development, it was obvious that we are prone to overfitting th
                 &       & ViT     &                &               &                &             \\
         \hline                                           
         cont    & top   & CNN     &                &               &                &            \\
-                &       & CNN-DCT &                &               &                &            \\
+        (n=207k)&       & CNN-DCT &                &               &                &            \\
                 &       & CBAM    &                &               &                &            \\
                 &       & ViT     &                &               &                &            \\
         \hdashline
@@ -34,11 +34,10 @@ During the model development, it was obvious that we are prone to overfitting th
                 &       & ViT     &                &               &                &            \\
         \hline                                   
         clean   & top   & CNN     &                &               &                &            \\
-                &       & CNN-DCT &                &               &                &            \\
+        (n=65k)&       & CNN-DCT &                &               &                &            \\
                 &       & CBAM    &                &               &                &            \\
                 &       & ViT     &                &               &                &            \\
         \hdashline
-
                 & bot   & CNN     &                &               &                &             \\
                 &       & CNN-DCT &                &               &                &             \\
                 &       & CBAM    &                &               &                &            \\
@@ -53,9 +52,15 @@ From Table \ref{tab:acc_qual}, it is obvious that the performance of the bottom 
 
 % experimental data (AG_AG etc.)
 % wrong predictions -> why ? Overlap of peaks? Indirect peaks?
-From the experimental data, $\nelementalspectra$ elemental spectra were used as the test dataset. Because survey scans of buried layers
+From the experimental data, $\nelementalspectra$ elemental spectra were used as the test dataset. Because survey scans of buried layers are rare, we considered pure elemental spectra to be composed of a buried layer of the pure element respectively.
 
-\subsubsection{Depth and gradient determination of native oxides and elements}
+\subsubsection{Top layer prediction}
+The best model to predict the top layer element was the TODO, with an accuracy on the test dataset of TODO \%. The specific structure of the model is shown in Figure \ref{fig:top_best_structure}. Figure \ref{fig:top_best_loss} shows the categorical crossentropy loss and categorical accuracy for the training (blue) and the validation (orange) datasets respectively. 
+
+\subsubsection{Bot layer prediction}
+
+
+\subsection{Depth and gradient determination of native oxides and elements}
 % As there's almost no test data this is experimental
 Depth profiling or determination of overlayer thickness is often conducted in scientific experiments. However, data is usually not publicly available - and if - it does often not include survey spectra. This is because these measures are usually done with ion-sputtering profiling or angle-resolved measurements and as these experiments are time-consuming, only the regions of interests (where the peaks are expected depending on the sample) are scanned.
 As depth profiling data is not readily available from public databases, a few spectra kindly provided by Filippo Longo and Claudia Cancellieri, were used to evaluate the model on experimental data.
@@ -65,16 +70,15 @@ As depth profiling data is not readily available from public databases, a few sp
 \begin{table}[H]
     \centering
     \begin{tabular}{c|c|c|c|c}
-        Dataset & Model   & No. Parameters & Validation Dataset      \\
+        Dataset & Model   & No. Parameters & Training Dataset    & Validation Dataset    \\
         \hline
- mixcont+oxides& CNN     &                &        \%              \\
-               & CNN-DCT &                &       \%               \\
-               & CBAM    &                &       \%               \\
-               & ViT     &                &       \%               \\
+ mixcont+oxides& CNN     &                &                       &                         \\
+               & CNN-DCT &                &                       &                         \\
+               & CBAM    &                &                       &                         \\
+               & ViT     &                &                       &                         \\
 
     \end{tabular}
-    \caption{ and number of Parameters of the models in respect to dataset and layer
-    *n=3}
+    \caption{ and number of Parameters of the models in respect to dataset and layer}
     \label{tab:acc_depth}
 \end{table}
 
@@ -82,11 +86,11 @@ As depth profiling data is not readily available from public databases, a few sp
 
 
 
-\begin{center}
-\begin{figure}
-        \includegraphics[width=\textwidth]{Figures/best_task_1_model_CM.png}
-    \centering
-    \caption{Confusion Matrix of Test-Data for CNN Top-Layer prediction}
-    \label{cm_cnn_1l}
-\end{figure}
-\end{center}
+%\begin{center}
+%\begin{figure}
+%        \includegraphics[width=\textwidth]{Figures/best_task_1_model_CM.png}
+%    \centering
+%    \caption{Confusion Matrix of Test-Data for CNN Top-Layer prediction}
+%    \label{cm_cnn_1l}
+%\end{figure}
+%\end{center}
