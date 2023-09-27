@@ -49,6 +49,22 @@ From the experimental data, $\nelementalspectra$ elemental spectra were used as 
 \subsubsection{Top layer prediction}
 The best model to predict the top layer element was the TODO, with an accuracy on the test dataset of TODO \%. The specific structure of the model is shown in Figure \ref{fig:top_best_structure}. Figure \ref{fig:top_best_loss} shows the categorical crossentropy loss and categorical accuracy for the training (blue) and the validation (orange) datasets respectively. 
 
+\begin{figure}
+    \centering
+    \includegraphics{Figures/top_best_loss_acc_vit_4_32_3_4_64.png}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{center}[H]
+\begin{figure}
+        \centerline{\includegraphics[width=1.4\textwidth]{Figures/best_task_1_model_CM.png}}
+    \centering
+    \caption{Confusion Matrix of Test-Data for best Top-Layer prediction}
+    \label{cm_cnn_1l}
+\end{figure}
+\end{center}
+
 \subsubsection{Bot layer prediction}
 
 
@@ -77,12 +93,3 @@ As depth profiling data is not readily available from public databases, the data
 % experimental data (AG_AG etc.)
 
 
-
-\begin{center}
-\begin{figure}
-        \centerline{\includegraphics[width=1.4\textwidth]{Figures/best_task_1_model_CM.png}}
-    \centering
-    \caption{Confusion Matrix of Test-Data for best Top-Layer prediction}
-    \label{cm_cnn_1l}
-\end{figure}
-\end{center}
