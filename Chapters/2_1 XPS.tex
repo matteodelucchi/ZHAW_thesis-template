@@ -16,7 +16,7 @@ which can be re-arranged to express the binding energy as a function of known va
 \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/image4_3.jpeg}
-    \caption{Diagram of energy levels illustrating the equation \ref{eq:BE}}
+    \caption{Diagram of energy levels illustrating the XPS  equation \ref{eq:BE}}
     \label{fig:enter-label}
 \end{figure}
 
@@ -56,7 +56,7 @@ Elastic electron scattering (see Figure \ref{fig:scattering} B), however, has of
 %As the IMFP does not consider elastic scattering, there is a universal curve describing overall tendencies. 
 The information depth (ID) is often denoted as 3 $\lambda$, where statistically, 95\% of the information originates. From equation \ref{beerslaw}, it is obvious that the information obtained decays non-linearly, 
 
-\subsection{Direct trnsitions}
+\subsection{Direct transitions}
 % Photoelectron peaks
 As X-ray photoelectron spectroscopy uses x-rays to produce core-level electrons from a sample, the detection of these electrons is the desired origin of a so-called photoelectron peak, which originates in the photoionization effect. The notation for the photoelectron peaks is the element followed by the orbital from which they originate, such as C 1s for the Carbon peak from the 1s orbital \cite{stevie_introduction_2020}. In physical research, cross sections describe the probability of a certain process to take place when a certain material is subject to some radiant excitation. Thus, the photoionization cross section describes the probability of the photoionization process to happen. 
 
@@ -68,19 +68,18 @@ A similar effect can be observed for unpaired electrons in the valence bands. Th
 
 %Multiplet splitting of core level peaks occurs when there are unpaired electrons in the valence levels and often results in unexpected peak splitting.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Figures}
-    \caption{Caption}
-    \label{fig:enter-label}
+    \includegraphics[width=0.7\textwidth]{Figures/AUGER_XPS.png}
+    \caption{Schematic illustration of XPS (a) and Auger (b) processes, where $hv$ is the incident X-ray energy. Orbitals are usually denoted with quantum numbers (1s, 2s, etc.) for XPS and K, L, M for Auger.}
+    \label{fig:augerxps}
 \end{figure}
 
 \subsection{Indirect transitions}
 % Auger electron peaks, 
 When a core electron is lost due to the X-ray excitation, a deficiency of electrons results. This ionized state is then relaxed with an electron from the outer-most so-called valence orbital \cite{stevie_introduction_2020}. This process induces the release of energy which is then detected with XPS and identified as a so-called Auger peak. It is crucial to note that this process is independent of the source energy because the energy from relaxation is a function of the energy difference within the atoms shells. Thus, the Auger peak position changes when another source of X-rays is used. This is especially important to resolve issues when Auger peaks overlap with photoelectron peaks.
 
-Another signal which can be count towards indirect transitions is the background. It is mostly due to inelastic scattering of the electrons and thus also highly dependent on the sample under investigation. Using the inelastic background has been shown to improve prediction accuracy for quantitative analysis \cite{tougaard_practical_2020}.
-
+Another signal which can be count towards indirect transitions is the background. It is mostly due to inelastic scattering of the electrons as shown in Figure \ref{fig:scattering} (label C), and thus also highly dependent on the sample under investigation. Using the inelastic background has been shown to improve prediction accuracy for quantitative analysis \cite{tougaard_practical_2020} and depth profiling \cite{bure_assessing_2023}.
 
 \begin{figure}[H]
     \centering
@@ -98,11 +97,11 @@ Plasmon peaks are a special kind of shakeup peaks and arise from the excitation 
 \subsection{Adventitious Carbon}
     
 When analyzing with XPS, we often find peaks which do not originate from the sample but from the atmosphere. As the atmosphere consists of organic compounds, they include O 1s and C 1s peaks. Often, the C 1s peak is used as a internal standard reference peak to shift the measured spectra to the correct position. This is done because peak shifts occur frequently owing to charging effects which arise from sample properties. Due to varying atmospheric composition, however, this peaks' position is uncertain and is itself  not clearly defined. \cite{biesinger_accessing_2022} As the peak reference to adventitious carbon is most frequently used, it should be considered when comparing, evaluating and analysing experimental data.
-In addition, the contamination can be mostly removed when an ion-etching procedure is performed prior to the measurement. Although sometimes referred to as a \emph{contamination layer}, it does not behave similar to a layer, as it is not densely populated on the surface.
+In addition, the contamination can be mostly removed when an ion-etching procedure is performed prior to the measurement. Although sometimes referred to as a \emph{contamination layer}, it does not behave similar to a layer, as it is not as densely populated on the surface.
 
 \subsection{Quantitative XPS Analysis}
 As the quantity of a certain element increases, its corresponding peak should increase as well, given its generated electrons can still escape the sample without being scattered. However, simultaneously, other peaks decrease proportionally in intensity. For example, the peak area of \ch{Al2O3} should sum up to a proportion of 2 to 3 for Al and O respectively.
-However, as the photoelectron cross sections are element specific, it might well be that the area under the Aluminum peaks sum up to 10 while O peaks only represent spectral intensity summing up to 1. Thus, the common procedure for quantitative analysis is to substract the background according to a modelled assumption and subsequently elaborate a relative sensitivity factor (RSF) to measure the area under the peaks and set them into relation.
+However, as the photoelectron cross sections are element specific, it might well be that the area under the Aluminum peaks sum up to 10 while O peaks only represent spectral intensity summing up to 1. Thus, the common procedure for quantitative analysis is to subtract the background according to a modelled assumption and subsequently elaborate a relative sensitivity factor (RSF) to measure the area under the peaks and set them into relation.
 
 \subsection{Simulation with Sessa}
 \label{subchap:sim_sessa}
@@ -141,7 +140,7 @@ and more recently have been extended by two additional methods:
 \end{enumerate}
 
 
-Methods 1-3 have the drawback of being potentially destructive on the sample surface \cite{greczynski_towards_2021}. Further, they are giving only very vague information about the samples’ depth profile; the accuracy is often denoted to be $\pm$10\% \cite{}.
+Methods 1-3 have the drawback of being potentially destructive on the sample surface \cite{greczynski_towards_2021}. Further, they are giving only very vague information about the samples’ depth profile; the accuracy is often denoted to be $\pm$10\%.
 The non-destructive methods 4-6 (ARXPS / XPS-HAXPES / Modelling) are further explained, as they are comparable to the data-driven approach used in this work.
 
 \subsubsection{Angle resolved XPS (ARXPS)}
@@ -169,7 +168,7 @@ z is the depth and $\lambda$ the IMFP or the EAL
 A newer method collects spectra in parallel, thus is called pARXPS, which reduces acquisition time and constant transmission \cite{bure_assessing_2023, sodhi_surface_2017}.
 
 \subsubsection{XPS-HAXPES}
-Hard X-ray photoelectoron spectroscopy is a technique similar to XPS, but uses Gallium or Chromium to produce hard x-rays to achieve much higher energy levels. As these X-rays are in the range of multiple keVs, the IMFP increases drastically and we are able to probe much deeper into the surface compared to XPS. Combining the two analyses can provide researchers with valuable information of the surface and the deeper regions of samples. This approach has been demonstrated to provide valuable information in multiple publications \cite{bure_assessing_2023, siol_concepts_2020} 
+Hard X-ray photoelectron spectroscopy is a technique similar to XPS, but uses Gallium or Chromium to produce hard x-rays to achieve much higher energy levels. As these X-rays are in the range of multiple keVs, the IMFP increases drastically and we are able to probe much deeper into the surface compared to XPS. Combining the two analyses can provide researchers with valuable information of the surface and the deeper regions of samples. This approach has been demonstrated to provide valuable information in multiple publications \cite{bure_assessing_2023, siol_concepts_2020}. 
 
 \subsubsection{Spectra modelling and depth profile inference}
 As shown in Chapter \ref{{subchap:sim_sessa}}, there exist modelling approaches which can be used to derive an approximate depth profile. Available modelling approaches include the publicly available Sessa Software from NIST \cite{smekal_simulation_2005}, the Quases-Tougaard Software \cite{zborowski_comparison_2022}, and the StrataPHI Software from PHI \cite{noauthor_updated_nodate}. The Sessa Software is designed for a manual fitting approach, while the other solutions provide an automatic inference to find the most probable depth profile for a given spectrum.

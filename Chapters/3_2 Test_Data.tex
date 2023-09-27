@@ -12,7 +12,14 @@ As spectra with identified two-layer systems were not found on publicly availabl
 For multi-component spectra, $\nmultispectra$ experimental spectra were obtained from the libraries mentioned above. The spectra were renamed manually to facilitate the automatized label-readability, according to the scheme ${E_{1}\textunderscore X_{1} 	\textunderscore E_{2} 	\textunderscore X_{2} 	\textunderscore Filename}$, where $E_{1}$ is the first elemental component and $X_{1}$ is an integer providing its relative concentration. If experimental spectra had ratios indicated (eg. 25:75), these values were multiplied with the compounds. Thus, a file with the components \ch{Na2O-SiO2} (25:75) will be encoded with filename Na \textunderscore 50 \textunderscore O \textunderscore 175 \textunderscore Si \textunderscore 75 \textunderscore Filename. The one-hot encoding into vectors is then done with a function which parses the filename, it can be found in Appendix \ref{code:base}.
 
 \subsection{Experimental depth profiles using sputtering}
-To test the models' capabilities to predict depth profiles of spectra, sputtering experiments were conducted using Copper on Tungsten (Cu/W) and Copper and Palladium (Cu/Pd). 
+To test the models' capabilities to predict depth profiles of spectra, sputtering experiments were conducted using Copper and Palladium (Cu/Pd). Another dataset was provided by a group at Empa, consisting of Aluminum with oxidation layers. Because this is not represented in the training data, this is a valuable test set for inferring the generalisation capabilities of the model. Figure \ref{fig:exp_samples} shows the underlying structure of the test dataset.
+
+\begin{figure}
+    \centering
+    \includegraphics{Figures/experimental_samples.png}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
 
 
 \subsection{Data preprocessing}

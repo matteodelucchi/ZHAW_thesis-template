@@ -224,7 +224,7 @@
 \captionsetup{justification=centerlast,font=small,labelfont=sc,margin=50pt}
 
 \RequirePackage{arydshln}
-
+\usepackage{wrapfig}
 \usepackage{arydshln}
 
 \setlength{\dashlinedash}{0.4pt}
