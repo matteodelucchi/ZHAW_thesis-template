@@ -47,17 +47,19 @@ From Table \ref{tab:acc_qual}, it is obvious that the performance of the bottom 
 From the experimental data, $\nelementalspectra$ elemental spectra were used as the test dataset. Because survey scans of buried layers are rare, we considered pure elemental spectra to be composed of a buried layer of the pure element respectively.
 
 \subsubsection{Top layer prediction}
-The best model to predict the top layer element was the TODO, with an accuracy on the test dataset of TODO \%. The specific structure of the model is shown in Figure \ref{fig:top_best_structure}. Figure \ref{fig:top_best_loss} shows the categorical crossentropy loss and categorical accuracy for the training (blue) and the validation (orange) datasets respectively. 
+The best model to predict the top layer element was the Vision Transformer-Model, with an accuracy on the test dataset of 61.5 \%. Figure \ref{fig:top_best_loss} shows the categorical crossentropy loss and categorical accuracy for the training (blue) and the validation (orange) datasets respectively. 
 
-\begin{figure}
+
+
+\begin{figure}[H]
     \centering
-    \includegraphics{Figures/top_best_loss_acc_vit_4_32_3_4_64.png}
-    \caption{Caption}
-    \label{fig:enter-label}
+    \includegraphics[width=\textwidth]{Figures/top_best_loss_acc_vit_4_32_3_4_64.png}
+    \caption{Categorical crossentropy loss and crossentropy accuracy for the ViT model training on top-layer training data-labels}
+    \label{fig:top_best_loss}
 \end{figure}
 
-\begin{center}[H]
-\begin{figure}
+\begin{center}
+\begin{figure}[H]
         \centerline{\includegraphics[width=1.4\textwidth]{Figures/best_task_1_model_CM.png}}
     \centering
     \caption{Confusion Matrix of Test-Data for best Top-Layer prediction}
