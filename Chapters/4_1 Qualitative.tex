@@ -44,12 +44,17 @@ From Table \ref{tab:acc_qual}, it is obvious that the performance of the bottom 
 
 % experimental data (AG_AG etc.)
 % wrong predictions -> why ? Overlap of peaks? Indirect peaks?
-From the experimental data, $\nelementalspectra$ elemental spectra were used as the test dataset. Because survey scans of buried layers are rare, we considered pure elemental spectra to be composed of a buried layer of the pure element respectively.
+
 
 \subsubsection{Top layer prediction}
-The best model to predict the top layer element was the Vision Transformer-Model, with an accuracy on the test dataset of 61.5 \%. Figure \ref{fig:top_best_loss} shows the categorical crossentropy loss and categorical accuracy for the training (blue) and the validation (orange) datasets respectively. 
+The best model to predict the top layer element was the Vision Transformer-Model, with an accuracy on the test dataset of 61.5 \%. Figure \ref{fig:top_best_loss} shows the categorical crossentropy loss and categorical accuracy for the training (blue) and the validation (orange) datasets respectively. According to the plots, we start overfitting after 25 epochs. In the confusion matrix, we can see that in the test dataset, Dysprosium (Dy) has been wrongly predicted as Carbon 4 times, which are the most failures of the falsely predicted elements. An approach would be to plot the attention of the model on Dysprosium and Carbon spectrum data to investigate the reason behind.
 
-
+\begin{figure}
+    \centering
+    \includegraphics{Figures/attention_map_dy.png}
+    \caption{Caption}
+    \label{att:dy}
+\end{figure}
 
 \begin{figure}[H]
     \centering
@@ -67,8 +72,10 @@ The best model to predict the top layer element was the Vision Transformer-Model
 \end{figure}
 \end{center}
 
-\subsubsection{Bot layer prediction}
 
+
+\subsubsection{Bot layer prediction}
+From the experimental data, $\nelementalspectra$ elemental spectra were used as the test dataset. Because survey scans of buried layers are rare, we considered pure elemental spectra to be composed of a buried layer of the pure element respectively.
 
 \subsection{Depth profile determination of native oxides and elements}
 % As there's almost no test data this is experimental
