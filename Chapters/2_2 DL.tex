@@ -40,10 +40,7 @@ Categorical Accuracy computes the correctly predicted label based on the argmax 
 \label{cce}
 -\sum_{c=1}^My_{o,c}\log_{n}(p_{o,c})
 \end{equation}
-
-The binary crossentropy loss function is used for binary classification tasks, for example when we want to know whether a certain property is true or not. Similarly to the categorical crossentropy loss function, it computes the $log_{n}$ of the difference betweeen the true and the predicted values. In the binary case, we have $M=2$, so the function can be rewritten as $-{(y\log(p) + (1 - y)\log(1 - p))}$.
-Binary accuracy
-Mean Squared Error Loss
+For problems where the labels are non-exclusive (multiple can be true) the mean squared error loss can be used. 
  
  
 \subsubsection{Dense layers}
@@ -114,7 +111,7 @@ The Convolutional Block Attention Module (CBAM) connects the attention paradigm 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.65\textwidth]{Figures/ViT.png}
+    \includegraphics[width=0.8\textwidth]{Figures/ViT.png}
     \caption{Vision Transformer \cite{dosovitskiy_image_2021}}
     \label{fig:vit_model}
 \end{figure}

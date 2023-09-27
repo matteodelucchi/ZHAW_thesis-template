@@ -24,7 +24,7 @@ The third task at first seems to be multi-label classification problem, as each 
 
 
 To start the modelling procedure, the training dataset was split into training and validation datasets with a ration of 80:20. A first model was built respectively for each of the tasks listed in the \nameref{Chapter1} for the four models: CNN, CNN-DCT, CBAM, ViT. The models architectures were then changed such that it efficiently trains on the respective training dataset. This was evaluated by comparing training loss and accuracy.
-The validation loss is then used to tune the hyperparameters and add normalization to the model until the model showed convex training behaviour and no overfitting. Lastly, the models were trained with an early stopping callback function which monitored the validation loss to stop the training when there was no improvement >0.001 for seven consecutive epochs. This ensures that the models don't overfit on the training data.
+The validation loss is then used to tune the hyperparameters and add normalization to the model until the model showed convex training behaviour and no overfitting. Lastly, the models were trained with an early stopping callback function which monitored the validation loss to stop the training when there was no improvement >0.1 for seven consecutive epochs. This ensures that the models don't overfit on the training data.
 
 \subsection{Loss functions}
 For the qualitative determination of top and bot layer elements, the categorical cross-entropy loss was used (see equation \ref{cce}).
@@ -44,13 +44,10 @@ They solved this problem by implementing a custom loss function which includes t
 
 \subsection{CNN}
 % explain the structure
-The CNN model used is based on the standard architecture with two convolutional blocks. The first blocks consist of four consecutive convolutional layers with increasing kernel sizes (TODO) to extract more and more general features, while the second block has kernel sizes (TODO). Each block uses 16 filters, the ELU activation function, starts with a batch-normalization layer and ends with a max-pooling layer.
+The CNN model used is based on the standard architecture with two convolutional blocks. The first blocks consist of two consecutive convolutional layers with increasing kernel sizes (3, 7) to extract more and more general features, while the second block has kernel sizes (17, 27, 47). The first block uses 32 filters and the second block uses 16 filters, both use the leaky-ReLU activation function, start with a batch-normalization layer and end with a max-pooling layer.
 As these two blocks are used as a feature-extraction tool, the features are then flattened to one dimension before being connected through a dropout-layer (p = 0.4) and subsequent batch-normalization. Finally, the softmax function is applied to the dense output layer with 81 nodes corresponding to the elements.
 
-During the development of an adequate CNN-model, batch-normalization seemed to have a big impact on the model and the training speed. A variety of kernel sizes in a variety of sequences were tested. Further, as CNN-models get bigger, a lot more parameters are trained, and thus, they get much more difficult to train.
-% show the structure
-
-The corresponding code can be found in the Appendix \ref{AppendixB}
+During the development of an adequate CNN-model, batch-normalization seemed to have a big impact on the model and the training speed. A variety of kernel sizes in a variety of sequences were tested. Further, as CNN-models get bigger, a lot more parameters are trained, and thus, they get much more difficult to train and they take more time to train.
 
 
 \subsection{CNN-DCT}
@@ -72,8 +69,8 @@ X_k = \sum_{n=0}^{N-1} x_n \cdot \cos\left(\frac{\pi}{N}\left(n + \frac{1}{2}\ri
 \end{equation}
 
 % show the structure
-The model used for training has a parallel architecture, where the input is followed by a dense layer which then forks into two main blocks. One main block starts with the DCT transform, followed by a dense layer. Afterwards, two convolutional blocks with increasing kernel sizes (3, 5, 7, 21) which both end with a max-pooling layer with kernel size 2 are used. Finally, the features extracted from the convolutional blocks are flattened.
-The other main block uses two blocks of convolutional layers with kernel sizes (1, 3, 7) also followed by a max-pooling layer and before flattening. The flattened vectors are then concatenated and end in an multilayer perceptron tail with decreasing nodes (1024, 512, 256) with dropout layers (p = 0.4) in between. Finally, a dense layer with 81 nodes corresponding to the elements forms the output. All convolutional layers have 32 channels, use the leaky ReLU activation function and are followed by a batch-normalization layer for regularization.
+The model used for training has a parallel architecture, where the input is forked into two main blocks. One main block starts with the DCT transform. Afterwards, a convolutional block with increasing kernel sizes (3, 5, 7, 21) and 8 filters, which both end with a max-pooling layer with kernel size 2 are used. Finally, the features extracted from the convolutional blocks are flattened.
+The other main block uses a first block of convolutional layers with kernel sizes (3, 7) and 32 filters and a second block with kernel sizes (17, 27, 47) with 16 filters, and both are followed by a max-pooling layer and before flattening. The flattened vectors are then concatenated and end in an multilayer perceptron tail with decreasing nodes (1024, 512) with dropout layers (p = 0.2) in between. Finally, a dense layer with 81 nodes corresponding to the elements forms the output. All convolutional layers use the leaky ReLU activation function and are followed by a batch-normalization layer for regularization.
 
 
 \subsection{CBAM}
@@ -83,13 +80,12 @@ The blocks were then included in a convolutional model with residual patterns, s
 
 % show the structure
 To be specific, the model applies a convolution on the input before applying batch normalization and the ReLU activation function, followed by one CBAM block. After, a predefined number of residual blocks are appended consisting of three convolutional layers with increasing kernel sizes.
-Finally, after the last block, it ends in a global average pooling layer which is connected to a dropout layer (p=0.2) and finally ends in our dense output layer.
+After the last block, it ends in a global average pooling layer which is connected to a dropout layer (p=0.2) and finally ends in our dense output layer.
 
 \subsection{ViT}
 The vision transformer model used for the 1D-Spectra was inspired from Yoni Gottesmans blogpost \cite{noauthor_interpretable_2023} who applied the model on electrocardiogram classification. 
 It takes the published 2D-ViT model \cite{dosovitskiy_image_2021}as a basis and is adapted to work with one-dimensional inputs.
-The model from the blogpost was then adapted to fit our input data shape with 1024 data points. Further, a patch-size of 16 data-points and the number of heads chosen was 6. Decreasing the patch-size quickly makes the model very big and slows training. Thus, this was adapted to be as big as possible, while ensuring good training. 
-The Multilayer Perceptron (MLP) is of size 64 and the model consists of three transformer encoder blocks. Additionally, a dropout layer with $p=0.1$ was added after and before the MLP, 
+The model from the blogpost was then adapted to fit our input data shape with 1024 data points. Further, a patch-size of 4 data-points, a hidden size of 32. The Multilayer Perceptron (MLP) is of size 128 and the model consists of two transformer encoder blocks with a hidden size of 32. The hidden size  Additionally, a dropout layer with $p=0.1$ was added after and before the MLP, 
 in multi head attention and after the embedded vector.
 % explain the structure
 With the structure chosen, an efficient training without substantial overfitting was achieved. 

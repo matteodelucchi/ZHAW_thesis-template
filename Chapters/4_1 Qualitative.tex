@@ -5,9 +5,7 @@
 \subsection{Elemental identification}
 % model performance
 The model performance for the qualitative elemental identification is shown in Table \ref{tab:acc_qual}. The categorical accuracies were computed for the individual clean and the mixcont dataset. Because experimental data can contain contamination, we generally expect the mixcont dataset to make our model more robust in that respect.
-During the model development, it was obvious that we are prone to overfitting the simulated data resulting in poor performance on test data. Especially, because we do not represent the experimental spectra with enough accuracy, we must make sure to focus on the robustness of the model. Thus, the obvious approach was to choose the most simple model which was able to train effectively without overfitting and before aiming at the highest accuracy rates. The models remained unchanged for the qualitative identification for all datasets. Thus, a total of 8 models were developed for task 1 - one of each model type for each layer and the models were trained on the three datasets.
-
-For each best performing model for each layer and dataset, the confusion matrices are shown.
+During the model development, it was obvious that we are prone to overfitting the simulated data resulting in poor performance on test data. Especially, because we do not represent the experimental spectra with enough accuracy, we must make sure to focus on the robustness of the model. Thus, the obvious approach was to choose the most simple model which was able to train effectively without overfitting and before aiming at the highest accuracy rates. The models remained unchanged for the qualitative identification for all datasets. Thus, a total of 8 models were developed for task 1 - one of each model type for each layer and the models were trained on the three datasets. For each best performing model for each layer and dataset, the confusion matrices are shown.
 
 \begin{table}[H]
     \centering
@@ -15,15 +13,15 @@ For each best performing model for each layer and dataset, the confusion matrice
     \begin{tabular}{c|c|c|c|c|c|c}
         Dataset & Layer & Model   & No. Parameters & Training set acc. & Validation set acc. & Test set acc.*    \\
         \hline 
-        mixcont & top   & CNN     &   16.6 M       &    93.51      &    87.06       & 30.52  \\
-        (n=272k)&       & CNN-DCT &  85.5 M        &    97.25      &    86.42       & 38.5      \\
-                &       & CBAM    &  20.1 M        &   92.80       &    82.80       & 28.64    \\
-                &       & ViT     &  25.8 K        &    75.67      &     61.97      &      61.5\\
+        mixcont & top   & CNN     &  82.1 M        &    91.34      &    86.58       & 24.65          \\
+        (n=272k)&       & CNN-DCT &  85.5 M        &    97.25      &    86.42       & 38.5           \\
+                &       & CBAM    &  20.1 M        &   92.80       &    82.80       & 28.64          \\
+                &       & ViT     &  25.8 K        &    79.92     &    82.69       &  52.56  \\
         \hdashline
-                & bot   & CNN     &                &               &                &              \\
-                &       & CNN-DCT &                &               &                &              \\
-                &       & CBAM    &                &               &                &             \\
-                &       & ViT     &                &               &                &             \\
+                & bot   & CNN     &   82.1 M       &    89.05       &      79.64    &     45.12      \\
+                &       & CNN-DCT &                &               &                &                 \\
+                &       & CBAM    &                &               &                &                \\
+                &       & ViT     &                &               &                &               \\
         \hline                                   
         clean   & top   & CNN     &                &               &                &            \\
         (n=65k)&       & CNN-DCT &                &               &                &            \\
@@ -40,16 +38,10 @@ For each best performing model for each layer and dataset, the confusion matrice
     \label{tab:acc_qual}
 \end{table}
 
-From Table \ref{tab:acc_qual}, it is obvious that the performance of the bottom layer prediction is always lower than the top layer prediction. This is expected and obvious regarding the principle of XPS measurement, as electrons from the deeper layer must travel through the top layer and thus will be less intense and more influenced by scattering from interactions.
 
-% experimental data (AG_AG etc.)
-% wrong predictions -> why ? Overlap of peaks? Indirect peaks?
-From the experimental data, $\nelementalspectra$ elemental spectra were used as the test dataset. Because survey scans of buried layers are rare, we considered pure elemental spectra to be composed of a buried layer of the pure element respectively.
 
 \subsubsection{Top layer prediction}
-The best model to predict the top layer element was the Vision Transformer-Model, with an accuracy on the test dataset of 61.5 \%. Figure \ref{fig:top_best_loss} shows the categorical crossentropy loss and categorical accuracy for the training (blue) and the validation (orange) datasets respectively. 
-
-
+The best model to predict the top layer element was the Vision Transformer-Model, with an accuracy on the test dataset of 52.56 \%. Figure \ref{fig:top_best_loss} shows the categorical crossentropy loss and categorical accuracy for the training (blue) and the validation (orange) datasets respectively. In the confusion matrix, we can see that in the test dataset, Iron (Fe) has been wrongly predicted as Lithium (Li) a total of 4 times, which are the most failures of any wrongly predicted elements. An approach would be to plot the attention of the model on Lithium and Iron spectrum data to investigate the reason behind. However, as shown in Figures \ref{att:Fe} and \ref{att:Li}, they are not similar at all, which suggests that the model lacks complexity as both cases overlap in the feature space. As the model only has 25.8k trainable parameters, this is very much possible. 
 
 \begin{figure}[H]
     \centering
@@ -57,6 +49,22 @@ The best model to predict the top layer element was the Vision Transformer-Model
     \caption{Categorical crossentropy loss and crossentropy accuracy for the ViT model training on top-layer training data-labels}
     \label{fig:top_best_loss}
 \end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/attention_map_Li.png}
+    \caption{Attention map (blue) for the Lithium spectrum (red) prediction}
+    \label{att:dy}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/attention_map_Fe.png}
+    \caption{Attention map (blue) for the Iron spectrum (red) prediction}
+    \label{att:c}
+\end{figure}
+
+
+
 
 \begin{center}
 \begin{figure}[H]
@@ -67,15 +75,23 @@ The best model to predict the top layer element was the Vision Transformer-Model
 \end{figure}
 \end{center}
 
+
+
 \subsubsection{Bot layer prediction}
 
 
+From the experimental data, the same test dataset was used as for the top-layer prediction. Because survey scans of buried layers are rare, we considered pure elemental spectra to be composed of a buried layer of the pure element respectively.
+From Table \ref{tab:acc_qual}, we can see that the performance of the bottom layer prediction is not always lower than the top layer prediction. However, we would expect a lower accuracy for the bottom layer, due to the principle of XPS measurement, as electrons from the deeper layer must travel through the top layer and thus will be less intense and more influenced by scattering from interactions. Anyway, as we consider experimental data from pure elements as a two-layer system in our test-set, it could also be that the simulated spectra from buried pure elements actually resembles ground truth more accurately.
+
+
+
+
 \subsection{Depth profile determination of native oxides and elements}
+
 % As there's almost no test data this is experimental
 Depth profiling or determination of overlayer thickness is often conducted in scientific experiments. However, data is usually not publicly available - and if - it does often not include survey spectra. This is because these measures are usually done with ion-sputtering profiling or angle-resolved measurements and as these experiments are time-consuming, only the regions of interests (where the peaks are expected depending on the sample) are scanned.
 As depth profiling data is not readily available from public databases, the datasets obtained internally as explained in chapter \ref{exp_depth}, were used to evaluate the model on experimental data.
 % model performance
-
 
 \begin{table}[H]
     \centering
