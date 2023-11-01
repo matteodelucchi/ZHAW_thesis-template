@@ -242,6 +242,7 @@
 \NewDocumentCommand{\studyprogram}{m}{\newcommand{\studyprog}{#1}}
 \NewDocumentCommand{\studyprogramlink}{m}{\newcommand{\studyproglink}{#1}}
 \NewDocumentCommand{\university}{m}{\newcommand{\univname}{#1}}
+\NewDocumentCommand{\unversityabbr}{m}{\newcommand{\univabbr}{#1}}
 \NewDocumentCommand{\universitygerman}{m}{\newcommand{\univnameger}{#1}}
 \NewDocumentCommand{\department}{m}{\newcommand{\deptname}{#1}}
 \NewDocumentCommand{\institute}{m}{\newcommand{\instname}{#1}}
@@ -321,6 +322,20 @@
 %----------------------------------------------------------------------------------------
 
 \RequirePackage[markcase=used]{scrlayer-scrpage}
+% uncomment if you want a long footer
+%------------------------------------------------
+% \providepairofpagestyles{thesisSimple}{%
+%     \clearpairofpagestyles%
+%     \automark[chapter]{chapter}
+%     \ihead{\headmark}% Inner header
+%     \ohead[\pagemark]{\pagemark}% Outer header
+%     \ifoot{\number\year, \univabbr, \instname}% Inner footer
+%     \ofoot{\shorttitle}% Outer footer
+% }
+% % \ifoot{}% Inner footer
+% % \ofoot{}% Outer footer
+%------------------------------------------------
+% comment if you want a long footer
 \providepairofpagestyles{thesisSimple}{%
     \clearpairofpagestyles%
     \automark[chapter]{chapter}
@@ -329,6 +344,7 @@
 }
 \ifoot{}% Inner footer
 \ofoot{}% Outer footer
+%------------------------------------------------
 \pagestyle{thesisSimple}
 \providepairofpagestyles[thesisSimple]{thesis}{%
     \automark*[section]{}%
