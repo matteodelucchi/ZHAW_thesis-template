@@ -402,10 +402,17 @@ KOMA-script documentation for details.}]{fancyhdr}
 \DeclareDocumentCommand{\abstracttitlefont}{}{}
 \newcommand{\byname}{by}
 \newcommand{\vonname}{von}
-\newcommand{\abstractname}{Abstract}
-\newcommand{\extraabstractname}{Zusammenfassung}
 \providecaptionname{german,ngerman,austrian,naustrian}{\byname}{von}
 \providecaptionname{american,australian,british,canadian,english,newzealand,UKenglish,USenglish}{\byname}{by}
+
+\newcommand{\abstractname}{Abstract} % English abstract
+\newcommand{\extraabstractname}{Zusammenfassung} % German Zusammenfassung as extra abstract
+% Redefine the abstract name to always be in English
+\addto\captionsngerman{\renewcommand{\abstractname}{Abstract}}
+\addto\captionsgerman{\renewcommand{\abstractname}{Abstract}}
+\addto\captionsaustrian{\renewcommand{\abstractname}{Abstract}}
+\addto\captionsnaustrian{\renewcommand{\abstractname}{Abstract}}
+
 \ifbool{consistentlayout}{
     \DeclareDocumentEnvironment{abstract}{ O{} }{%
         \addchap*{\abstractname}%
@@ -473,7 +480,6 @@ KOMA-script documentation for details.}]{fancyhdr}
         \vfill\null
     }
 }
-
 %----------------------------------------------------------------------------------------
 %   ACKNOWLEDGEMENTS PAGE DESIGN
 %----------------------------------------------------------------------------------------
