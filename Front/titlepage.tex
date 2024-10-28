@@ -46,9 +46,9 @@
 \begin{minipage}[t]{0.4\textwidth}
 \begin{flushright} 
     \large
-    \emph{Supervisors:} \\
-    \supnameA \\
-    \supnameB
+    \emph{Supervisor\ifdefempty{\supnameB}{}{s}:}\\
+    \supnameA
+    \ifdefempty{\supnameB}{}{\\ \supnameB}
 \end{flushright}
 \end{minipage}
 \vspace{2cm}
